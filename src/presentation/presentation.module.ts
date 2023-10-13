@@ -28,7 +28,7 @@ import { ProdutoRestApi } from 'src/presentation/rest/produto/api/produto.api';
       ProdutoRestApi,
       CategoriaProdutoRestApi,
       PagamentoRestApi,
-      HealthRestApi
+      HealthRestApi,
    ],
 })
 export class PresentationModule {}
