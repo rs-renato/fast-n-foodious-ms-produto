@@ -2,7 +2,7 @@ import { Controller, Get } from '@nestjs/common';
 import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { BaseRestApi } from 'src/presentation/rest/base.api';
 
-@Controller()
+@Controller(['', 'health'])
 @ApiTags('Health')
 export class HealthRestApi extends BaseRestApi {
    @Get()
