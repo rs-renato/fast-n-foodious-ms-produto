@@ -1,9 +1,11 @@
+# compactacao do lambda .js em .zip
 data "archive_file" "fnf-lambda-authorizer-zip" {
   type        = "zip"
   source_file = "${path.module}/fnf-lambda-authorizer.js"
   output_path = "${path.module}/fnf-lambda-authorizer.zip"
 }
 
+# configuracao de funcao lambda
 resource "aws_lambda_function" "fnf-lambda-authorizer" {
   function_name    = "fnf-lambda-authorizer"
   filename         = "${path.module}/fnf-lambda-authorizer.zip"
@@ -23,6 +25,7 @@ resource "aws_lambda_function" "fnf-lambda-authorizer" {
   }
 }
 
+# configuracao de layer axios necessaria no lambda
 resource "aws_lambda_layer_version" "fnf-lambda-authorizer-layer" {
   layer_name = "axios"
   compatible_runtimes = ["nodejs14.x"]

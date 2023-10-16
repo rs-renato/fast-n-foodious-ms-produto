@@ -1,4 +1,4 @@
-// loadbalancer security group
+// configuracao de security group do loadbalancer
 resource "aws_security_group" "fnf-lb-security-group" {
   name        = "fnf-lb-security-group"
   description = "Allow API Gateway to connect to ECS"
@@ -20,7 +20,7 @@ resource "aws_security_group" "fnf-lb-security-group" {
   }
 }
 
-// cluster security group
+// configuracao de security group do cluster
 resource "aws_security_group" "fnf-cluster-security-group" {
   name        = "fnf-cluster-security-group"
   description = "Allow traffic from fnf-lb-security-group on port 3000"

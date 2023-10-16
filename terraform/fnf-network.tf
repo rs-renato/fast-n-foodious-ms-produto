@@ -1,9 +1,9 @@
-// vpc configuration
+# configuracao de vpc
 resource "aws_vpc" "fnf-vpc" {
   cidr_block = "10.0.0.0/16"
 }
 
-// subnet public east-1a
+# configuracao de subnet publica east-1a
 resource "aws_subnet" "fnf-subnet-public1-us-east-1a" {
   vpc_id            = aws_vpc.fnf-vpc.id
   cidr_block        = "10.0.0.0/20"
@@ -14,7 +14,7 @@ resource "aws_subnet" "fnf-subnet-public1-us-east-1a" {
   }
 }
 
-// subnet private east-1a
+# configuracao de subnet privada east-1a
 resource "aws_subnet" "fnf-subnet-private1-us-east-1a" {
   vpc_id            = aws_vpc.fnf-vpc.id
   cidr_block        = "10.0.128.0/20"
@@ -25,7 +25,7 @@ resource "aws_subnet" "fnf-subnet-private1-us-east-1a" {
   }
 }
 
-// subnet public east-1b
+# configuracao de subnet publica east-1b
 resource "aws_subnet" "fnf-subnet-public2-us-east-1b" {
   vpc_id            = aws_vpc.fnf-vpc.id
   cidr_block        = "10.0.16.0/20"
@@ -36,7 +36,7 @@ resource "aws_subnet" "fnf-subnet-public2-us-east-1b" {
   }
 }
 
-// subnet private east-1b
+# configuracao de subnet privada east-1b
 resource "aws_subnet" "fnf-subnet-private2-us-east-1b" {
   vpc_id            = aws_vpc.fnf-vpc.id
   cidr_block        = "10.0.144.0/20"
@@ -47,7 +47,7 @@ resource "aws_subnet" "fnf-subnet-private2-us-east-1b" {
   }
 }
 
-// route table public
+# configuracao de route table publica
 resource "aws_route_table" "fnf-rtb-public" {
   vpc_id = aws_vpc.fnf-vpc.id
   tags = {
@@ -55,7 +55,7 @@ resource "aws_route_table" "fnf-rtb-public" {
   }
 }
 
-// route table private
+# configuracao de route table privada
 resource "aws_route_table" "fnf-rtb-private" {
   vpc_id = aws_vpc.fnf-vpc.id
   tags = {
@@ -63,7 +63,7 @@ resource "aws_route_table" "fnf-rtb-private" {
   }
 }
 
-// route table associations
+# configuracao de associations route table 
 resource "aws_route_table_association" "fnf-subnet-public1-us-east-1a_subnet" {
   subnet_id      = aws_subnet.fnf-subnet-public1-us-east-1a.id
   route_table_id = aws_route_table.fnf-rtb-public.id
@@ -84,12 +84,12 @@ resource "aws_route_table_association" "fnf-subnet-private2-us-east-1b_subnet" {
   route_table_id = aws_route_table.fnf-rtb-private.id
 }
 
-// elastic IP
+# configuracqo de nat vpc
 resource "aws_eip" "nat" {
   vpc = true
 }
 
-// gateway
+# configuracao de gatway
 resource "aws_internet_gateway" "fnf-igw" {
   vpc_id = aws_vpc.fnf-vpc.id
 
@@ -98,21 +98,21 @@ resource "aws_internet_gateway" "fnf-igw" {
   }
 }
 
-// nat gateway
+# configuracao de nat gatway
 resource "aws_nat_gateway" "fnf-nat-public1-us-east-1a" {
   allocation_id = aws_eip.nat.id
   subnet_id     = aws_subnet.fnf-subnet-public1-us-east-1a.id
   depends_on = [ aws_internet_gateway.fnf-igw ]
 }
 
-// route public internet gateway
+# configuracao de route para gateway publico
 resource "aws_route" "fnf-public-igw" {
   route_table_id         = aws_route_table.fnf-rtb-public.id
   destination_cidr_block = "0.0.0.0/0"
   gateway_id             = aws_internet_gateway.fnf-igw.id
 }
 
-// route private nat gateway
+# configuracao de route para gateway privado
 resource "aws_route" "fnf-private-ngw" {
   route_table_id         = aws_route_table.fnf-rtb-private.id
   destination_cidr_block = "0.0.0.0/0"

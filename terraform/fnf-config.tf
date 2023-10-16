@@ -1,14 +1,14 @@
-// aws provider configuration
+# provider aws
 provider "aws" {
   region = "us-east-1"
   profile = "tf-user"
 }
 
-// terraform configuration
+# configuracao terraform
 terraform {
   required_version = ">=1.0"
   
-  //infra for terraform backend state 
+  # backend terraform para armazenar o estado no S3
   backend "s3" {
     bucket  = "fnf-terraform"
     key     = "fnf-terraform.tfstate"

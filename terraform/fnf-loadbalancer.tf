@@ -1,20 +1,4 @@
-// loadbalancer target group
-resource "aws_lb_target_group" "fnf-lb-target-group" {
-    name = "fnf-lb-target-group"
-    port = 3000
-    protocol = "HTTP"
-    target_type = "ip"
-    vpc_id = aws_vpc.fnf-vpc.id
-    
-    health_check {
-      enabled = true
-      path = "/health"
-    }
-
-    depends_on = [ aws_alb.fnf-alb ]
-}
-
-// application loadbalancer
+# configuracao do loadbalancer
 resource "aws_alb" "fnf-alb" {
     name = "fnf-alb"
     internal = true
@@ -32,6 +16,7 @@ resource "aws_alb" "fnf-alb" {
     depends_on = [ aws_internet_gateway.fnf-igw ]
 }
 
+# configuracao de listener http 
 resource "aws_lb_listener" "fnf-alb-http" {
     load_balancer_arn = aws_alb.fnf-alb.arn
     port = 80
@@ -43,6 +28,18 @@ resource "aws_lb_listener" "fnf-alb-http" {
     }
 }
 
-# output "fnf-alb-url" {
-#   value = "http://${aws_alb.fnf-alb.dns_name}"
-# }
+# configuracao de target group do loadbalancer
+resource "aws_lb_target_group" "fnf-lb-target-group" {
+    name = "fnf-lb-target-group"
+    port = 3000
+    protocol = "HTTP"
+    target_type = "ip"
+    vpc_id = aws_vpc.fnf-vpc.id
+    
+    health_check {
+      enabled = true
+      path = "/health"
+    }
+
+    depends_on = [ aws_alb.fnf-alb ]
+}

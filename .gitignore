@@ -46,5 +46,5 @@ scripts/schema/3-manual-test.sql
 ## terrform
 **/.terraform/
 **/*.csv
-**/*.zip
 terraform/.terraform.lock.hcl
+terraform/fnf-lambda-authorizer.zip

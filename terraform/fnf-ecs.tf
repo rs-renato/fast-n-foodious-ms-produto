@@ -1,9 +1,9 @@
-//fnf-cluster configuration
+# configuracao do cluster ECS
 resource "aws_ecs_cluster" "fnf-cluster" {
     name = "fnf-cluster"
 }
 
-// fnf-service configuration
+# configuracao service com Fargate
 resource "aws_ecs_service" "fnf-service" {
     name = "fnf-service"
     task_definition = aws_ecs_task_definition.fnf-task-definition.arn
@@ -39,6 +39,7 @@ resource "aws_ecs_service" "fnf-service" {
     }
 }
 
+# configuracao das tasks definitions para deploy do container 
 resource "aws_ecs_task_definition" "fnf-task-definition" {
   family                   = "fnf-task-definition"
   network_mode             = "awsvpc"
