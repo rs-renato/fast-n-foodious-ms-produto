@@ -21,3 +21,8 @@ image = "`<<account_id>>`.dkr.ecr.us-east-1.amazonaws.com/fast-n-foodious:latest
 - $ terraform init
 - $ terraform plan
 - $ terraform apply
+
+
+
+## Referencia
+https://section411.com/2019/07/hello-world
