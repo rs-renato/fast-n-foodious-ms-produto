@@ -15,6 +15,40 @@ Substituir o placeholder `<<account_id>>` pelo valor da sua conta AWS nas linhas
 execution_role_arn = "arn:aws:iam::`<<account_id>>`:role/ecsTaskExecutionRole"
 image = "`<<account_id>>`.dkr.ecr.us-east-1.amazonaws.com/fast-n-foodious:latest",
 
+# Criar o ECR repo fast-n-foodious
+
+- Amazon ECR > Repositories > Create repository
+- Repository name: fast-n-foodious
+
+# Criar role ecsTaskExecutionRole
+
+- IAM > Roles > Create role
+- Trusted entity: AWS service 
+- Use case: Elastic Container Service
+  - Marcar Elastic Container Service Task
+- Permissions Policies:
+  - AmazonECSTaskExecutionRolePolicy
+  - CloudWatchLogsFullAccess
+- Name: ecsTaskExecutionRole
+- Trust policy: the default one
+  ```
+    {
+        "Statement": [
+            {
+                "Action": "sts:AssumeRole",
+                "Effect": "Allow",
+                "Principal": {
+                    "Service": [
+                        "ecs-tasks.amazonaws.com"
+                    ]
+                },
+                "Sid": ""
+            }
+        ],
+        "Version": "2012-10-17"
+    }
+  ```
+
 
 # Instalar Terraform e inicializar terraform
 - https://developer.hashicorp.com/terraform/downloads?product_intent=terraform
