@@ -32,6 +32,11 @@ resource "aws_ecs_service" "fnf-service" {
         aws_ecs_task_definition.fnf-task-definition,
         aws_alb.fnf-alb
     ]
+
+    lifecycle {
+      create_before_destroy = true
+      ignore_changes        = [task_definition]
+    }
 }
 
 resource "aws_ecs_task_definition" "fnf-task-definition" {
@@ -46,38 +51,40 @@ resource "aws_ecs_task_definition" "fnf-task-definition" {
     operating_system_family = "LINUX"
   }
 
-  container_definitions = jsonencode([
+  container_definitions = <<EOF
+  [
     {
-      name  = "fast-n-foodious",
-      image = "438194348765.dkr.ecr.us-east-1.amazonaws.com/fast-n-foodious:latest",
-      cpu   = 512,
-      memory = 1024,
-      memoryReservation = 1024,
-      portMappings = [
+      "name": "fast-n-foodious",
+      "image": "438194348765.dkr.ecr.us-east-1.amazonaws.com/fast-n-foodious:latest",
+      "cpu": 512,
+      "memory": 1024,
+      "memoryReservation": 1024,
+      "portMappings": [
         {
-          name          = "fast-n-foodious-3000-tcp",
-          containerPort = 3000,
-          hostPort      = 3000,
-          protocol      = "TCP"
-          appProtocol   = "HTTP"
+          "name": "fast-n-foodious-3000-tcp",
+          "containerPort": 3000,
+          "hostPort": 3000,
+          "protocol": "TCP",
+          "appProtocol": "HTTP"
         }
       ],
-      essential = true,
-      environment = [
+      "essential": true,
+      "environment": [
         {
-          name  = "NODE_ENV",
-          value = "local-mock-repository"
+          "name": "NODE_ENV",
+          "value": "local-mock-repository"
         }
       ],
-      logConfiguration = {
-        logDriver = "awslogs",
-        options = {
-          "awslogs-create-group"         = "true",
-          "awslogs-group"                = "/ecs/fnf-task-definition",
-          "awslogs-region"               = "us-east-1",
-          "awslogs-stream-prefix"        = "ecs"
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-create-group": "true",
+          "awslogs-group": "/ecs/fnf-task-definition",
+          "awslogs-region": "us-east-1",
+          "awslogs-stream-prefix": "ecs"
         }
       }
     }
-  ])
+  ]
+  EOF
 }
