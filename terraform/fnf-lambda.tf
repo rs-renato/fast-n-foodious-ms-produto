@@ -15,12 +15,12 @@ resource "aws_lambda_function" "fnf-lambda-authorizer" {
   runtime          = "nodejs14.x"
   architectures    = [ "x86_64" ]
   layers           = [ aws_lambda_layer_version.fnf-lambda-authorizer-layer.arn ]
-  depends_on = [ data.archive_file.fnf-lambda-authorizer-zip, aws_iam_role.fnf-lambda-iam-role]
+  depends_on = [ data.archive_file.fnf-lambda-authorizer-zip, aws_cognito_user_pool_domain.fnf-domain]
     
   environment {
     variables = {
       API_GATEWAY_URL = aws_apigatewayv2_stage.fnf-api-deployment.invoke_url
-      API_COGNITO_URL = "https://fast-n-foodious.auth.us-east-1.amazoncognito.com/"
+      API_COGNITO_URL = "https://${aws_cognito_user_pool_domain.fnf-domain.domain}.auth.us-east-1.amazoncognito.com/"
     }
   }
 }
