@@ -49,7 +49,7 @@ resource "aws_apigatewayv2_authorizer" "fnf-api-authorizer" {
   name                = "fnf-authorizer"
   jwt_configuration {
     issuer = "https://${aws_cognito_user_pool.fnf-user-pool.endpoint}"
-    audience = [aws_cognito_user_pool_client.fnf-cli.id]
+    audience = [aws_cognito_user_pool_client.fnf-client.id]
   }
 }
 

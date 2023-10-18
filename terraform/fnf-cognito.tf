@@ -1,5 +1,5 @@
 resource "aws_cognito_user_pool" "fnf-user-pool" {
-    name = "fnf-user-pool-"
+    name = "fnf-user-pool"
     username_attributes        = ["email", "phone_number"]
     auto_verified_attributes  = ["email"]
 
@@ -18,8 +18,8 @@ resource "aws_cognito_user_pool" "fnf-user-pool" {
     }
 }
 
-resource "aws_cognito_user_pool_client" "fnf-cli" {
-  name                                  = "fnf-cli"
+resource "aws_cognito_user_pool_client" "fnf-client" {
+  name                                  = "fnf-client"
   user_pool_id                          = aws_cognito_user_pool.fnf-user-pool.id
   allowed_oauth_scopes                  = ["fnf-resource-server/read", "fnf-resource-server/write"]
   allowed_oauth_flows                   = [ "client_credentials"]
@@ -52,10 +52,17 @@ resource "aws_cognito_resource_server" "fnf-resource-server" {
 }
 
 resource "aws_cognito_user_pool_domain" "fnf-domain" {
-  domain        = "fast-n-foodious-cognito"
+  domain        = "fast-n-foodious-${random_id.ramdom-domain-number.hex}"
   user_pool_id  = aws_cognito_user_pool.fnf-user-pool.id
 }
 
+resource "random_id" "ramdom-domain-number" {
+  keepers = {
+    first = "${timestamp()}"
+  }     
+  byte_length = 4
+}
+
 output "client_id" {
-  value = aws_cognito_user_pool_client.fnf-cli.id
+  value = aws_cognito_user_pool_client.fnf-client.id
 }
