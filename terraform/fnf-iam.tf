@@ -49,6 +49,13 @@ resource "aws_lambda_permission" "fnf-lambda-permission" {
   principal     = "apigateway.amazonaws.com"
 }
 
+# configuracao de permission para invocacao do lambda via api gateway
+resource "aws_lambda_permission" "fnf-lambda-pre-auth-permission" {
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.fnf-lambda-pre-token-authorizer.function_name
+  principal     = "apigateway.amazonaws.com"
+}
+
 # configuracao de role vs policy
 resource "aws_iam_role_policy_attachment" "fnf-lambda-iam-policy-attachment" {
   policy_arn = aws_iam_policy.fnf-lambda-iam-policy.arn

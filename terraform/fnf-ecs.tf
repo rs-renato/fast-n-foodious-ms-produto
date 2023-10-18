@@ -66,7 +66,7 @@ resource "aws_ecs_task_definition" "fnf-task-definition" {
           "containerPort": 3000,
           "hostPort": 3000,
           "protocol": "TCP",
-          "appProtocol": "HTTP"
+          "appProtocol": "http"
         }
       ],
       "essential": true,

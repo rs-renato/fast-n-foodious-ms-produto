@@ -86,7 +86,7 @@ resource "aws_route_table_association" "fnf-subnet-private2-us-east-1b_subnet" {
 
 # configuracqo de nat vpc
 resource "aws_eip" "nat" {
-  vpc = true
+  domain = "vpc"
 }
 
 # configuracao de gatway
