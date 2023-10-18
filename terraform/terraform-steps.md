@@ -5,10 +5,6 @@
 - Criar access key para o usuário
 - regitrar o accesskey do usuário tf-user no ~/.aws/credentials
 
-# Criar S3 Bucket para salvar o Terraform state
-Amazon S3 > Buckets > Create bucket
-- fnf-terraform (nome único por region, então vai ter que mudar porque eu já usei este nome)
-
 # Modificar a AWS Account no arquivo fnf-ecs.tf
 
 Substituir o placeholder `<<account_id>>` pelo valor da sua conta AWS nas linhas:
