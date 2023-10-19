@@ -50,3 +50,5 @@ terraform/.terraform.lock.hcl
 terraform/fnf-lambda*authorizer*.zip
 terraform/terraform.tfstate
 terraform/terraform.tfstate.backup
+terraform/poc/**
+terraform/fnf-lambda-create-user*.zip

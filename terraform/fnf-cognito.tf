@@ -17,18 +17,38 @@ resource "aws_cognito_user_pool" "fnf-user-pool" {
         require_uppercase = true
     }
     
+    schema {
+      name                = "cpf"
+      attribute_data_type = "String"
+      required            = false
+      mutable             = false
+      
+      string_attribute_constraints {
+        min_length = 0
+        max_length = 11
+      }
+    }
+
+    schema {
+      name                = "anonimo"
+      attribute_data_type = "Boolean"
+      required            = false
+      mutable             = false
+    }
+
     lambda_config {
       pre_token_generation = aws_lambda_function.fnf-lambda-pre-token-authorizer.arn
     }
 }
 
-resource "aws_cognito_user" "fnf-user" {
+resource "aws_cognito_user" "fnf-anonymouns-user" {
   user_pool_id = aws_cognito_user_pool.fnf-user-pool.id
-  username     = "user@fnf.com"
+  username     = "anonymous@fnf.com"
   password = "@${random_id.ramdom-domain-number.hex}-${random_id.ramdom-domain-number.hex}-${random_id.ramdom-domain-number.hex}!FnF"
   enabled = true
   attributes = {
-    email          = "user@fnf.com"
+    email          = "anonymous@fnf.com"
+    anonimo = true
     email_verified = true
   }
 
@@ -71,24 +91,24 @@ resource "aws_cognito_resource_server" "fnf-resource-server" {
 resource "aws_cognito_user_pool_domain" "fnf-domain" {
   domain        = "fast-n-foodious-${random_id.ramdom-domain-number.hex}"
   user_pool_id  = aws_cognito_user_pool.fnf-user-pool.id
-  lifecycle {
-    ignore_changes = [domain]
-  }
+  # lifecycle {
+  #   ignore_changes = [domain]
+  # }
 }
 
-resource "null_resource" "update_lambda_environment" {
-  triggers = {
-    always_run = "${timestamp()}"
-  }
+# resource "null_resource" "update_lambda_environment" {
+#   triggers = {
+#     always_run = "${timestamp()}"
+#   }
 
-  depends_on = [aws_cognito_user_pool_domain.fnf-domain]
+#   depends_on = [aws_cognito_user_pool_domain.fnf-domain]
 
-  provisioner "local-exec" {
-    command = <<EOT
-      aws lambda update-function-configuration --function-name ${aws_lambda_function.fnf-lambda-pre-token-authorizer.function_name} --environment "Variables={API_COGNITO_URL=https://${aws_cognito_user_pool_domain.fnf-domain.domain}.auth.us-east-1.amazoncognito.com/,API_GATEWAY_URL=${aws_apigatewayv2_stage.fnf-api-deployment.invoke_url}}"
-    EOT
-  }
-}
+#   provisioner "local-exec" {
+#     command = <<EOT
+#       aws lambda update-function-configuration --function-name ${aws_lambda_function.fnf-lambda-pre-token-authorizer.function_name} --environment "Variables={API_COGNITO_URL=https://${aws_cognito_user_pool_domain.fnf-domain.domain}.auth.us-east-1.amazoncognito.com/,API_GATEWAY_URL=${aws_apigatewayv2_stage.fnf-api-deployment.invoke_url}}"
+#     EOT
+#   }
+# }
 
 resource "random_id" "ramdom-domain-number" {
   keepers = {

@@ -35,7 +35,10 @@ resource "aws_iam_policy" "fnf-lambda-iam-policy" {
           "apigateway:InvokeMethod",
           "cognito-idp:AdminInitiateAuth",
           "cognito-idp:AdminRespondToAuthChallenge",
-          "cognito-idp:AdminUserGlobalSignOut"
+          "cognito-idp:AdminUserGlobalSignOut",
+          "cognito-idp:AdminCreateUser",
+          "cognito-idp:AdminSetUserPassword",
+          "lambda:InvokeFunction"
       ],
       Resource = ["*"]
     }]
@@ -49,11 +52,39 @@ resource "aws_lambda_permission" "fnf-lambda-permission" {
   principal     = "apigateway.amazonaws.com"
 }
 
+# configuracao de permission para invocacao do lambda via cognito
+resource "aws_lambda_permission" "fnf-lambda-permission-cognito" {
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.fnf-lambda-authorizer.function_name
+  principal     = "cognito-idp.amazonaws.com"
+}
+
 # configuracao de permission para invocacao do lambda via api gateway
 resource "aws_lambda_permission" "fnf-lambda-pre-auth-permission" {
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.fnf-lambda-pre-token-authorizer.function_name
   principal     = "apigateway.amazonaws.com"
+}
+
+# configuracao de permission para invocacao do lambda via api gateway
+resource "aws_lambda_permission" "fnf-lambda-pre-auth-permission-cognito" {
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.fnf-lambda-pre-token-authorizer.function_name
+  principal     = "cognito-idp.amazonaws.com"
+}
+
+# configuracao de permission para invocacao do lambda via api gateway
+resource "aws_lambda_permission" "fnf-lambda-create-user-permission" {
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.fnf-lambda-create-user.function_name
+  principal     = "apigateway.amazonaws.com"
+}
+
+# configuracao de permission para invocacao do lambda via api gateway
+resource "aws_lambda_permission" "fnf-lambda-create-user-permission-cognito" {
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.fnf-lambda-create-user.function_name
+  principal     = "cognito-idp.amazonaws.com"
 }
 
 # configuracao de role vs policy
