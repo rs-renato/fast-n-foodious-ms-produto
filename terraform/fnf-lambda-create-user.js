@@ -17,6 +17,7 @@ exports.handler = async (event) => {
             UserPoolId: process.env.POOL_ID,
             Username: email,
             UserAttributes: [
+                { Name: "name", Value: nome },
                 { Name: "email", Value: email },
                 { Name: "custom:cpf", Value: cpf },
                 { Name: "email_verified", Value: "true" },

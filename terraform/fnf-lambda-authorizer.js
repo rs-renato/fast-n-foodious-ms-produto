@@ -5,7 +5,7 @@ const axios = require("axios");
 exports.handler = async (event) => {
     
     // obtencao de URLs do api gateway e cognito
-    const apiGatewayUrl = process.env.API_GATEWAY_URL;
+    const loadbalancerUrl = process.env.LOAD_BALANCER_URL;
     const token_endpoint = `${process.env.API_COGNITO_URL}oauth2/token`;
 
     // obtencao de payload
@@ -40,13 +40,24 @@ exports.handler = async (event) => {
             const token = response.data.access_token;
             
             // identificacao de usuario no sistema fast-n-foodious
-            clienteIdentificado = await axios.post(`${apiGatewayUrl}v1/cliente/identifica?cpf=${cpf}`, null, {
+            clienteIdentificado = await axios.post(`${loadbalancerUrl}v1/cliente/identifica?cpf=${cpf}`, null, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 },
             });
 
             console.log('clienteIdentificado', clienteIdentificado)
+
+            // se identificado e sem credenciais
+            if(clienteIdentificado.data.cpf && (!requestBody.username || !requestBody.password)){
+                return {
+                    statusCode: 401,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ message: 'Credenciais inválidas' })
+                };
+            }
         }
                
     } catch (error) {
@@ -93,7 +104,10 @@ exports.handler = async (event) => {
 
         return {
             statusCode: 200,
-            body: JSON.stringify({id_token: response.AuthenticationResult.IdToken})
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({token: response.AuthenticationResult.IdToken})
         };
     } catch (error) {
         console.error('Erro ao autenticar o cliente', error);

@@ -46,17 +46,18 @@ resource "aws_ecs_task_definition" "fnf-task-definition" {
   requires_compatibilities = ["FARGATE"]
   cpu = 512
   memory = 1024
-  execution_role_arn = "arn:aws:iam::438194348765:role/ecsTaskExecutionRole"
+  execution_role_arn = aws_iam_role.ecsTaskExecutionRole.arn
   runtime_platform {
     cpu_architecture = "X86_64"
     operating_system_family = "LINUX"
   }
+  depends_on = [ aws_iam_role.ecsTaskExecutionRole ]
 
   container_definitions = <<EOF
   [
     {
       "name": "fast-n-foodious",
-      "image": "438194348765.dkr.ecr.us-east-1.amazonaws.com/fast-n-foodious:latest",
+      "image": "092057721281.dkr.ecr.us-east-1.amazonaws.com/fast-n-foodious:latest",
       "cpu": 512,
       "memory": 1024,
       "memoryReservation": 1024,
