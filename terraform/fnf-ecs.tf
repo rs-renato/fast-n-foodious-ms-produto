@@ -57,7 +57,7 @@ resource "aws_ecs_task_definition" "fnf-task-definition" {
   [
     {
       "name": "fast-n-foodious",
-      "image": "092057721281.dkr.ecr.us-east-1.amazonaws.com/fast-n-foodious:latest",
+      "image": "438194348765.dkr.ecr.us-east-1.amazonaws.com/fast-n-foodious:latest",
       "cpu": 512,
       "memory": 1024,
       "memoryReservation": 1024,

@@ -7,15 +7,15 @@ exports.handler = async (event) => {
     }
 
     // obtencao de URLs do api gateway e cognito
-    const loadbalancerUrl = process.env.LOAD_BALANCER_URL;
-    const token_endpoint = `${process.env.API_COGNITO_URL}oauth2/token`;
+    const apiGatewayUrl = process.env.API_GATEWAY_URL;
+    const cognitoTokenUrl = `${process.env.API_COGNITO_URL}oauth2/token`;
     const client_id = process.env.CLIENT_ID
     const client_secret = process.env.CLIENT_SECRET
     
     try {
 
         // obtencao de token via cognito
-        var response = await axios.post(token_endpoint, null, {
+        var response = await axios.post(cognitoTokenUrl, null, {
             params: {
                 grant_type: 'client_credentials'
             },
@@ -34,7 +34,7 @@ exports.handler = async (event) => {
         }
             
         // add usuario no sistema fast-n-foodious
-        response = await axios.post(`${loadbalancerUrl}v1/cliente`, cliente, {
+        response = await axios.post(`${apiGatewayUrl}v1/cliente`, cliente, {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'

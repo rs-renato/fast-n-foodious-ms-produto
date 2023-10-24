@@ -24,7 +24,7 @@ resource "aws_apigatewayv2_integration" "fnf-api-integration-oauth" {
   depends_on = [ aws_lambda_function.fnf-lambda-authorizer ]
 }
 
-# integracao api gateway com o lambda create user, na rota POST v1/cliente
+# integracao api gateway com o lambda create user, na rota POST v1/cognito/createUser
 resource "aws_apigatewayv2_integration" "fnf-api-integration-create-user" {
   api_id           = aws_apigatewayv2_api.fnf-api.id
   integration_type = "AWS_PROXY"
@@ -51,10 +51,10 @@ resource "aws_apigatewayv2_route" "fnf-api-route-token" {
   target = "integrations/${aws_apigatewayv2_integration.fnf-api-integration-oauth.id}"
 }
 
-# rota ciarcao de user, em POST v1/cliente
+# rota ciarcao de user, em POST v1/cognito/createUser
 resource "aws_apigatewayv2_route" "fnf-api-route-create-user" {
   api_id = aws_apigatewayv2_api.fnf-api.id
-  route_key = "POST /v1/cliente"
+  route_key = "POST /v1/cognito/createUser"
   target = "integrations/${aws_apigatewayv2_integration.fnf-api-integration-create-user.id}"
   authorizer_id = aws_apigatewayv2_authorizer.fnf-api-authorizer.id
   depends_on = [ aws_apigatewayv2_authorizer.fnf-api-authorizer ]

@@ -5,8 +5,8 @@ const axios = require("axios");
 exports.handler = async (event) => {
     
     // obtencao de URLs do api gateway e cognito
-    const loadbalancerUrl = process.env.LOAD_BALANCER_URL;
-    const token_endpoint = `${process.env.API_COGNITO_URL}oauth2/token`;
+    const apiGatewayUrl = process.env.API_GATEWAY_URL;
+    const cognitoTokenUrl = `${process.env.API_COGNITO_URL}oauth2/token`;
 
     // obtencao de payload
     const requestBody = JSON.parse(event.body);
@@ -27,7 +27,7 @@ exports.handler = async (event) => {
         if(cpf){
 
             // obtencao de token via cognito
-            const response = await axios.post(token_endpoint, null, {
+            const response = await axios.post(cognitoTokenUrl, null, {
                 params: {
                     grant_type: 'client_credentials'
                 },
@@ -40,7 +40,7 @@ exports.handler = async (event) => {
             const token = response.data.access_token;
             
             // identificacao de usuario no sistema fast-n-foodious
-            clienteIdentificado = await axios.post(`${loadbalancerUrl}v1/cliente/identifica?cpf=${cpf}`, null, {
+            clienteIdentificado = await axios.post(`${apiGatewayUrl}v1/cliente/identifica?cpf=${cpf}`, null, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 },

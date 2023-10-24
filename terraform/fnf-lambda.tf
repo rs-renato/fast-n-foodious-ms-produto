@@ -40,7 +40,7 @@ resource "aws_lambda_function" "fnf-lambda-authorizer" {
     variables = {
       COGNITO_FNF_USER_NAME = aws_cognito_user.fnf-anonymouns-user.username
       COGNITO_FNF_USER_PASSWORD = aws_cognito_user.fnf-anonymouns-user.password
-      LOAD_BALANCER_URL = "http://${aws_alb.fnf-alb.dns_name}/"
+      API_GATEWAY_URL = aws_apigatewayv2_stage.fnf-api-deployment.invoke_url
       API_COGNITO_URL = "https://${aws_cognito_user_pool_domain.fnf-domain.domain}.auth.us-east-1.amazoncognito.com/"
     }
   }
