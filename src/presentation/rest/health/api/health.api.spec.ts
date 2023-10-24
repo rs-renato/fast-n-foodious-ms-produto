@@ -2,9 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { HealthRestApi } from 'src/presentation/rest/health/api/health.api';
 
 describe('HealthRestApi', () => {
-
    let restApi: HealthRestApi;
-
 
    beforeEach(async () => {
       // Configuração do módulo de teste
@@ -23,6 +21,6 @@ describe('HealthRestApi', () => {
       it('deve retormnar up', async () => {
          const result = await restApi.check();
          expect(result.status).toEqual('OK');
-      }); 
+      });
    });
 });
