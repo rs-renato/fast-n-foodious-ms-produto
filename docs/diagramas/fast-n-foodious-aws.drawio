@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2023-10-24T18:59:27.805Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.2.8 Chrome/112.0.5615.165 Electron/24.2.0 Safari/537.36" etag="j7-3lDYmszRntMYsvy6j" version="21.2.8" type="device" pages="4">
+<mxfile host="Electron" modified="2023-10-25T02:04:10.149Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.2.8 Chrome/112.0.5615.165 Electron/24.2.0 Safari/537.36" etag="CJsxSkEZgR4QLs5YrKn9" version="21.2.8" type="device" pages="4">
   <diagram name="Arquitetura AWS" id="PeA5X7Ix2_GFSgdP4TYd">
-    <mxGraphModel dx="3012" dy="1214" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="3914" dy="1214" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -123,7 +123,7 @@
     </mxGraphModel>
   </diagram>
   <diagram name="Autenticação Anonima" id="3dO1pKGfWz8qDKWmcUSh">
-    <mxGraphModel dx="3224" dy="1214" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="3213" dy="837" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="SgCDyUgoM3Ze6B39H2S1-0" />
         <mxCell id="SgCDyUgoM3Ze6B39H2S1-1" parent="SgCDyUgoM3Ze6B39H2S1-0" />
@@ -314,7 +314,7 @@
     </mxGraphModel>
   </diagram>
   <diagram name="Autenticação Identificada" id="u34Ox6UM5iaxLJQVYXHE">
-    <mxGraphModel dx="3224" dy="1214" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="3213" dy="837" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="KUTmv73prJjMfpJWbAJc-0" />
         <mxCell id="KUTmv73prJjMfpJWbAJc-1" parent="KUTmv73prJjMfpJWbAJc-0" />
@@ -355,7 +355,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="9vqPiwgQLYRiUiiKCfZ5-7" value="POST /oauth2/token?cpf={cpf}" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="9vqPiwgQLYRiUiiKCfZ5-6">
+        <mxCell id="9vqPiwgQLYRiUiiKCfZ5-7" value="POST /oauth2/token?cpf={{cpf}}" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="9vqPiwgQLYRiUiiKCfZ5-6">
           <mxGeometry x="-0.5532" y="3" relative="1" as="geometry">
             <mxPoint x="62" y="-7" as="offset" />
           </mxGeometry>
@@ -443,7 +443,7 @@
         <mxCell id="Wt42YdWwEv7a6FD37LJH-4" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.25;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.25;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="KUTmv73prJjMfpJWbAJc-1" source="9vqPiwgQLYRiUiiKCfZ5-21" target="Wt42YdWwEv7a6FD37LJH-2">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="Wt42YdWwEv7a6FD37LJH-5" value="POST /v1/cliente/identifica?cpf={cpf}" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="Wt42YdWwEv7a6FD37LJH-4">
+        <mxCell id="Wt42YdWwEv7a6FD37LJH-5" value="POST /v1/cliente/identifica?cpf={{cpf}}" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="Wt42YdWwEv7a6FD37LJH-4">
           <mxGeometry x="0.1294" y="4" relative="1" as="geometry">
             <mxPoint x="-97" y="-7" as="offset" />
           </mxGeometry>
@@ -477,8 +477,8 @@
             <mxPoint x="-1158.1795488227856" y="257" as="sourcePoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="9vqPiwgQLYRiUiiKCfZ5-26" value="&lt;div style=&quot;font-size: 10px;&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;{&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&amp;nbsp; &amp;nbsp; &quot;client_id&quot;: &quot;{{client_id}}&quot;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&amp;nbsp; &amp;nbsp; ,&quot;client_secret&quot;: &quot;{{client_secret}}&quot;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&amp;nbsp; &amp;nbsp;&lt;span style=&quot;border-color: var(--border-color);&quot;&gt;&amp;nbsp;,&quot;username&quot;: &quot;{{username}}&quot;&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;span style=&quot;border-color: var(--border-color);&quot;&gt;&amp;nbsp; &amp;nbsp; ,&quot;password&quot;: &quot;{{password}}&quot;&lt;/span&gt;&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;}&lt;/div&gt;&lt;/div&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;size=15;dashed=1;align=left;fontSize=10;" vertex="1" parent="KUTmv73prJjMfpJWbAJc-1">
-          <mxGeometry x="-1289" y="205" width="173" height="77" as="geometry" />
+        <mxCell id="9vqPiwgQLYRiUiiKCfZ5-26" value="&lt;div style=&quot;font-size: 10px;&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;{&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&amp;nbsp; &amp;nbsp; &quot;client_id&quot;: &quot;{{client_id}}&quot;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&amp;nbsp; &amp;nbsp; ,&quot;client_secret&quot;: &quot;{{client_secret}}&quot;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;}&lt;/span&gt;&lt;br&gt;&lt;/div&gt;&lt;/div&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;size=15;dashed=1;align=left;fontSize=10;" vertex="1" parent="KUTmv73prJjMfpJWbAJc-1">
+          <mxGeometry x="-1289" y="205" width="173" height="59" as="geometry" />
         </mxCell>
         <mxCell id="9vqPiwgQLYRiUiiKCfZ5-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.25;entryY=1;entryDx=0;entryDy=0;entryPerimeter=0;dashed=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="KUTmv73prJjMfpJWbAJc-1" source="9vqPiwgQLYRiUiiKCfZ5-29" target="9vqPiwgQLYRiUiiKCfZ5-17">
           <mxGeometry relative="1" as="geometry">
@@ -502,7 +502,7 @@
         <mxCell id="9vqPiwgQLYRiUiiKCfZ5-40" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;dashed=1;endArrow=none;endFill=0;" edge="1" parent="KUTmv73prJjMfpJWbAJc-1" source="9vqPiwgQLYRiUiiKCfZ5-41" target="9vqPiwgQLYRiUiiKCfZ5-39">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="9vqPiwgQLYRiUiiKCfZ5-41" value="&lt;div style=&quot;font-size: 10px;&quot;&gt;&lt;div&gt;{&lt;/div&gt;&lt;div&gt;&amp;nbsp; ...&lt;/div&gt;&lt;div&gt;&amp;nbsp; &quot;token_use&quot;: &quot;id&quot;,&lt;/div&gt;&lt;div&gt;&amp;nbsp; &quot;cpf&quot;: {cpf},&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp; &quot;email&quot;: {email}&lt;/span&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;}&lt;/div&gt;&lt;/div&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;size=15;dashed=1;align=left;fontSize=10;" vertex="1" parent="KUTmv73prJjMfpJWbAJc-1">
+        <mxCell id="9vqPiwgQLYRiUiiKCfZ5-41" value="&lt;div style=&quot;font-size: 10px;&quot;&gt;&lt;div&gt;{&lt;/div&gt;&lt;div&gt;&amp;nbsp; ...&lt;/div&gt;&lt;div&gt;&amp;nbsp; &quot;token_use&quot;: &quot;id&quot;,&lt;/div&gt;&lt;div&gt;&amp;nbsp; &quot;cpf&quot;: {{cpf}},&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp; &quot;email&quot;: {{email}}&lt;/span&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;}&lt;/div&gt;&lt;/div&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;size=15;dashed=1;align=left;fontSize=10;" vertex="1" parent="KUTmv73prJjMfpJWbAJc-1">
           <mxGeometry x="-1289" y="481" width="173" height="80" as="geometry" />
         </mxCell>
         <mxCell id="Wt42YdWwEv7a6FD37LJH-1" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;dashed=1;" edge="1" parent="KUTmv73prJjMfpJWbAJc-1" source="Wt42YdWwEv7a6FD37LJH-0" target="9vqPiwgQLYRiUiiKCfZ5-20">
@@ -514,7 +514,7 @@
         <mxCell id="oGPYP3FWtG8Wy7nJ3zoh-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="KUTmv73prJjMfpJWbAJc-1" source="Wt42YdWwEv7a6FD37LJH-2" target="oGPYP3FWtG8Wy7nJ3zoh-0">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="oGPYP3FWtG8Wy7nJ3zoh-2" value="select * from cliente where cpf={cpf}" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="oGPYP3FWtG8Wy7nJ3zoh-1">
+        <mxCell id="oGPYP3FWtG8Wy7nJ3zoh-2" value="select * from cliente where cpf={{cpf}}" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="oGPYP3FWtG8Wy7nJ3zoh-1">
           <mxGeometry x="0.2189" relative="1" as="geometry">
             <mxPoint x="45" y="9" as="offset" />
           </mxGeometry>
@@ -543,7 +543,7 @@
         <mxCell id="a6OytUi9l0H6B-JrwYs4-0" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;dashed=1;endArrow=none;endFill=0;" edge="1" parent="KUTmv73prJjMfpJWbAJc-1" source="RHbhmNd7BSc9PKiaJWE9-0" target="RHbhmNd7BSc9PKiaJWE9-1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="RHbhmNd7BSc9PKiaJWE9-0" value="&lt;div style=&quot;font-size: 10px;&quot;&gt;{&lt;/div&gt;&lt;div style=&quot;font-size: 10px;&quot;&gt;&amp;nbsp; &amp;nbsp; &quot;client_id&quot;: &quot;{{client_id}}&quot;&lt;/div&gt;&lt;div style=&quot;font-size: 10px;&quot;&gt;&amp;nbsp; &amp;nbsp; ,&quot;client_secret&quot;: &quot;{{client_secret}}&quot;&lt;/div&gt;&lt;div style=&quot;font-size: 10px;&quot;&gt;&amp;nbsp; &amp;nbsp;&lt;span style=&quot;font-size: 10px;&quot;&gt; ,&quot;username&quot;: &quot;{{username}}&quot;&lt;br style=&quot;font-size: 10px;&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 10px;&quot;&gt;&lt;span style=&quot;font-size: 10px;&quot;&gt;&amp;nbsp; &amp;nbsp; ,&quot;password&quot;: &quot;{{password}}&quot;&lt;/span&gt;&lt;br style=&quot;font-size: 10px;&quot;&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 10px;&quot;&gt;}&lt;/div&gt;&lt;div style=&quot;font-size: 10px;&quot;&gt;&lt;br style=&quot;font-size: 10px;&quot;&gt;&lt;/div&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;size=15;dashed=1;align=left;fontSize=10;fontStyle=0" vertex="1" parent="KUTmv73prJjMfpJWbAJc-1">
+        <mxCell id="RHbhmNd7BSc9PKiaJWE9-0" value="&lt;div style=&quot;font-size: 10px;&quot;&gt;{&lt;/div&gt;&lt;div style=&quot;font-size: 10px;&quot;&gt;&amp;nbsp; &amp;nbsp; &quot;client_id&quot;: &quot;{{client_id}}&quot;&lt;/div&gt;&lt;div style=&quot;font-size: 10px;&quot;&gt;&amp;nbsp; &amp;nbsp; ,&quot;client_secret&quot;: &quot;{{client_secret}}&quot;&lt;/div&gt;&lt;div style=&quot;font-size: 10px;&quot;&gt;&amp;nbsp; &amp;nbsp;&lt;span style=&quot;font-size: 10px;&quot;&gt; ,&quot;username&quot;: &quot;{{cpf}}&quot;&lt;br style=&quot;font-size: 10px;&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 10px;&quot;&gt;&lt;span style=&quot;font-size: 10px;&quot;&gt;&amp;nbsp; &amp;nbsp; ,&quot;password&quot;: &quot;{{password}}&quot;&lt;/span&gt;&lt;br style=&quot;font-size: 10px;&quot;&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 10px;&quot;&gt;}&lt;/div&gt;&lt;div style=&quot;font-size: 10px;&quot;&gt;&lt;br style=&quot;font-size: 10px;&quot;&gt;&lt;/div&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;size=15;dashed=1;align=left;fontSize=10;fontStyle=0" vertex="1" parent="KUTmv73prJjMfpJWbAJc-1">
           <mxGeometry x="-570" y="470" width="198" height="81" as="geometry" />
         </mxCell>
         <mxCell id="RHbhmNd7BSc9PKiaJWE9-1" value="5" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;strokeWidth=2;fontFamily=Tahoma;spacingBottom=4;spacingRight=2;strokeColor=#d3d3d3;" vertex="1" parent="KUTmv73prJjMfpJWbAJc-1">
@@ -565,7 +565,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="95CKPHXzbP6OgGtziWdo" name="Cadastro de Usuários">
-    <mxGraphModel dx="3224" dy="1214" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="3537" dy="1012" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -606,7 +606,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="27FCN3K02vGXMlbeFht9-9" value="POST /v1/cognito/createUser" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="27FCN3K02vGXMlbeFht9-8">
+        <mxCell id="27FCN3K02vGXMlbeFht9-9" value="POST /v2/cliente" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="27FCN3K02vGXMlbeFht9-8">
           <mxGeometry x="-0.5532" y="3" relative="1" as="geometry">
             <mxPoint x="62" y="-7" as="offset" />
           </mxGeometry>
@@ -708,8 +708,8 @@
             <mxPoint x="-1158.1795488227856" y="257" as="sourcePoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="27FCN3K02vGXMlbeFht9-32" value="&lt;div style=&quot;font-size: 10px;&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;{&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&amp;nbsp; &amp;nbsp; &quot;nome&quot;: &quot;{{nome}}&quot;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&amp;nbsp; &amp;nbsp; ,&quot;email&quot;: &quot;{{email}}&quot;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&amp;nbsp; &amp;nbsp;&lt;span style=&quot;border-color: var(--border-color);&quot;&gt;&amp;nbsp;,&quot;cpf&quot;: &quot;{{cpf}}&quot;&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;span style=&quot;border-color: var(--border-color);&quot;&gt;&amp;nbsp; &amp;nbsp; ,&quot;password&quot;: &quot;{{password}}&quot;&lt;/span&gt;&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;}&lt;/div&gt;&lt;/div&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;size=15;dashed=1;align=left;fontSize=10;" vertex="1" parent="1">
-          <mxGeometry x="-1289" y="205" width="173" height="77" as="geometry" />
+        <mxCell id="27FCN3K02vGXMlbeFht9-32" value="&lt;div style=&quot;font-size: 10px;&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;{&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&amp;nbsp; &amp;nbsp; &quot;nome&quot;: &quot;{{nome}}&quot;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&amp;nbsp; &amp;nbsp; ,&quot;email&quot;: &quot;{{email}}&quot;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&amp;nbsp; &amp;nbsp;&lt;span style=&quot;border-color: var(--border-color);&quot;&gt;&amp;nbsp;,&quot;cpf&quot;: &quot;{{cpf}}&quot;&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;}&lt;/span&gt;&lt;br&gt;&lt;/div&gt;&lt;/div&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;size=15;dashed=1;align=left;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="-1289" y="205" width="173" height="66" as="geometry" />
         </mxCell>
         <mxCell id="Hzbbk1CtsA6qd1ZYFBjP-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
@@ -755,7 +755,7 @@
         <mxCell id="27FCN3K02vGXMlbeFht9-39" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;dashed=1;" edge="1" parent="1" source="27FCN3K02vGXMlbeFht9-40" target="27FCN3K02vGXMlbeFht9-23">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="27FCN3K02vGXMlbeFht9-40" value="&lt;div style=&quot;font-size: 10px;&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;{&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&amp;nbsp; &amp;nbsp; &quot;name&quot;: &quot;{{nome}}&quot;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&amp;nbsp; &amp;nbsp; ,&quot;email&quot;: &quot;{{email}}&quot;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;,&quot;custom:cpf&quot;: &quot;{{cpf}}&quot;&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&amp;nbsp; &amp;nbsp; ,&quot;custom:anonimo&quot;: false&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;}&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;size=15;dashed=1;align=left;fontSize=10;" vertex="1" parent="1">
+        <mxCell id="27FCN3K02vGXMlbeFht9-40" value="&lt;div style=&quot;font-size: 10px;&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;{&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&amp;nbsp; &amp;nbsp; &quot;name&quot;: &quot;{{nome}}&quot;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&amp;nbsp; &amp;nbsp; ,&quot;email&quot;: &quot;{{email}}&quot;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;,&quot;custom:cpf&quot;: &quot;{{cpf}}&quot;&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&amp;nbsp; &amp;nbsp; ,&quot;custom:anonimo&quot;: false&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;&amp;nbsp; &amp;nbsp; ,&quot;password&quot;: {password}&lt;br&gt;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;}&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;size=15;dashed=1;align=left;fontSize=10;" vertex="1" parent="1">
           <mxGeometry x="-698" y="205" width="198" height="75" as="geometry" />
         </mxCell>
         <mxCell id="27FCN3K02vGXMlbeFht9-41" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="27FCN3K02vGXMlbeFht9-45" target="27FCN3K02vGXMlbeFht9-47">
