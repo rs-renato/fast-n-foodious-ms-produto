@@ -13,13 +13,7 @@ exports.handler = async (event) => {
     const client_id = requestBody.client_id;
     const client_secret = requestBody.client_secret;
     const cpf = event?.queryStringParameters?.cpf;
-    
-    let clienteIdentificado = {data:{
-            anonimo: true
-        }};
-        
-    let username;
-    let password;
+    let username = process.env.COGNITO_FNF_USER_NAME;
 
     try {
 
@@ -40,23 +34,17 @@ exports.handler = async (event) => {
             const token = response.data.access_token;
             
             // identificacao de usuario no sistema fast-n-foodious
-            clienteIdentificado = await axios.post(`${apiGatewayUrl}v1/cliente/identifica?cpf=${cpf}`, null, {
+            let clienteIdentificado = await axios.post(`${apiGatewayUrl}v1/cliente/identifica?cpf=${cpf}`, null, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 },
             });
 
             console.log('clienteIdentificado', clienteIdentificado)
-
-            // se identificado e sem credenciais
-            if(clienteIdentificado.data.cpf && (!requestBody.username || !requestBody.password)){
-                return {
-                    statusCode: 401,
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ message: 'Credenciais inválidas' })
-                };
+                
+            // se cliente identificado
+            if(clienteIdentificado.data.cpf){
+                username = cpf
             }
         }
                
@@ -71,15 +59,6 @@ exports.handler = async (event) => {
             body: JSON.stringify({ message: 'Erro na identificação do cliente' })
         };
     }
-
-    // se a identificacao anonima ou nao informado as credenciais de usuario, autentica com o user anomino
-    if(clienteIdentificado.data.anonimo === true || !(requestBody.username || requestBody.password) || !cpf){
-        username = process.env.COGNITO_FNF_USER_NAME
-        password = process.env.COGNITO_FNF_USER_PASSWORD
-    }else{
-        username = requestBody.username;
-        password = requestBody.password;
-    }
     
     const secretHash = crypto.createHmac('SHA256', client_secret)
                         .update(username + client_id)
@@ -90,7 +69,7 @@ exports.handler = async (event) => {
         ClientId: client_id,
         AuthParameters: {
             USERNAME: username,
-            PASSWORD: password,
+            PASSWORD: process.env.COGNITO_FNF_USER_PASSWORD,
             SECRET_HASH: secretHash
         }
     };

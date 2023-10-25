@@ -1,5 +1,7 @@
 exports.handler = async(event) => {
 
+    console.log('event -->>', event)
+
     event.response = {
       claimsOverrideDetails: {
         claimsToAddOrOverride: {

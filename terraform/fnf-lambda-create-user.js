@@ -6,7 +6,6 @@ exports.handler = async (event) => {
 
     const nome = requestBody.nome;
     const email = requestBody.email;
-    const password = requestBody.password;
     const cpf = requestBody.cpf;
 
     const cognito = new AWS.CognitoIdentityServiceProvider({ region: "us-east-1" });
@@ -15,7 +14,8 @@ exports.handler = async (event) => {
 
         var params = {
             UserPoolId: process.env.POOL_ID,
-            Username: email,
+            Username: cpf,
+            MessageAction: "SUPPRESS",
             UserAttributes: [
                 { Name: "name", Value: nome },
                 { Name: "email", Value: email },
@@ -31,8 +31,8 @@ exports.handler = async (event) => {
 
         params = {
             UserPoolId: process.env.POOL_ID,
-            Username: email,
-            Password: password,
+            Username: cpf,
+            Password: process.env.COGNITO_FNF_USER_PASSWORD,
             Permanent: true
         };
     

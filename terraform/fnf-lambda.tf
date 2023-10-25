@@ -95,6 +95,7 @@ resource "aws_lambda_function" "fnf-lambda-create-user" {
   environment {
     variables = {
       POOL_ID = aws_cognito_user_pool.fnf-user-pool.id
+      COGNITO_FNF_USER_PASSWORD = aws_cognito_user.fnf-anonymouns-user.password
     }
   }
 }

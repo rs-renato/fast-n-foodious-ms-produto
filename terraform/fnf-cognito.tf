@@ -1,6 +1,6 @@
 resource "aws_cognito_user_pool" "fnf-user-pool" {
     name = "fnf-user-pool"
-    username_attributes        = ["email", "phone_number"]
+    # username_attributes        = ["email", "phone_number"]
     auto_verified_attributes  = ["email"]
     mfa_configuration = "OFF"
 
