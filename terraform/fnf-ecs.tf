@@ -51,7 +51,7 @@ resource "aws_ecs_task_definition" "fnf-task-definition" {
     cpu_architecture = "X86_64"
     operating_system_family = "LINUX"
   }
-  depends_on = [ aws_iam_role.ecsTaskExecutionRole ]
+  depends_on = [ aws_iam_role.ecsTaskExecutionRole, aws_db_instance.fnf-mysql-instance ]
 
   container_definitions = <<EOF
   [
@@ -74,7 +74,11 @@ resource "aws_ecs_task_definition" "fnf-task-definition" {
       "environment": [
         {
           "name": "NODE_ENV",
-          "value": "local-mock-repository"
+          "value": "prod"
+        },
+        {
+          "name": "MYSQL_HOST",
+          "value": "${aws_db_instance.fnf-mysql-instance.address}"
         }
       ],
       "logConfiguration": {
