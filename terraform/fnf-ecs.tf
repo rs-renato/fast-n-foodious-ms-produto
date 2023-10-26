@@ -51,7 +51,7 @@ resource "aws_ecs_task_definition" "fnf-task-definition" {
     cpu_architecture = "X86_64"
     operating_system_family = "LINUX"
   }
-  depends_on = [ aws_iam_role.ecsTaskExecutionRole, aws_db_instance.fnf-mysql-instance ]
+  depends_on = [ aws_iam_role.ecsTaskExecutionRole, aws_rds_cluster.fnf-rds-cluster ]
 
   container_definitions = <<EOF
   [
@@ -78,7 +78,11 @@ resource "aws_ecs_task_definition" "fnf-task-definition" {
         },
         {
           "name": "MYSQL_HOST",
-          "value": "${aws_db_instance.fnf-mysql-instance.address}"
+          "value": "${aws_rds_cluster.fnf-rds-cluster.endpoint}"
+        },
+        {
+          "name": "MYSQL_PASSWORD",
+          "value": "${aws_rds_cluster.fnf-rds-cluster.master_password}"
         }
       ],
       "logConfiguration": {
