@@ -30,7 +30,7 @@ Sistema de auto-atendimento de fast food. Projeto de conclusão da Fase 03 da p�
 * [Desinstalação & Cleanup](#-desinstalação--cleanup)
 * [Testes](#-testes)
 * [Estrutura Base do Projeto](#%EF%B8%8F-estrutura-base-do-projeto)
-* [Cloud AWS](#-cloud-aws)
+* [Cloud AWS](#cloud-aws)
     * [Cadastro de Clientes](#cadastro-de-clientes)
     * [Autenticação de Cliente Identificado](#autenticação-de-cliente-identificado)
     * [Autenticação de Cliente Anônimo](#autenticação-de-cliente-anônimo)
@@ -503,10 +503,10 @@ test/                                   # Implementações de testes
 ### Cadastro de Clientes
 ![fast-n-foodious-clean](docs/diagramas/fast-n-foodious-aws-cadastro-clientes.png)
 
-### Autenticaçação de Cliente Identificado
+### Autenticação de Cliente Identificado
 ![fast-n-foodious-clean](docs/diagramas/fast-n-foodious-aws-autenticacao-cliente-identificado.png)
 
-### Autenticaçação de Cliente Anônimo
+### Autenticação de Cliente Anônimo
 ![fast-n-foodious-clean](docs/diagramas/fast-n-foodious-aws-autenticacao-cliente-anonimo.png)
 
 ## DDD
