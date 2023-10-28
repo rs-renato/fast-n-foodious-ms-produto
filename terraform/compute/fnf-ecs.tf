@@ -14,23 +14,22 @@ resource "aws_ecs_service" "fnf-service" {
     network_configuration {
       assign_public_ip = false
       security_groups = [
-        aws_security_group.fnf-cluster-security-group.id
+        data.terraform_remote_state.network.outputs.fnf-cluster-security-group_id
       ]
       subnets = [
-        aws_subnet.fnf-subnet-private1-us-east-1a.id, 
-        aws_subnet.fnf-subnet-private2-us-east-1b.id
+        data.terraform_remote_state.network.outputs.fnf-subnet-private1-us-east-1a_id, 
+        data.terraform_remote_state.network.outputs.fnf-subnet-private2-us-east-1b_id
       ]
     }
 
     load_balancer {
-      target_group_arn = aws_lb_target_group.fnf-lb-target-group.arn
+      target_group_arn = data.terraform_remote_state.network.outputs.fnf-lb-target-group_arn
       container_name = "fast-n-foodious"
       container_port = 3000
     }
 
     depends_on = [ 
         aws_ecs_task_definition.fnf-task-definition,
-        aws_alb.fnf-alb
     ]
 
     lifecycle {
@@ -51,7 +50,7 @@ resource "aws_ecs_task_definition" "fnf-task-definition" {
     cpu_architecture = "X86_64"
     operating_system_family = "LINUX"
   }
-  depends_on = [ aws_iam_role.ecsTaskExecutionRole, aws_rds_cluster.fnf-rds-cluster ]
+  depends_on = [ aws_iam_role.ecsTaskExecutionRole ]
 
   container_definitions = <<EOF
   [
@@ -78,11 +77,11 @@ resource "aws_ecs_task_definition" "fnf-task-definition" {
         },
         {
           "name": "MYSQL_HOST",
-          "value": "${aws_rds_cluster.fnf-rds-cluster.endpoint}"
+          "value": "${data.terraform_remote_state.storage.outputs.fnf-rds-cluster_endpoint}"
         },
         {
           "name": "MYSQL_PASSWORD",
-          "value": "${aws_rds_cluster.fnf-rds-cluster.master_password}"
+          "value": "${data.terraform_remote_state.storage.outputs.fnf-rds-cluster_master_password}"
         }
       ],
       "logConfiguration": {

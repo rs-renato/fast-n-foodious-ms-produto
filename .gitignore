@@ -46,8 +46,7 @@ scripts/schema/3-manual-test.sql
 ## terrform
 **/.terraform/
 **/*.csv
-terraform/.terraform.lock.hcl
-terraform/terraform.tfstate
-terraform/terraform.tfstate.backup
-terraform/poc/**
-terraform/fnf-lambda-*.zip
+**/*.hcl
+**/*/*.zip
+**/*/.tfstate
+**/*/.tfstate.backup

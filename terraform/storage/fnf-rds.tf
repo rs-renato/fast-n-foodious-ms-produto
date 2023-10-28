@@ -7,7 +7,7 @@ resource "aws_rds_cluster" "fnf-rds-cluster" {
   master_password      = random_password.fnf-random-passoword.result
   enable_http_endpoint = true
   skip_final_snapshot  = true
-  vpc_security_group_ids = [aws_security_group.fnf-database-security-group.id, aws_security_group.fnf-cluster-security-group.id]
+  vpc_security_group_ids = [data.terraform_remote_state.network.outputs.fnf-database-security-group_id, data.terraform_remote_state.network.outputs.fnf-cluster-security-group_id]
   db_subnet_group_name = aws_db_subnet_group.fnf-db-subnet-group.name
 
   scaling_configuration {
@@ -18,7 +18,7 @@ resource "aws_rds_cluster" "fnf-rds-cluster" {
 
 resource "aws_db_subnet_group" "fnf-db-subnet-group" {
   name       = "fnf-db-subnet-group"
-  subnet_ids = [aws_subnet.fnf-subnet-private1-us-east-1a.id, aws_subnet.fnf-subnet-private2-us-east-1b.id]
+  subnet_ids = [ data.terraform_remote_state.network.outputs.fnf-subnet-private1-us-east-1a_id, data.terraform_remote_state.network.outputs.fnf-subnet-private2-us-east-1b_id]
   tags = {
     Name = "RDS subnet group"
   }
@@ -47,8 +47,8 @@ resource "random_password" "fnf-random-passoword" {
 
 resource "null_resource" "rds-initialization" {
     triggers = {
-      init = filesha1("${path.module}/../scripts/schema/1-init.sql")
-      populate = filesha1("${path.module}/../scripts/schema/2-populate.sql")
+      init = filesha1("${path.module}/scripts/schema/1-init.sql")
+      populate = filesha1("${path.module}/scripts/schema/2-populate.sql")
     }
 
     provisioner "local-exec" {
@@ -87,6 +87,6 @@ resource "null_resource" "rds-initialization" {
             SECRET_ARN = aws_secretsmanager_secret.fnf-secret.arn
         }
     
-        working_dir = "${path.module}/../scripts"
+        working_dir = "${path.module}/scripts"
   }
 }
