@@ -43,13 +43,170 @@ A desvantagem é que o cluster Aurora MySQL não possui uma versão gratuita, e 
 
 ### Diagrama
 
-TBD
+![fast-n-foodious-data-model.png](docs/diagramas/fast-n-foodious-data-model.png)
 
 ### Código DBML
 
-TBD
+```dbml
+Table "CLIENTE" {
+  "ID" INT [pk, increment]
+  "NOME" VARCHAR(255) [not null]
+  "EMAIL" VARCHAR(255) [not null]
+  "CPF" VARCHAR(11) [not null]
+
+Indexes {
+  EMAIL [unique, name: "cliente_email_idx"]
+  CPF [unique, name: "cliente_cpf_idx"]
+}
+}
+
+Table "CATEGORIA_PRODUTO" {
+  "ID" INT [pk]
+  "NOME" VARCHAR(255) [not null]
+
+Indexes {
+  NOME [unique, name: "categoria_produto_nome_idx"]
+}
+}
+
+Table "PRODUTO" {
+  "ID" INT [pk, increment]
+  "PRODUTO_CATEGORIA_ID" INT [not null]
+  "NOME" VARCHAR(255) [not null]
+  "DESCRICAO" VARCHAR(255) [not null]
+  "PRECO" DECIMAL(5,2) [not null]
+  "IMAGEM" TEXT
+  "ATIVO" BOOLEAN [not null, default: TRUE]
+
+Indexes {
+  NOME [unique, name: "produto_nome_idx"]
+}
+}
+
+Table "PEDIDO" {
+  "ID" INT [pk, increment]
+  "PEDIDO_CLIENTE_ID" INT [not null]
+  "DATA_INICIO" VARCHAR(255) [not null]
+  "ESTADO_PEDIDO" INT [not null]
+  "ATIVO" BOOLEAN [not null, default: TRUE]
+  "TOTAL" DECIMAL(8,2)
+}
+
+Table "ITEM_PEDIDO" {
+  "ID" INT [pk, increment]
+  "PEDIDO_ID" INT [not null]
+  "PRODUTO_ID" INT [not null]
+  "QUANTIDADE" INT [not null]
+}
+
+Table "PAGAMENTO" {
+  "ID" INT [pk, increment]
+  "PEDIDO_ID" INT [not null]
+  "TRANSACAO_ID" VARCHAR(255) [not null]
+  "ESTADO_PAGAMENTO" INT [not null]
+  "TOTAL" DECIMAL(8,2) [not null]
+  "DATA_HORA_PAGAMENTO" DATETIME
+}
+
+Ref "FK_PRODUTO_CATEGORIA":"CATEGORIA_PRODUTO"."ID" < "PRODUTO"."PRODUTO_CATEGORIA_ID"
+
+Ref "FK_PEDIDO_CLIENTE_ID":"CLIENTE"."ID" < "PEDIDO"."PEDIDO_CLIENTE_ID"
+
+Ref "FK_PEDIDO_ID":"PEDIDO"."ID" < "ITEM_PEDIDO"."PEDIDO_ID"
+
+Ref "FK_PRODUTO_ID":"PRODUTO"."ID" < "ITEM_PEDIDO"."PRODUTO_ID"
+
+Ref "FK_PAGAMENTO_PEDIDO_ID":"PEDIDO"."ID" < "PAGAMENTO"."PEDIDO_ID"
+
+```
 
 ### Código SQL
 
-TBD
+```sql
+-- Criação de banco de dados
+CREATE DATABASE IF NOT EXISTS FAST_N_FOODIOUS;
+
+USE FAST_N_FOODIOUS;
+
+--
+-- CRIAÇÃO DE TABELAS
+--
+
+-- Tabela cliente
+CREATE TABLE IF NOT EXISTS CLIENTE (
+                                       ID INT AUTO_INCREMENT PRIMARY KEY,
+                                       NOME VARCHAR(255) NOT NULL,
+                                       EMAIL VARCHAR(255) NOT NULL,
+                                       CPF VARCHAR(11) NOT NULL
+);
+
+-- indexes para tabela CLIENTE
+CREATE UNIQUE INDEX cliente_email_idx ON CLIENTE(EMAIL);
+CREATE UNIQUE INDEX cliente_cpf_idx ON CLIENTE(CPF);
+
+-- Tabela CATEGORIA_PRODUTO
+CREATE TABLE IF NOT EXISTS CATEGORIA_PRODUTO (
+                                                 ID INT PRIMARY KEY, -- sem auto_increment porque o conteúdo da tabela é fixa
+                                                 NOME VARCHAR(255) NOT NULL
+);
+
+-- indexes para tabela CATEGORIA_PRODUTO
+CREATE UNIQUE INDEX categoria_produto_nome_idx ON CATEGORIA_PRODUTO(NOME);
+
+-- Tabela PRODUTO
+CREATE TABLE IF NOT EXISTS PRODUTO (
+                                       ID INT AUTO_INCREMENT PRIMARY KEY,
+                                       PRODUTO_CATEGORIA_ID INT NOT NULL, CONSTRAINT FK_PRODUTO_CATEGORIA FOREIGN KEY (PRODUTO_CATEGORIA_ID) REFERENCES CATEGORIA_PRODUTO(ID),
+                                       NOME VARCHAR(255) NOT NULL,
+                                       DESCRICAO VARCHAR(255) NOT NULL,
+                                       PRECO DECIMAL(5,2) NOT NULL,
+                                       IMAGEM TEXT, -- base64
+                                       ATIVO BOOLEAN NOT NULL DEFAULT TRUE
+);
+
+-- indexes para tabela PRODUTO
+CREATE UNIQUE INDEX produto_nome_idx ON PRODUTO(NOME);
+
+-- Tabela PEDIDO
+CREATE TABLE IF NOT EXISTS PEDIDO (
+                                       ID INT AUTO_INCREMENT PRIMARY KEY,
+                                       PEDIDO_CLIENTE_ID INT NOT NULL, CONSTRAINT FK_PEDIDO_CLIENTE_ID FOREIGN KEY (PEDIDO_CLIENTE_ID) REFERENCES CLIENTE(ID),
+                                       DATA_INICIO VARCHAR(255) NOT NULL,
+                                       ESTADO_PEDIDO INT NOT NULL,
+                                       ATIVO BOOLEAN NOT NULL DEFAULT TRUE,
+                                       TOTAL DECIMAL(8,2) NULL
+);
+
+-- Tabela ITEMS DE PEDIDO
+CREATE TABLE IF NOT EXISTS ITEM_PEDIDO (
+                                       ID INT AUTO_INCREMENT PRIMARY KEY,
+                                       PEDIDO_ID INT NOT NULL, CONSTRAINT FK_PEDIDO_ID FOREIGN KEY (PEDIDO_ID) REFERENCES PEDIDO(ID),
+                                       PRODUTO_ID INT NOT NULL, CONSTRAINT FK_PRODUTO_ID FOREIGN KEY (PRODUTO_ID) REFERENCES PRODUTO(ID),
+                                       QUANTIDADE INT NOT NULL
+);
+
+-- Tabela PAGAMENTO
+CREATE TABLE IF NOT EXISTS PAGAMENTO (
+                                       ID INT AUTO_INCREMENT PRIMARY KEY,
+                                       PEDIDO_ID INT NOT NULL, CONSTRAINT FK_PAGAMENTO_PEDIDO_ID FOREIGN KEY (PEDIDO_ID) REFERENCES PEDIDO(ID),
+                                       TRANSACAO_ID VARCHAR(255) NOT NULL,
+                                       ESTADO_PAGAMENTO INT NOT NULL,
+                                       TOTAL DECIMAL(8,2) NOT NULL,
+                                       DATA_HORA_PAGAMENTO DATETIME NULL
+);
+```
+
+## Melhorias
+
+Não foram identificadas melhorias necessárias no modelo de dados para serem realizadas no momento, exceto a substituição do MySQL pelo Aurora MySQL pelas razões acima descritas.
+
+Pontos importantes:
+- intencionalmente não houve definição de regras de negócio no banco de dados, como triggers ou stored procedures, para que somente a aplicação seja responsável pela lógica de negócio.
+- o campo imagem da tabela PRODUTO foi definido como TEXT para não demandar conversão para gravação ou recuperação de imagens de produto durante a execução da aplicação.
+  - se necessário por motivos de desempenho, o campo poderia ser modificado para algum tipo binário, ou então a aplicação poderia ser modificada para salvar as imagens no S3 e o campo passaria a guardar apenas uma URL para os arquivos. 
+
+Ademais, o foco do trabalho nesta fase foi a migração da aplicação para a nuvem, e a estratégia [_Rehost_](https://docs.aws.amazon.com/prescriptive-guidance/latest/large-migration-guide/migration-strategies.html#rehost) foi a escolhida por ser a que causaria o menor impacto possível sem comprometer as funcionalidades da aplicação, ao mesmo tempo em que não adicionaria complexidades desnecessárias, uma vez que, pela definição da Amazon, preconiza a transposição da aplicação para a nuvem sem alterações no código.
+
+  
+
 
