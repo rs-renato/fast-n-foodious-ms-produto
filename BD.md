@@ -2,23 +2,25 @@
 
 ## Banco de Dados escolhido
 
-Inicialmente, o time havia escolhido o MySQL como banco de dados para o projeto, mas quando houve a migração para a nuvem suportada pela AWS Services, o MySQL foi substituído pelo Amazon Aurora MySQL para desfrutar das vantagens de se ter um banco de dados mais amigável ao ambiente de nuvem, ao mesmo tempo em que não seria necessária refatoração do código da aplicação.  
+Inicialmente, o time havia escolhido o MySQL como banco de dados para o projeto, mas quando houve a migração para a nuvem suportada pela AWS Services, o MySQL foi substituído pelo Amazon Aurora MySQL.
+
+Essa decisão nos permitiu aproveitar as vantagens de se ter um banco de dados mais adequado ao ambiente de nuvem, sem a necessidade de refatorar o código da aplicação.  
 
 Os motivos da escolha pelo MySQL / Aurora estão detalhados abaixo, ressaltando que o termo MySQL será utilizado para se referir a ambos, exceto na subseção que descreve a substituição do MySQL pelo Amazon Aurora MySQL. 
 
 ### SGDB Relacional
 
-O MySQL é um banco de dados relacional, cuja estrutura naturalmente obriga que os dados inseridos sejam consistentes.
+O MySQL é um banco de dados relacional que naturalmente obriga que os dados inseridos sejam consistentes.
 
 Para uma aplicação que realiza cadastro de produtos, controle de pedidos e pagamentos, é vital que os dados estejam sempre consistentes e que a integridade de dados seja sempre mantida. 
 
-Sendo um banco relacional, também reduz a possibilidade de bugs que causem a inserção parcial de dados. Por exemplo, o banco relacional com os devidos relacionamentos entre as entidades não permitirá o cadastrar um produto sem categoria ou com uma categoria inexistente.
+Além disso, sua estrutura relacional reduz a probabilidade de bugs que causem a inserção parcial de dados. Por exemplo, o banco relacional com os devidos relacionamentos entre as entidades não permitirá o cadastrar um produto sem categoria ou com uma categoria inexistente.
 
-Outra vantagem é a possibilidade de realizar consultas complexas envolvendo várias tabelas com relativa facilidade e desempenho. Apesar de muitos bancos NoSQL também permitirem esse tipo de consulta, ela tende a ser mais complexa para codificar e ter um custo de processamento relativamente maior a medida que a massa de dados aumenta. 
+Uma vantagem sobre bancos NoSQL é a capacidade de realizar consultas complexas envolvendo várias tabelas com relativa facilidade e desempenho. Apesar de muitos bancos NoSQL também permitirem esse tipo de consulta, ela tende a ser mais complexa para codificar e ter um custo de processamento relativamente maior a medida que a massa de dados aumenta. 
 
 ### Custo
 
-O MySQL é um banco de dados que possui uma versão gratuita, o que condiz com o propósito educacional do projeto. 
+O MySQL oferece uma versão gratuita, o que condiz com o propósito educacional do projeto. 
 
 ### Familiariadade do time com o MySQL
 
