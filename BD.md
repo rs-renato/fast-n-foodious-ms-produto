@@ -35,7 +35,7 @@ Ao substituirmos o MySQL por um cluster Aurora MySQL, foi possível a utilizaç�
 Adotando-se o Aurora MySQL, foi possível manter a compatibilidade com o MySQL sem a necessidade de refatoração do código da aplicação, e ainda obter as vantagens de se utilizar um banco de dados desenvolvido especificamente para a nuvem:
 
 - Escalabilidade automática
-- Alta disponibilidade (6 cópias de dados em 3 zonas de disponibilidade)
+- Alta disponibilidade e múltiplas zonas de disponibilidade
 - Backup automático
 - Aumento de desempenho em até 5x em relação ao MySQL
 
