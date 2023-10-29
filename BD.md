@@ -207,7 +207,7 @@ Pontos importantes:
 - o campo imagem da tabela PRODUTO foi definido como TEXT para não demandar conversão para gravação ou recuperação de imagens de produto durante a execução da aplicação.
   - se necessário por motivos de desempenho, o campo poderia ser modificado para algum tipo binário, ou então a aplicação poderia ser modificada para salvar as imagens no S3 e o campo passaria a guardar apenas uma URL para os arquivos. 
 
-Ademais, o foco do trabalho nesta fase foi a migração da aplicação para a nuvem, e a estratégia [_Rehost_](https://docs.aws.amazon.com/prescriptive-guidance/latest/large-migration-guide/migration-strategies.html#rehost) foi a escolhida por ser a que causaria o menor impacto possível sem comprometer as funcionalidades da aplicação, ao mesmo tempo em que não adicionaria complexidades desnecessárias, uma vez que, pela definição da Amazon, preconiza a transposição da aplicação para a nuvem sem alterações no código.
+Ademais, o foco do trabalho nesta fase foi a migração da aplicação para a nuvem, e a estratégia [_Rehost_](https://docs.aws.amazon.com/prescriptive-guidance/latest/large-migration-guide/migration-strategies.html#rehost) foi a escolhida por ser a que causaria o menor impacto possível sem comprometer as funcionalidades da aplicação, ao mesmo tempo em que não adicionaria complexidades desnecessárias, uma vez que, pela definição da Amazon, preconiza a transposição da aplicação para a nuvem sem alterações no código (_lift and shift_).
 
   
 
