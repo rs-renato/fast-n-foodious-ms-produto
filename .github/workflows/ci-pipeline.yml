@@ -94,7 +94,7 @@ jobs:
         run: docker-compose --env-file ./envs/prod.env exec -T fast-n-foodious sh -c "cat /etc/hosts"
 
   # "Publicação de imagem no dockerhub para inibir custos. O Job "build" é destinado para avaliação FIAP "
-  build-dockerhub:
+  build:
     if: ${{ github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
     needs: e2e-mysql
@@ -113,7 +113,7 @@ jobs:
       - name: Push to Dockerhub
         run: docker push felipemaxrosa/fast-n-foodious:latest
 
-  # build:
+  # build-ecr:
   #   if: ${{ github.ref == 'refs/heads/main' }}
   #   runs-on: ubuntu-latest
   #   needs: e2e-tests
