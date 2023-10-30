@@ -34,6 +34,9 @@ Sistema de auto-atendimento de fast food. Projeto de conclusão da Fase 03 da p�
     * [Cadastro de Clientes](#cadastro-de-clientes)
     * [Autenticação de Cliente Identificado](#autenticação-de-cliente-identificado)
     * [Autenticação de Cliente Anônimo](#autenticação-de-cliente-anônimo)
+* [Banco de Dados](#banco-de-dados)
+  * [Detalhes do Banco de Dados](#detalhes-do-banco-de-dados)
+  * [Modelo de dados](#modelo-de-dados)
 * [DDD](#ddd)
     * [Dicionário de Linguagem Ubíqua](/docs/dicionario-linguagem-ubiqua.md)
     * [Domain Storytelling](#domain-storytelling)
@@ -508,6 +511,13 @@ test/                                   # Implementações de testes
 
 ### Autenticação de Cliente Anônimo
 ![fast-n-foodious-clean](docs/diagramas/fast-n-foodious-aws-autenticacao-cliente-anonimo.png)
+
+## Banco de Dados
+### Detalhes do Banco de Dados
+[Detalhes do Banco de Dados](/docs/banco-de-dados.md)
+
+### Modelo de Dados
+![fast-n-foodious-clean](docs/diagramas/fast-n-foodious-data-model.png)
 
 ## DDD
 ### Domain Storytelling
