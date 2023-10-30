@@ -4,7 +4,7 @@
 
 ![Static Badge](https://img.shields.io/badge/environment-black?style=for-the-badge) ![Static Badge](https://img.shields.io/badge/v23.x-version?logo=docker&color=%232496ED&labelColor=white&label=Docker) ![Static Badge](https://img.shields.io/badge/v1.27x-version?logo=kubernetes&color=%232496ED&labelColor=white&label=Kubernetes)
 
-# 🍔 Fast & Foodious [![CircleCI](https://dl.circleci.com/status-badge/img/gh/rodrigo-ottero/fast-n-foodious/tree/main.svg?style=shield&circle-token=12e7b6fd014f65fe4658af215a97de00d7bc0858)](https://dl.circleci.com/status-badge/redirect/gh/rodrigo-ottero/fast-n-foodious/tree/main) ![Static Badge](https://img.shields.io/badge/v2.0.0-version?logo=&color=%232496ED&labelColor=white&label=fast-n-foodious)
+# 🍔 Fast & Foodious [![Github Actions](https://github.com/rodrigo-ottero/fast-n-foodious/actions/workflows/ci-pipeline.yml/badge.svg)](https://dl.circleci.com/status-badge/redirect/gh/rodrigo-ottero/fast-n-foodious/tree/main) ![Static Badge](https://img.shields.io/badge/v2.0.0-version?logo=&color=%232496ED&labelColor=white&label=fast-n-foodious)
 
 Sistema de auto-atendimento de fast food. Projeto de conclusão da Fase 02 da pós gradução em Software Architecture.
 [TLDR; **Avaliação FIAP**](#%EF%B8%8F-execução-em-modo-produção-avaliação-fiap)
@@ -49,15 +49,13 @@ Sistema de auto-atendimento de fast food. Projeto de conclusão da Fase 02 da p�
         - Testes unitários, e2e em memória (all green)
         - Validação de implementação de testes (modo alerta para implementação de testes de rest apis, services, usecases, validators, repositories)
     - CI/CD
-        - Pipeline CircleCI para integração com a ```main```
-            - ci/circleci: run-unit-tests       - Execução de testes unitários (all green)
-            - ci/circleci: run-e2e-mysql        - Execução de testes e2e com mysql (all green)
-            - ci/circleci: run-e2e-in-memory    - Execução de testes e2e em memória (all green)
-            - ci/circleci: run-coverage-tests   - Execução de validação de cobertura de testes (all green)
-            - ci/circleci: run-check-test-impl  - Execução de validação de implementação de testes (mandatório para rest apis, services, usecases,  validators, repositories)
-            - ci/circleci: build                - Build de imagens docker (AMD & ARM) e publicação no DockerHub
-            
-            [![CircleCI](https://dl.circleci.com/insights-snapshot/gh/rodrigo-ottero/fast-n-foodious/main/fast-n-foodious/badge.svg?window=7d&circle-token=b9e60e9eea697022b96bf40bfec96876943129c1)](https://app.circleci.com/insights/github/rodrigo-ottero/fast-n-foodious/workflows/fast-n-foodious/overview?branch=main&reporting-window=last-7-days&insights-snapshot=true)
+        - Pipeline Github Actions para integração com a ```main```
+            - fast-n-foodious-ci: run-unit-tests       - Execução de testes unitários (all green)
+            - fast-n-foodious-ci: run-e2e-mysql        - Execução de testes e2e com mysql (all green)
+            - fast-n-foodious-ci: run-e2e-in-memory    - Execução de testes e2e em memória (all green)
+            - fast-n-foodious-ci: run-coverage-tests   - Execução de validação de cobertura de testes (all green)
+            - fast-n-foodious-ci: run-check-test-impl  - Execução de validação de implementação de testes (mandatório para rest apis, services, usecases,  validators, repositories)
+            - fast-n-foodious-ci: build                - Build de imagens docker (AMD & ARM) e publicação no DockerHub
 
 ***Nota:** Nas instruções abaixo, se assume que o diretório onde os comandos serão executados será a posta raiz do projeto ~/fast-n-foodious.*
 
