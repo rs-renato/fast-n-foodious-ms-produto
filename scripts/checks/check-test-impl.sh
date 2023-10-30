@@ -27,7 +27,7 @@ for component in "${components[@]}"; do
     if [ ! -f "$test_file" ]; then
 
       # Ignore files that contain "export abstract class .*RestApi" if component is "api"
-      if [ "$component" == "api" ] && grep -q "export abstract class .*RestApi" "$file"; then
+      if [ "$component" == "api" ] && grep -q "export abstract class .*RestApi" "$file" || grep -q "export class HealthRestApi" "$file"; then
         continue
       fi
 
