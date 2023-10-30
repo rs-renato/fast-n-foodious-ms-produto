@@ -4,19 +4,24 @@
 
 ![Static Badge](https://img.shields.io/badge/environment-black?style=for-the-badge) ![Static Badge](https://img.shields.io/badge/v23.x-version?logo=docker&color=%232496ED&labelColor=white&label=Docker) ![Static Badge](https://img.shields.io/badge/v1.27x-version?logo=kubernetes&color=%232496ED&labelColor=white&label=Kubernetes)
 
-# 🍔 Fast & Foodious [![Github Actions](https://github.com/rodrigo-ottero/fast-n-foodious/actions/workflows/ci-pipeline.yml/badge.svg)](https://dl.circleci.com/status-badge/redirect/gh/rodrigo-ottero/fast-n-foodious/tree/main) ![Static Badge](https://img.shields.io/badge/v2.0.0-version?logo=&color=%232496ED&labelColor=white&label=fast-n-foodious)
+![Static Badge](https://img.shields.io/badge/environment-black?style=for-the-badge) ![Static Badge](https://img.shields.io/badge/v23.x-version?logo=docker&color=%232496ED&labelColor=white&label=Docker)
 
-Sistema de auto-atendimento de fast food. Projeto de conclusão da Fase 02 da pós gradução em Software Architecture.
-[TLDR; **Avaliação FIAP**](#%EF%B8%8F-execução-em-modo-produção-avaliação-fiap)
+![Static Badge](https://img.shields.io/badge/cloud-black?style=for-the-badge) ![Static Badge](https://img.shields.io/badge/Amazon_AWS-232F3E?logo=amazon-aws&logoColor=%232596be&label=RDS|Cognito|Lambda|ECS&labelColor=white&color=%232596be) 
 
-* [Arquitetura](#arquitetura)
+# 🍔 Fast & Foodious ![Github Actions](https://github.com/rodrigo-ottero/fast-n-foodious/actions/workflows/ci-pipeline.yml/badge.svg?branch=main) ![Static Badge](https://img.shields.io/badge/v3.0.0-version?logo=&color=%232496ED&labelColor=white&label=fast-n-foodious)
+
+Sistema de auto-atendimento de fast food. Projeto de conclusão da Fase 03 da pós gradução em Software Architecture.
+[TLDR; Execução em modo produção (deprecated)](#%EF%B8%8F-execução-em-modo-produção-deprecated-substituído-por-aws-fargate)
+
+* [Arquitetura de Solução (Cloud AWS)](#arquitetura-de-solução-cloud-aws)
+* [Arquitetura de Software](#arquitetura-de-software)
 * [Instalação de Dependências Node](#-instalação-de-dependências-node)
 * [Build da Aplicação](#-build-da-aplicação)
 * [Executando a Aplicação](#%EF%B8%8F-executando-a-aplicação)
     * [Variáveis de Ambiente](#-variáveis-de-ambiente)
     * [Execução em modo local (in-memory repository)](#%EF%B8%8F-execução-em-modo-local-in-memory-repository)
     * [Execução em modo local (mysql repository)](#%EF%B8%8F-execução-em-modo-local-mysql-repository)
-    * [**Execução em modo produção (Avaliação FIAP)**](#%EF%B8%8F-execução-em-modo-produção-avaliação-fiap)
+    * [**Execução em modo produção (deprecated)**](#%EF%B8%8F-execução-em-modo-produção-deprecated-substituído-por-aws-fargate)
         * [Docker Compose (Modo Fácil!)](#-docker-compose-modo-fácil)
         * [Docker (Modo Desbravador!)](#-docker-modo-desbravador)
         * [Kubernetes (Modo Fácil!)](#-kubernetes-modo-fácil)
@@ -25,6 +30,13 @@ Sistema de auto-atendimento de fast food. Projeto de conclusão da Fase 02 da p�
 * [Desinstalação & Cleanup](#-desinstalação--cleanup)
 * [Testes](#-testes)
 * [Estrutura Base do Projeto](#%EF%B8%8F-estrutura-base-do-projeto)
+* [Cloud AWS](#cloud-aws)
+    * [Cadastro de Clientes](#cadastro-de-clientes)
+    * [Autenticação de Cliente Identificado](#autenticação-de-cliente-identificado)
+    * [Autenticação de Cliente Anônimo](#autenticação-de-cliente-anônimo)
+* [Banco de Dados](#banco-de-dados)
+  * [Detalhes do Banco de Dados](#detalhes-do-banco-de-dados)
+  * [Modelo de dados](#modelo-de-dados)
 * [DDD](#ddd)
     * [Dicionário de Linguagem Ubíqua](/docs/dicionario-linguagem-ubiqua.md)
     * [Domain Storytelling](#domain-storytelling)
@@ -35,9 +47,14 @@ Sistema de auto-atendimento de fast food. Projeto de conclusão da Fase 02 da p�
         * [Entrega de Pedidos](#entrega-de-pedidos)
         * [Fluxo de etapas dos Pedidos](#fluxo-de-etapas-dos-pedidos)
 
-## Arquitetura
+## Arquitetura de Solução (Cloud AWS)
+![fast-n-foodious-clean](docs/diagramas/fast-n-foodious-aws.png)
+
+## Arquitetura de Software
 ![fast-n-foodious-clean](docs/diagramas/fast-n-foodious-clean.png)
 
+- Cloud AWS
+    - API Gateway, Cognito, ECS, Lambda, Load Balancer, RDS
 - Arquitetura Clean & Modular
     - Camada de Application, Enterprise, Presentation e Infrastructure
     - Módulo Main, Application, Presentation e Infrastructure
@@ -122,9 +139,10 @@ CONTAINER ID   IMAGE       COMMAND                  CREATED         STATUS      
 $ NODE_ENV=local npm run start
 ```
 
-### 🚨⚡️ Execução em modo produção (Avaliação FIAP)
-Utilizado **`apenas para produção e para avaliação dos instrutores FIAP`**.
-***Nota:** O container da aplicação depende do mysql estar up & running. Então seja paciente, o tempo para o container do mysql estar disponível pode veriar, dependendo da disponibilidade de recursos e suas configurações de hardware locais.* 
+### 🚨⚡️ Execução em modo produção (deprecated: substituído por AWS Fargate)
+***Nota 1:** O K8S foi substituído pelo serviço gerenciado AWS Fargate. A construção da insfraestrura é realizada através de IaC (Terraform) com seus respectivos scripts em repositórios específicos de Storage, Compute e Network. A documentação abaixo apenas ilustra a solução v2.0.0 e foi mantida aqui caso seja necessário subir a aplicação de uma maneira mais fácil para avaliação dos instrutores.*
+
+***Nota 2:** O container da aplicação depende do mysql estar up & running. Então seja paciente, o tempo para o container do mysql estar disponível pode veriar, dependendo da disponibilidade de recursos e suas configurações de hardware locais.* 
 
 #### 🫧 Docker Compose (Modo Fácil!)
 Inicia o container da aplicação e do mysql com as variáveis de produção, utilizando o docker compose:
@@ -418,7 +436,7 @@ $ kubectl logs -f k6-stress-job-fkjv9
 
 # 🏛️ Estrutura Base do Projeto
 ```
-.circleci/                              # Configurações de pipelines CI/CD
+.github/                                # Configurações de pipelines CI/CD
 docs/                                   # Documentação da aplicação
 envs/                                   # Configurações de ambiente
 helm/                                   # Configuração de descriptors Helm
@@ -481,6 +499,23 @@ test/                                   # Implementações de testes
 ├── e2e                                 # Testes E2E
 └── stress                              # Testes de stress (k6 e/ou cluster k8s)
 ````
+
+## Cloud AWS
+### Cadastro de Clientes
+![fast-n-foodious-clean](docs/diagramas/fast-n-foodious-aws-cadastro-clientes.png)
+
+### Autenticação de Cliente Identificado
+![fast-n-foodious-clean](docs/diagramas/fast-n-foodious-aws-autenticacao-cliente-identificado.png)
+
+### Autenticação de Cliente Anônimo
+![fast-n-foodious-clean](docs/diagramas/fast-n-foodious-aws-autenticacao-cliente-anonimo.png)
+
+## Banco de Dados
+### Detalhes do Banco de Dados
+[Detalhes do Banco de Dados](/docs/banco-de-dados.md)
+
+### Modelo de Dados
+![fast-n-foodious-clean](docs/diagramas/fast-n-foodious-data-model.png)
 
 ## DDD
 ### Domain Storytelling

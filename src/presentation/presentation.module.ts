@@ -7,6 +7,7 @@ import { GeneralExceptionHandler } from 'src/presentation/rest/handler/general-e
 import { GeneralHttpExceptionHandler } from 'src/presentation/rest/handler/general-http-exception.handler';
 import { InfraestructureExceptionHandler } from 'src/presentation/rest/handler/infraestructure-exception.handler';
 import { ValidationExceptionHandler } from 'src/presentation/rest/handler/validation-exception.handler';
+import { HealthRestApi } from 'src/presentation/rest/health/api/health.api';
 import { ItemPedidoRestApi } from 'src/presentation/rest/item-pedido/api/item-pedido.api';
 import { PagamentoRestApi } from 'src/presentation/rest/pagamento/api/pagamento.api';
 import { PedidoRestApi } from 'src/presentation/rest/pedido/api/pedido.api';
@@ -27,6 +28,7 @@ import { ProdutoRestApi } from 'src/presentation/rest/produto/api/produto.api';
       ProdutoRestApi,
       CategoriaProdutoRestApi,
       PagamentoRestApi,
+      HealthRestApi,
    ],
 })
 export class PresentationModule {}
