@@ -44,7 +44,6 @@ jobs:
 
   e2e-in-memory:
     runs-on: ubuntu-latest
-    needs: check-tests-impl
     env:
       MYSQL_USER: $MYSQL_USER
       MYSQL_PASSWORD: $MYSQL_PASSWORD
