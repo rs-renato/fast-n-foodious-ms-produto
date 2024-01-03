@@ -1,5 +1,4 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { ItemPedidoEntity } from 'src/infrastructure/persistence/item-pedido/entity/item-pedido.entity';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { ColumnNumericTransformer } from 'src/shared';
 
 @Entity({ name: 'PRODUTO' })
@@ -32,6 +31,7 @@ export class ProdutoEntity {
    @Column({ name: 'ATIVO' })
    ativo: boolean;
 
-   @OneToMany(() => ItemPedidoEntity, (itemPedido) => itemPedido.produto)
-   itensPedido?: ItemPedidoEntity[];
+   // TODO RODRIGO - why do we need itempedido?
+   // @OneToMany(() => ItemPedidoEntity, (itemPedido) => itemPedido.produto)
+   // itensPedido?: ItemPedidoEntity[];
 }
