@@ -4,13 +4,11 @@
 
 ![Static Badge](https://img.shields.io/badge/environment-black?style=for-the-badge) ![Static Badge](https://img.shields.io/badge/v23.x-version?logo=docker&color=%232496ED&labelColor=white&label=Docker) ![Static Badge](https://img.shields.io/badge/v1.27x-version?logo=kubernetes&color=%232496ED&labelColor=white&label=Kubernetes)
 
-![Static Badge](https://img.shields.io/badge/environment-black?style=for-the-badge) ![Static Badge](https://img.shields.io/badge/v23.x-version?logo=docker&color=%232496ED&labelColor=white&label=Docker)
-
 ![Static Badge](https://img.shields.io/badge/cloud-black?style=for-the-badge) ![Static Badge](https://img.shields.io/badge/Amazon_AWS-232F3E?logo=amazon-aws&logoColor=%232596be&label=RDS|Cognito|Lambda|ECS&labelColor=white&color=%232596be) 
 
-# 🍔 Fast & Foodious ![Github Actions](https://github.com/rodrigo-ottero/fast-n-foodious-ms-produto/actions/workflows/ci-pipeline.yml/badge.svg?branch=main) ![Static Badge](https://img.shields.io/badge/v3.0.0-version?logo=&color=%232496ED&labelColor=white&label=fast-n-foodious-ms-produto)
+# 🍔 Fast & Foodious - Produto ![Github Actions](https://github.com/rodrigo-ottero/fast-n-foodious-ms-produto/actions/workflows/ci-pipeline.yml/badge.svg?branch=main) ![Static Badge](https://img.shields.io/badge/v3.0.0-version?logo=&color=%232496ED&labelColor=white&label=fast-n-foodious-ms-produto)
 
-Sistema de auto-atendimento de fast food. Projeto de conclusão da Fase 04 da pós gradução em Software Architecture.
+Sistema de auto-atendimento de fast food (microsserviço produto). Projeto de conclusão da Fase 04 da pós gradução em Software Architecture.
 [TLDR; Execução em modo produção (deprecated)](#%EF%B8%8F-execução-em-modo-produção-deprecated-substituído-por-aws-fargate)
 
 * [Arquitetura de Solução (Cloud AWS)](#arquitetura-de-solução-cloud-aws)
