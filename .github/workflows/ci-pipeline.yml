@@ -1,5 +1,5 @@
 name: fast-n-foodious-ms-produto-ci
-run-name: Fast N Foodious CI
+run-name: Fast & Foodious CI/CD - Produto
 
 on: [push]
 jobs:
