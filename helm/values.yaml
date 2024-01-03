@@ -1,8 +1,8 @@
 namespace: default
 
 application:
-  name: fast-n-foodious
-  image: ottero/fast-n-foodious:latest
+  name: fast-n-foodious-ms-produto
+  image: ottero/fast-n-foodious-ms-produto:latest
   resources:
     limits:
       memory: "768Mi"
