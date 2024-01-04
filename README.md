@@ -177,6 +177,9 @@ CONTAINER ID   IMAGE                                        COMMAND             
 #### 🫧 Kubernetes (Modo Fácil!)
 Inicia o pod da aplicação e do mysql com as variáveis de produção, assim como suas dependências (services, deployments, replicasets, hpas, configmaps, secrets, pv, pvc) utilizando o helm:
 *Nota: Assume k8s pod/metrics-server up & running para habilitação de escalabilidade via HPA*
+
+*Nota: O `PersistentVolume` está configurado para `Filesystem`, com o `hostpath` apontando para uma pasta local de usuário. Certifique de apontar para um local onde tenha permissão de escrita e leitura. Para alterar o valor dessa hostpath, altere o valor da propriedade `pv.hostPath` no arquivo `/helm/values.yaml`*
+
 ```bash
 $ helm install fast-n-foodious-ms-produto helm/
 
@@ -362,6 +365,8 @@ Deleted: sha256:4f90d3b645cdd7184811448c570951ee7c3c032770c1956f25e8fcdfd4d79e9b
 Deleted: sha256:6f16c4dda6e7ae2562218ba06bae1285ff33934b991620db4f591ac60d35ee5c
 Deleted: sha256:0f7b3ff8b310adb0c38fa8108967e51e3431bc4b7ce350de93839eeffcefd34c
 ```
+
+*Nota: Certifique-se de remover a pasta do `PersistentVolume` que está configurado para `Filesystem`. O local da pasta está definido no valor da propriedade `pv.hostPath` no arquivo `/helm/values.yaml`*
 
 ## 🎮 Extras Docker Compose
 
