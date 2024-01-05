@@ -52,8 +52,7 @@ jobs:
         run: NODE_ENV=local-mock-repository
       - name: Start Server
         run: |
-          npm run start > /dev/null 2>&1 & 
-          echo "Server started."
+          npm start & npx wait-on http://localhost:3000
       - name: Run BDD Tests (With In-Memory Repositories)
         run: npm run test:bdd
 
