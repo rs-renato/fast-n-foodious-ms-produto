@@ -49,7 +49,7 @@ export class ProdutoRestApi extends BaseRestApi {
             ativo: request.ativo,
          })
          .then((produto) => {
-            this.logger.log(`Produto salvo com sucesso: ${produto.id}}`);
+            this.logger.log(`Produto salvo com sucesso: ${produto.id}`);
             return new SalvarProdutoResponse(produto);
          });
    }
@@ -76,7 +76,7 @@ export class ProdutoRestApi extends BaseRestApi {
             ativo: request.ativo,
          })
          .then((produto) => {
-            this.logger.log(`Produto editado com sucesso: ${produto.id}}`);
+            this.logger.log(`Produto editado com sucesso: ${produto.id}`);
             return new EditarProdutoResponse(produto);
          });
    }
@@ -90,7 +90,7 @@ export class ProdutoRestApi extends BaseRestApi {
    async delete(@Param('id', ParseIntPipe) id: number): Promise<boolean> {
       this.logger.debug(`Deletando produto id: ${id}`);
       return await this.service.delete(id).then((result) => {
-         this.logger.log(`Produto deletado com sucesso: ${id}}`);
+         this.logger.log(`Produto deletado com sucesso: ${id}`);
          return result;
       });
    }
@@ -105,11 +105,11 @@ export class ProdutoRestApi extends BaseRestApi {
       this.logger.debug(`Procurando Produto id: ${id}`);
       return await this.service.findById(id).then((produto) => {
          if (produto) {
-            this.logger.log(`Produto encontrado com sucesso: ${produto.id}}`);
+            this.logger.log(`Produto encontrado com sucesso: ${produto.id}`);
             return new BuscaPorIdProdutoResponse(produto);
          }
          this.logger.debug(`Produto não encontrado: ${id}`);
-         throw new NotFoundException(`Produto não encontrado: ${id}}`);
+         throw new NotFoundException(`Produto não encontrado: ${id}`);
       });
    }
 
@@ -133,7 +133,7 @@ export class ProdutoRestApi extends BaseRestApi {
             return produtos.map((produto) => new BuscaTodosPorIdCategoriaProdutoResponse(produto));
          }
          this.logger.debug(`Produtos não encontrados para idCategoriaProduto: ${id}`);
-         throw new NotFoundException(`Produtos não encontrados para idCategoriaProduto: ${id}}`);
+         throw new NotFoundException(`Produtos não encontrados para idCategoriaProduto: ${id}`);
       });
    }
 }
