@@ -66,7 +66,7 @@ jobs:
       - name: Stop and Remove Docker Containers
         run: docker-compose --env-file ./envs/prod.env down
 
- bdd-in-memory:
+  bdd-in-memory:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -131,7 +131,6 @@ jobs:
           docker buildx build --push --platform linux/arm/v6,linux/arm/v7,linux/arm64/v8,linux/amd64 --tag $DOCKER_USERNAME/fast-n-foodious:latest .
           echo "Docker image pushed successfully!"
 
- 
   # build-ecr:
   #   if: ${{ github.ref == 'refs/heads/main' }}
   #   runs-on: ubuntu-latest
