@@ -99,7 +99,7 @@ jobs:
         run: docker-compose --env-file ./envs/prod.env exec -T mysql sh -c "until mysqladmin ping -h 127.0.0.1 -u$MYSQL_USER -p$MYSQL_PASSWORD ; do sleep 1; done"
 
       - name: Run BDD Tests (With TypeORM Repositories - MySQL)
-        run: docker-compose --env-file ./envs/prod.env exec -T fast-n-foodious sh -c "npm run start & npx wait-on http://localhost:3000 & npm run test:bdd"
+        run: docker-compose --env-file ./envs/prod.env exec -T fast-n-foodious-ms-produto sh -c "npm run start & npx wait-on http://localhost:3000 & npm run test:bdd"
       - name: Stop and Remove Docker Containers
         run: docker-compose --env-file ./envs/prod.env down
 
