@@ -103,7 +103,7 @@ jobs:
       - name: Stop and Remove Docker Containers
         run: docker-compose --env-file ./envs/prod.env down
 
-  # Publicação de imagem no DockerBuh para inibição de custos, logo o job "build-ecr" foi desativado
+  # Publicação de imagem no DockerHub para inibição de custos, logo o job "build-ecr" foi desativado
   build:
     if: ${{ github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest

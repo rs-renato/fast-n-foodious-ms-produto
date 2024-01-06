@@ -6,7 +6,7 @@
 
 ![Static Badge](https://img.shields.io/badge/cloud-black?style=for-the-badge) ![Static Badge](https://img.shields.io/badge/Amazon_AWS-232F3E?logo=amazon-aws&logoColor=%232596be&label=RDS|Cognito|Lambda|ECS&labelColor=white&color=%232596be) 
 
-# 🍔 Fast & Foodious - Produto ![Github Actions](https://github.com/rodrigo-ottero/fast-n-foodious-ms-produto/actions/workflows/ci-pipeline.yml/badge.svg?branch=main) ![Static Badge](https://img.shields.io/badge/v3.0.0-version?logo=&color=%232496ED&labelColor=white&label=fast-n-foodious-ms-produto)
+# 🍔 Fast & Foodious - Produto ![Github Actions](https://github.com/rodrigo-ottero/fast-n-foodious-ms-produto/actions/workflows/ci-pipeline.yml/badge.svg?branch=main) ![Static Badge](https://img.shields.io/badge/v1.0.0-version?logo=&color=%232496ED&labelColor=white&label=fast-n-foodious-ms-produto)
 
 Sistema de auto-atendimento de fast food (microsserviço produto). Projeto de conclusão da Fase 04 da pós gradução em Software Architecture.
 [TLDR; Execução em modo produção (deprecated)](#%EF%B8%8F-execução-em-modo-produção-deprecated-substituído-por-aws-fargate)
@@ -65,12 +65,14 @@ Sistema de auto-atendimento de fast food (microsserviço produto). Projeto de co
         - Validação de implementação de testes (modo alerta para implementação de testes de rest apis, services, usecases, validators, repositories)
     - CI/CD
         - Pipeline Github Actions para integração com a ```main```
-            - fast-n-foodious-ci: run-unit-tests       - Execução de testes unitários (all green)
-            - fast-n-foodious-ci: run-e2e-mysql        - Execução de testes e2e com mysql (all green)
-            - fast-n-foodious-ci: run-e2e-in-memory    - Execução de testes e2e em memória (all green)
-            - fast-n-foodious-ci: run-coverage-tests   - Execução de validação de cobertura de testes (all green)
-            - fast-n-foodious-ci: run-check-test-impl  - Execução de validação de implementação de testes (mandatório para rest apis, services, usecases,  validators, repositories)
-            - fast-n-foodious-ci: build                - Build de imagens docker (AMD & ARM) e publicação no DockerHub
+            - fast-n-foodious-ci: unit-tests       - Execução de testes unitários (all green)
+            - fast-n-foodious-ci: coverage-tests   - Execução de validação de cobertura de testes (all green)
+            - fast-n-foodious-ci: check-test-impl  - Execução de validação de implementação de testes (mandatório para rest apis, services, usecases,  validators, repositories)
+            - fast-n-foodious-ci: e2e-in-memory    - Execução de testes e2e em memória (all green)
+            - fast-n-foodious-ci: e2e-mysql        - Execução de testes e2e com mysql (all green)
+            - fast-n-foodious-ci: bdd-in-memory    - Execução de testes bdd com memória (all green)
+            - fast-n-foodious-ci: bdd-in-mysql     - Execução de testes bdd com mysql (all green)
+            - fast-n-foodious-ci: build            - Build de imagens docker (AMD & ARM) e publicação no DockerHub
 
 ***Nota:** Nas instruções abaixo, se assume que o diretório onde os comandos serão executados será a posta raiz do projeto ~/fast-n-foodious.*
 
