@@ -15,59 +15,59 @@ import { IRepository } from 'src/enterprise/repository/repository';
 import { ProdutoConstants } from 'src/shared/constants';
 
 export const ProdutoProviders: Provider[] = [
-   { provide: ProdutoConstants.ISERVICE, useClass: ProdutoService },
-   {
-      provide: ProdutoConstants.SALVAR_PRODUTO_USECASE,
-      inject: [ProdutoConstants.IREPOSITORY, ProdutoConstants.SALVAR_PRODUTO_VALIDATOR],
-      useFactory: (repository: IRepository<Produto>, validators: PersistirProdutoValidator[]): SalvarProdutoUseCase =>
-         new SalvarProdutoUseCase(repository, validators),
-   },
-   {
-      provide: ProdutoConstants.EDITAR_PRODUTO_USECASE,
-      inject: [ProdutoConstants.IREPOSITORY, ProdutoConstants.EDITAR_PRODUTO_VALIDATOR],
-      useFactory: (repository: IRepository<Produto>, validators: PersistirProdutoValidator[]): EditarProdutoUseCase =>
-         new EditarProdutoUseCase(repository, validators),
-   },
-   {
-      provide: ProdutoConstants.DELETAR_PRODUTO_USECASE,
-      inject: [ProdutoConstants.IREPOSITORY, ProdutoConstants.DELETAR_PRODUTO_VALIDATOR],
-      useFactory: (repository: IRepository<Produto>, validators: PersistirProdutoValidator[]): DeletarProdutoUseCase =>
-         new DeletarProdutoUseCase(repository, validators),
-   },
-   {
-      provide: ProdutoConstants.BUSCAR_PRODUTO_POR_ID_USECASE,
-      inject: [ProdutoConstants.IREPOSITORY],
-      useFactory: (repository: IRepository<Produto>): BuscarProdutoPorIdUseCase =>
-         new BuscarProdutoPorIdUseCase(repository),
-   },
-   {
-      provide: ProdutoConstants.BUSCAR_PRODUTO_POR_ID_CATEGORIA_USECASE,
-      inject: [ProdutoConstants.IREPOSITORY],
-      useFactory: (repository: IRepository<Produto>): BuscarProdutoPorIdCategoriaUseCase =>
-         new BuscarProdutoPorIdCategoriaUseCase(repository),
-   },
-   {
-      provide: ProdutoConstants.SALVAR_PRODUTO_VALIDATOR,
-      inject: [ProdutoConstants.IREPOSITORY],
-      useFactory: (repository: IRepository<Produto>): PersistirProdutoValidator[] => [
-         new CamposObrigatoriosProdutoValidator(repository),
-         new NomeUnicoProdutoValidator(repository),
-      ],
-   },
-   {
-      provide: ProdutoConstants.EDITAR_PRODUTO_VALIDATOR,
-      inject: [ProdutoConstants.IREPOSITORY],
-      useFactory: (repository: IRepository<Produto>): PersistirProdutoValidator[] => [
-         new CamposObrigatoriosProdutoValidator(repository),
-         new NomeUnicoProdutoValidator(repository),
-         new IdProdutoPrecisaExistirValidator(repository),
-      ],
-   },
-   {
-      provide: ProdutoConstants.DELETAR_PRODUTO_VALIDATOR,
-      inject: [ProdutoConstants.IREPOSITORY],
-      useFactory: (repository: IRepository<Produto>): PersistirProdutoValidator[] => [
-         new IdProdutoPrecisaExistirValidator(repository),
-      ],
-   },
+  { provide: ProdutoConstants.ISERVICE, useClass: ProdutoService },
+  {
+    provide: ProdutoConstants.SALVAR_PRODUTO_USECASE,
+    inject: [ProdutoConstants.IREPOSITORY, ProdutoConstants.SALVAR_PRODUTO_VALIDATOR],
+    useFactory: (repository: IRepository<Produto>, validators: PersistirProdutoValidator[]): SalvarProdutoUseCase =>
+      new SalvarProdutoUseCase(repository, validators),
+  },
+  {
+    provide: ProdutoConstants.EDITAR_PRODUTO_USECASE,
+    inject: [ProdutoConstants.IREPOSITORY, ProdutoConstants.EDITAR_PRODUTO_VALIDATOR],
+    useFactory: (repository: IRepository<Produto>, validators: PersistirProdutoValidator[]): EditarProdutoUseCase =>
+      new EditarProdutoUseCase(repository, validators),
+  },
+  {
+    provide: ProdutoConstants.DELETAR_PRODUTO_USECASE,
+    inject: [ProdutoConstants.IREPOSITORY, ProdutoConstants.DELETAR_PRODUTO_VALIDATOR],
+    useFactory: (repository: IRepository<Produto>, validators: PersistirProdutoValidator[]): DeletarProdutoUseCase =>
+      new DeletarProdutoUseCase(repository, validators),
+  },
+  {
+    provide: ProdutoConstants.BUSCAR_PRODUTO_POR_ID_USECASE,
+    inject: [ProdutoConstants.IREPOSITORY],
+    useFactory: (repository: IRepository<Produto>): BuscarProdutoPorIdUseCase =>
+      new BuscarProdutoPorIdUseCase(repository),
+  },
+  {
+    provide: ProdutoConstants.BUSCAR_PRODUTO_POR_ID_CATEGORIA_USECASE,
+    inject: [ProdutoConstants.IREPOSITORY],
+    useFactory: (repository: IRepository<Produto>): BuscarProdutoPorIdCategoriaUseCase =>
+      new BuscarProdutoPorIdCategoriaUseCase(repository),
+  },
+  {
+    provide: ProdutoConstants.SALVAR_PRODUTO_VALIDATOR,
+    inject: [ProdutoConstants.IREPOSITORY],
+    useFactory: (repository: IRepository<Produto>): PersistirProdutoValidator[] => [
+      new CamposObrigatoriosProdutoValidator(repository),
+      new NomeUnicoProdutoValidator(repository),
+    ],
+  },
+  {
+    provide: ProdutoConstants.EDITAR_PRODUTO_VALIDATOR,
+    inject: [ProdutoConstants.IREPOSITORY],
+    useFactory: (repository: IRepository<Produto>): PersistirProdutoValidator[] => [
+      new CamposObrigatoriosProdutoValidator(repository),
+      new NomeUnicoProdutoValidator(repository),
+      new IdProdutoPrecisaExistirValidator(repository),
+    ],
+  },
+  {
+    provide: ProdutoConstants.DELETAR_PRODUTO_VALIDATOR,
+    inject: [ProdutoConstants.IREPOSITORY],
+    useFactory: (repository: IRepository<Produto>): PersistirProdutoValidator[] => [
+      new IdProdutoPrecisaExistirValidator(repository),
+    ],
+  },
 ];
