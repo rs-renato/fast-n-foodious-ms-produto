@@ -128,6 +128,7 @@ jobs:
       - e2e-mysql
       - bdd-in-memory
       - bdd-mysql
+      - sonarcloud
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js
