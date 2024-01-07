@@ -5,6 +5,6 @@ import { CategoriaProdutoMemoryRepository } from 'src/infrastructure/persistence
 import { ProdutoMemoryRepository } from 'src/infrastructure/persistence/produto/repository/produto-memory.repository';
 
 export const PersistenceInMemoryProviders: Provider[] = [
-   { provide: ProdutoConstants.IREPOSITORY, useClass: ProdutoMemoryRepository },
-   { provide: CategoriaProdutoConstants.IREPOSITORY, useClass: CategoriaProdutoMemoryRepository },
+  { provide: ProdutoConstants.IREPOSITORY, useClass: ProdutoMemoryRepository },
+  { provide: CategoriaProdutoConstants.IREPOSITORY, useClass: CategoriaProdutoMemoryRepository },
 ];
