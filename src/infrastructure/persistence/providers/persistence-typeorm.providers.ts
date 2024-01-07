@@ -6,6 +6,6 @@ import { CategoriaProdutoTypeormRepository } from 'src/infrastructure/persistenc
 import { ProdutoTypeormRepository } from 'src/infrastructure/persistence/produto/repository/produto-typeorm.repository';
 
 export const PersistenceTypeOrmProviders: Provider[] = [
-   { provide: ProdutoConstants.IREPOSITORY, useClass: ProdutoTypeormRepository },
-   { provide: CategoriaProdutoConstants.IREPOSITORY, useClass: CategoriaProdutoTypeormRepository },
+  { provide: ProdutoConstants.IREPOSITORY, useClass: ProdutoTypeormRepository },
+  { provide: CategoriaProdutoConstants.IREPOSITORY, useClass: CategoriaProdutoTypeormRepository },
 ];

@@ -7,16 +7,16 @@ import { ProdutoEntity } from 'src/infrastructure/persistence/produto/entity/pro
 import { PersistenceTypeOrmProviders } from 'src/infrastructure/persistence/providers/persistence-typeorm.providers';
 
 @Module({
-   imports: [
-      DatabaseConstants,
-      TypeOrmModule.forFeature([ProdutoEntity, CategoriaProdutoEntity]),
-      TypeOrmModule.forRootAsync({
-         imports: [MysqlConfig],
-         useFactory: async (config: TypeOrmModuleOptions) => config,
-         inject: [DatabaseConstants.DATABASE_CONFIG_NAME],
-      }),
-   ],
-   providers: [...PersistenceTypeOrmProviders],
-   exports: [...PersistenceTypeOrmProviders],
+  imports: [
+    DatabaseConstants,
+    TypeOrmModule.forFeature([ProdutoEntity, CategoriaProdutoEntity]),
+    TypeOrmModule.forRootAsync({
+      imports: [MysqlConfig],
+      useFactory: async (config: TypeOrmModuleOptions) => config,
+      inject: [DatabaseConstants.DATABASE_CONFIG_NAME],
+    }),
+  ],
+  providers: [...PersistenceTypeOrmProviders],
+  exports: [...PersistenceTypeOrmProviders],
 })
 export class TypeormDatabaseModule {}

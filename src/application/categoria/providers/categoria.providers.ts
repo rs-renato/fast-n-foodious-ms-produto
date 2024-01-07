@@ -7,11 +7,11 @@ import { BuscarTodasCategoriasUseCase } from 'src/application/categoria/usecase/
 import { CategoriaProduto } from 'src/enterprise/categoria/model/categoria-produto.model';
 
 export const CategoriaProdutosProviders: Provider[] = [
-   { provide: CategoriaProdutoConstants.ISERVICE, useClass: CategoriaProdutoService },
-   {
-      provide: CategoriaProdutoConstants.BUSCAR_TODAS_CATEGORIAS_USECASE,
-      inject: [CategoriaProdutoConstants.IREPOSITORY],
-      useFactory: (repository: IRepository<CategoriaProduto>): BuscarTodasCategoriasUseCase =>
-         new BuscarTodasCategoriasUseCase(repository),
-   },
+  { provide: CategoriaProdutoConstants.ISERVICE, useClass: CategoriaProdutoService },
+  {
+    provide: CategoriaProdutoConstants.BUSCAR_TODAS_CATEGORIAS_USECASE,
+    inject: [CategoriaProdutoConstants.IREPOSITORY],
+    useFactory: (repository: IRepository<CategoriaProduto>): BuscarTodasCategoriasUseCase =>
+      new BuscarTodasCategoriasUseCase(repository),
+  },
 ];
