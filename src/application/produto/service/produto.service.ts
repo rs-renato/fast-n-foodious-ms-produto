@@ -10,32 +10,32 @@ import { BuscarProdutoPorIdCategoriaUseCase } from 'src/application/produto/usec
 
 @Injectable()
 export class ProdutoService implements IProdutoService {
-   constructor(
-      @Inject(ProdutoConstants.SALVAR_PRODUTO_USECASE) private salvarUseCase: SalvarProdutoUseCase,
-      @Inject(ProdutoConstants.EDITAR_PRODUTO_USECASE) private editarUseCase: EditarProdutoUseCase,
-      @Inject(ProdutoConstants.DELETAR_PRODUTO_USECASE) private deletarUseCase: DeletarProdutoUseCase,
-      @Inject(ProdutoConstants.BUSCAR_PRODUTO_POR_ID_USECASE) private buscarPorIdUseCase: BuscarProdutoPorIdUseCase,
-      @Inject(ProdutoConstants.BUSCAR_PRODUTO_POR_ID_CATEGORIA_USECASE)
-      private buscarPorIdCategoriaUseCase: BuscarProdutoPorIdCategoriaUseCase,
-   ) {}
+  constructor(
+    @Inject(ProdutoConstants.SALVAR_PRODUTO_USECASE) private salvarUseCase: SalvarProdutoUseCase,
+    @Inject(ProdutoConstants.EDITAR_PRODUTO_USECASE) private editarUseCase: EditarProdutoUseCase,
+    @Inject(ProdutoConstants.DELETAR_PRODUTO_USECASE) private deletarUseCase: DeletarProdutoUseCase,
+    @Inject(ProdutoConstants.BUSCAR_PRODUTO_POR_ID_USECASE) private buscarPorIdUseCase: BuscarProdutoPorIdUseCase,
+    @Inject(ProdutoConstants.BUSCAR_PRODUTO_POR_ID_CATEGORIA_USECASE)
+    private buscarPorIdCategoriaUseCase: BuscarProdutoPorIdCategoriaUseCase,
+  ) {}
 
-   async save(produto: Produto): Promise<Produto> {
-      return await this.salvarUseCase.salvarProduto(produto);
-   }
+  async save(produto: Produto): Promise<Produto> {
+    return await this.salvarUseCase.salvarProduto(produto);
+  }
 
-   async edit(produto: Produto): Promise<Produto> {
-      return await this.editarUseCase.editarProduto(produto);
-   }
+  async edit(produto: Produto): Promise<Produto> {
+    return await this.editarUseCase.editarProduto(produto);
+  }
 
-   async delete(id: number): Promise<boolean> {
-      return await this.deletarUseCase.deletarProduto(id);
-   }
+  async delete(id: number): Promise<boolean> {
+    return await this.deletarUseCase.deletarProduto(id);
+  }
 
-   async findById(id: number): Promise<Produto> {
-      return await this.buscarPorIdUseCase.buscarProdutoPorID(id);
-   }
+  async findById(id: number): Promise<Produto> {
+    return await this.buscarPorIdUseCase.buscarProdutoPorID(id);
+  }
 
-   async findByIdCategoriaProduto(idCategoriaProduto: number): Promise<Produto[]> {
-      return await this.buscarPorIdCategoriaUseCase.buscarProdutoPorIdCategoria(idCategoriaProduto);
-   }
+  async findByIdCategoriaProduto(idCategoriaProduto: number): Promise<Produto[]> {
+    return await this.buscarPorIdCategoriaUseCase.buscarProdutoPorIdCategoria(idCategoriaProduto);
+  }
 }
