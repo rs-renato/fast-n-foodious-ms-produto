@@ -10,13 +10,13 @@ import { HealthRestApi } from 'src/presentation/rest/health/api/health.api';
 import { ProdutoRestApi } from 'src/presentation/rest/produto/api/produto.api';
 
 @Module({
-   imports: [ApplicationModule],
-   providers: [
-      { provide: APP_FILTER, useClass: GeneralExceptionHandler },
-      { provide: APP_FILTER, useClass: GeneralHttpExceptionHandler },
-      { provide: APP_FILTER, useClass: InfraestructureExceptionHandler },
-      { provide: APP_FILTER, useClass: ValidationExceptionHandler },
-   ],
-   controllers: [ProdutoRestApi, CategoriaProdutoRestApi, HealthRestApi],
+  imports: [ApplicationModule],
+  providers: [
+    { provide: APP_FILTER, useClass: GeneralExceptionHandler },
+    { provide: APP_FILTER, useClass: GeneralHttpExceptionHandler },
+    { provide: APP_FILTER, useClass: InfraestructureExceptionHandler },
+    { provide: APP_FILTER, useClass: ValidationExceptionHandler },
+  ],
+  controllers: [ProdutoRestApi, CategoriaProdutoRestApi, HealthRestApi],
 })
 export class PresentationModule {}

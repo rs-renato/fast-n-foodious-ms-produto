@@ -7,10 +7,10 @@ import { CategoriaProdutosProviders } from 'src/application/categoria/providers/
 import { ProdutoConstants, CategoriaProdutoConstants } from 'src/shared/constants';
 
 @Module({
-   providers: [...ProdutoProviders, ...CategoriaProdutosProviders],
-   exports: [
-      { provide: ProdutoConstants.ISERVICE, useClass: ProdutoService },
-      { provide: CategoriaProdutoConstants.ISERVICE, useClass: CategoriaProdutoService },
-   ],
+  providers: [...ProdutoProviders, ...CategoriaProdutosProviders],
+  exports: [
+    { provide: ProdutoConstants.ISERVICE, useClass: ProdutoService },
+    { provide: CategoriaProdutoConstants.ISERVICE, useClass: CategoriaProdutoService },
+  ],
 })
 export class ApplicationModule {}

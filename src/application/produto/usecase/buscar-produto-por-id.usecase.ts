@@ -6,17 +6,17 @@ import { ProdutoConstants } from 'src/shared/constants';
 
 @Injectable()
 export class BuscarProdutoPorIdUseCase {
-   private logger = new Logger(BuscarProdutoPorIdUseCase.name);
+  private logger = new Logger(BuscarProdutoPorIdUseCase.name);
 
-   constructor(@Inject(ProdutoConstants.IREPOSITORY) private repository: IRepository<Produto>) {}
+  constructor(@Inject(ProdutoConstants.IREPOSITORY) private repository: IRepository<Produto>) {}
 
-   async buscarProdutoPorID(id: number): Promise<Produto> {
-      const produtos = await this.repository.findBy({ id: id }).catch((error) => {
-         this.logger.error(`Erro ao buscar produto id=${id} no banco de dados: ${error}`);
-         throw new ServiceException(`Erro ao buscar produto id=${id} no banco de dados: ${error}`);
-      });
-      if (produtos.length > 0) {
-         return produtos[0];
-      }
-   }
+  async buscarProdutoPorID(id: number): Promise<Produto> {
+    const produtos = await this.repository.findBy({ id: id }).catch((error) => {
+      this.logger.error(`Erro ao buscar produto id=${id} no banco de dados: ${error}`);
+      throw new ServiceException(`Erro ao buscar produto id=${id} no banco de dados: ${error}`);
+    });
+    if (produtos.length > 0) {
+      return produtos[0];
+    }
+  }
 }
