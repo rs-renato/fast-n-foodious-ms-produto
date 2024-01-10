@@ -76,7 +76,7 @@ jobs:
         run: npm install
       - name: Starting Server
         run: |
-          NODE_ENV=local-mock-repository npm run start && npx wait-on http://localhost:3000
+          NODE_ENV=local-mock-repository npm run start & npx wait-on http://localhost:3000
       - name: Run BDD Tests (With In-Memory Repositories)
         run: npm run test:bdd
 
