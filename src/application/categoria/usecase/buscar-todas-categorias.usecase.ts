@@ -6,17 +6,17 @@ import { CategoriaProdutoConstants } from 'src/shared/constants';
 
 @Injectable()
 export class BuscarTodasCategoriasUseCase {
-   private logger: Logger = new Logger(BuscarTodasCategoriasUseCase.name);
+  private logger: Logger = new Logger(BuscarTodasCategoriasUseCase.name);
 
-   constructor(@Inject(CategoriaProdutoConstants.IREPOSITORY) private repository: IRepository<CategoriaProduto>) {}
+  constructor(@Inject(CategoriaProdutoConstants.IREPOSITORY) private repository: IRepository<CategoriaProduto>) {}
 
-   async buscarTodasCategorias(): Promise<CategoriaProduto[]> {
-      const categorias = await this.repository.findAll().catch((error) => {
-         this.logger.error(`Erro ao listar categorias no banco de dados: ${error}`);
-         throw new ServiceException(`Erro ao listar categorias no banco de dados: ${error}`);
-      });
-      if (categorias.length > 0) {
-         return categorias;
-      }
-   }
+  async buscarTodasCategorias(): Promise<CategoriaProduto[]> {
+    const categorias = await this.repository.findAll().catch((error) => {
+      this.logger.error(`Erro ao listar categorias no banco de dados: ${error}`);
+      throw new ServiceException(`Erro ao listar categorias no banco de dados: ${error}`);
+    });
+    if (categorias.length > 0) {
+      return categorias;
+    }
+  }
 }

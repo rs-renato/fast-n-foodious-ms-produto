@@ -103,6 +103,20 @@ jobs:
       - name: Stop and Remove Docker Containers
         run: docker-compose --env-file ./envs/prod.env down
 
+  sonarcloud:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
+      - name: Running coverage tests
+        run: npm install && npm run test:cov
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
   # Publicação de imagem no DockerHub para inibição de custos, logo o job "build-ecr" foi desativado
   build:
     if: ${{ github.ref == 'refs/heads/main' }}
@@ -115,6 +129,7 @@ jobs:
       - e2e-mysql
       - bdd-in-memory
       - bdd-mysql
+      - sonarcloud
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js

@@ -8,28 +8,28 @@ import { ValidatorUtils } from 'src/shared/validator.utils';
 
 @Injectable()
 export class SalvarProdutoUseCase {
-   private logger = new Logger(SalvarProdutoUseCase.name);
+  private logger = new Logger(SalvarProdutoUseCase.name);
 
-   constructor(
-      @Inject(ProdutoConstants.IREPOSITORY) private repository: IRepository<Produto>,
-      @Inject(ProdutoConstants.SALVAR_PRODUTO_VALIDATOR) private validators: PersistirProdutoValidator[],
-   ) {}
+  constructor(
+    @Inject(ProdutoConstants.IREPOSITORY) private repository: IRepository<Produto>,
+    @Inject(ProdutoConstants.SALVAR_PRODUTO_VALIDATOR) private validators: PersistirProdutoValidator[],
+  ) {}
 
-   async salvarProduto(produto: Produto): Promise<Produto> {
-      await ValidatorUtils.executeValidators(this.validators, produto);
+  async salvarProduto(produto: Produto): Promise<Produto> {
+    await ValidatorUtils.executeValidators(this.validators, produto);
 
-      return await this.repository
-         .save({
-            nome: produto.nome,
-            idCategoriaProduto: produto.idCategoriaProduto,
-            descricao: produto.descricao,
-            preco: produto.preco,
-            imagemBase64: produto.imagemBase64,
-            ativo: produto.ativo,
-         })
-         .catch((error) => {
-            this.logger.error(`Erro ao salvar no banco de dados: ${error} `);
-            throw new ServiceException(`Houve um erro ao salvar o produto: ${error}`);
-         });
-   }
+    return await this.repository
+      .save({
+        nome: produto.nome,
+        idCategoriaProduto: produto.idCategoriaProduto,
+        descricao: produto.descricao,
+        preco: produto.preco,
+        imagemBase64: produto.imagemBase64,
+        ativo: produto.ativo,
+      })
+      .catch((error) => {
+        this.logger.error(`Erro ao salvar no banco de dados: ${error} `);
+        throw new ServiceException(`Houve um erro ao salvar o produto: ${error}`);
+      });
+  }
 }
