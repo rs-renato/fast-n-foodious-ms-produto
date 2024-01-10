@@ -2,5 +2,5 @@ import { CategoriaProduto } from 'src/enterprise/categoria/model/categoria-produ
 import { IService } from 'src/enterprise/service/service';
 
 export interface ICategoriaProdutoService extends IService<CategoriaProduto> {
-   findAll(): Promise<CategoriaProduto[]>;
+  findAll(): Promise<CategoriaProduto[]>;
 }

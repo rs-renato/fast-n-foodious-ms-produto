@@ -10,58 +10,58 @@ import { ProdutoConstants } from 'src/shared/constants';
 import { DeletarProdutoUseCase } from './deletar-produto.usecase';
 
 describe('DeletarProdutoUseCase', () => {
-   let useCase: DeletarProdutoUseCase;
-   let repository: IRepository<Produto>;
-   let validators: PersistirProdutoValidator[];
+  let useCase: DeletarProdutoUseCase;
+  let repository: IRepository<Produto>;
+  let validators: PersistirProdutoValidator[];
 
-   const produtoId = 1;
+  const produtoId = 1;
 
-   const produtoStub: Produto = {
-      id: 1,
-      nome: 'Produto Teste',
-      idCategoriaProduto: 1,
-      descricao: 'Descrição do Produto Teste',
-      preco: 10.0,
-      imagemBase64: 'Imagem em base64',
-      ativo: true,
-   };
+  const produtoStub: Produto = {
+    id: 1,
+    nome: 'Produto Teste',
+    idCategoriaProduto: 1,
+    descricao: 'Descrição do Produto Teste',
+    preco: 10.0,
+    imagemBase64: 'Imagem em base64',
+    ativo: true,
+  };
 
-   beforeEach(async () => {
-      const module: TestingModule = await Test.createTestingModule({
-         providers: [...ProdutoProviders, ...PersistenceInMemoryProviders],
-      }).compile();
+  beforeEach(async () => {
+    const module: TestingModule = await Test.createTestingModule({
+      providers: [...ProdutoProviders, ...PersistenceInMemoryProviders],
+    }).compile();
 
-      // Desabilita a saída de log
-      module.useLogger(false);
+    // Desabilita a saída de log
+    module.useLogger(false);
 
-      useCase = module.get<DeletarProdutoUseCase>(ProdutoConstants.DELETAR_PRODUTO_USECASE);
-      repository = module.get<IRepository<Produto>>(ProdutoConstants.IREPOSITORY);
-      validators = module.get<PersistirProdutoValidator[]>(ProdutoConstants.DELETAR_PRODUTO_VALIDATOR);
-   });
+    useCase = module.get<DeletarProdutoUseCase>(ProdutoConstants.DELETAR_PRODUTO_USECASE);
+    repository = module.get<IRepository<Produto>>(ProdutoConstants.IREPOSITORY);
+    validators = module.get<PersistirProdutoValidator[]>(ProdutoConstants.DELETAR_PRODUTO_VALIDATOR);
+  });
 
-   describe('deletarProduto', () => {
-      it('deve deletar um produto com sucesso', async () => {
-         jest.spyOn(repository, 'delete').mockResolvedValue(true);
-         repository.findBy = jest.fn().mockResolvedValue([produtoStub]);
+  describe('deletarProduto', () => {
+    it('deve deletar um produto com sucesso', async () => {
+      jest.spyOn(repository, 'delete').mockResolvedValue(true);
+      repository.findBy = jest.fn().mockResolvedValue([produtoStub]);
 
-         const result = await useCase.deletarProduto(produtoId);
+      const result = await useCase.deletarProduto(produtoId);
 
-         expect(result).toBe(true);
-      });
+      expect(result).toBe(true);
+    });
 
-      it('deve lançar uma ValidationException em caso de produtoId inválido', async () => {
-         jest.spyOn(validators[0], 'validate').mockResolvedValue(true);
-         repository.findBy = jest.fn().mockResolvedValue([]);
+    it('deve lançar uma ValidationException em caso de produtoId inválido', async () => {
+      jest.spyOn(validators[0], 'validate').mockResolvedValue(true);
+      repository.findBy = jest.fn().mockResolvedValue([]);
 
-         await expect(useCase.deletarProduto(produtoStub.id)).rejects.toThrowError(ValidationException);
-      });
+      await expect(useCase.deletarProduto(produtoStub.id)).rejects.toThrowError(ValidationException);
+    });
 
-      it('deve lançar uma ServiceException em caso de erro ao deletar produto', async () => {
-         const error = new Error('Erro ao deletar produto');
-         repository.findBy = jest.fn().mockResolvedValue([produtoStub]);
-         jest.spyOn(repository, 'delete').mockRejectedValue(error);
+    it('deve lançar uma ServiceException em caso de erro ao deletar produto', async () => {
+      const error = new Error('Erro ao deletar produto');
+      repository.findBy = jest.fn().mockResolvedValue([produtoStub]);
+      jest.spyOn(repository, 'delete').mockRejectedValue(error);
 
-         await expect(useCase.deletarProduto(produtoId)).rejects.toThrowError(ServiceException);
-      });
-   });
+      await expect(useCase.deletarProduto(produtoId)).rejects.toThrowError(ServiceException);
+    });
+  });
 });

@@ -8,51 +8,49 @@ import { ProdutoProviders } from 'src/application/produto/providers/produto.prov
 import { PersistenceInMemoryProviders } from 'src/infrastructure/persistence/providers/persistence-in-memory.providers';
 
 describe('BuscarProdutoPorIdCategoriaUseCase', () => {
-   let useCase: BuscarProdutoPorIdCategoriaUseCase;
-   let repository: IRepository<Produto>;
+  let useCase: BuscarProdutoPorIdCategoriaUseCase;
+  let repository: IRepository<Produto>;
 
-   const idCategoriaProduto = 1;
-   const produtosMock: Produto[] = [
-      new Produto('Produto 1', idCategoriaProduto, 'Descrição do Produto 1', 10.0, 'Imagem em base64', true, 1),
-      new Produto('Produto 2', idCategoriaProduto, 'Descrição do Produto 2', 20.0, 'Imagem em base64', true, 2),
-   ];
+  const idCategoriaProduto = 1;
+  const produtosMock: Produto[] = [
+    new Produto('Produto 1', idCategoriaProduto, 'Descrição do Produto 1', 10.0, 'Imagem em base64', true, 1),
+    new Produto('Produto 2', idCategoriaProduto, 'Descrição do Produto 2', 20.0, 'Imagem em base64', true, 2),
+  ];
 
-   beforeEach(async () => {
-      const module: TestingModule = await Test.createTestingModule({
-         providers: [...ProdutoProviders, ...PersistenceInMemoryProviders],
-      }).compile();
+  beforeEach(async () => {
+    const module: TestingModule = await Test.createTestingModule({
+      providers: [...ProdutoProviders, ...PersistenceInMemoryProviders],
+    }).compile();
 
-      // Desabilita a saída de log
-      module.useLogger(false);
+    // Desabilita a saída de log
+    module.useLogger(false);
 
-      useCase = module.get<BuscarProdutoPorIdCategoriaUseCase>(
-         ProdutoConstants.BUSCAR_PRODUTO_POR_ID_CATEGORIA_USECASE,
-      );
-      repository = module.get<IRepository<Produto>>(ProdutoConstants.IREPOSITORY);
-   });
+    useCase = module.get<BuscarProdutoPorIdCategoriaUseCase>(ProdutoConstants.BUSCAR_PRODUTO_POR_ID_CATEGORIA_USECASE);
+    repository = module.get<IRepository<Produto>>(ProdutoConstants.IREPOSITORY);
+  });
 
-   describe('buscarProdutoPorIdCategoria', () => {
-      it('deve buscar produtos por ID de categoria com sucesso', async () => {
-         jest.spyOn(repository, 'findBy').mockResolvedValue(produtosMock);
+  describe('buscarProdutoPorIdCategoria', () => {
+    it('deve buscar produtos por ID de categoria com sucesso', async () => {
+      jest.spyOn(repository, 'findBy').mockResolvedValue(produtosMock);
 
-         const result = await useCase.buscarProdutoPorIdCategoria(idCategoriaProduto);
+      const result = await useCase.buscarProdutoPorIdCategoria(idCategoriaProduto);
 
-         expect(result).toEqual(produtosMock);
-      });
+      expect(result).toEqual(produtosMock);
+    });
 
-      it('deve lançar uma ServiceException em caso de erro ao buscar produtos', async () => {
-         const error = new Error('Erro ao buscar produtos');
-         jest.spyOn(repository, 'findBy').mockRejectedValue(error);
+    it('deve lançar uma ServiceException em caso de erro ao buscar produtos', async () => {
+      const error = new Error('Erro ao buscar produtos');
+      jest.spyOn(repository, 'findBy').mockRejectedValue(error);
 
-         await expect(useCase.buscarProdutoPorIdCategoria(idCategoriaProduto)).rejects.toThrowError(ServiceException);
-      });
+      await expect(useCase.buscarProdutoPorIdCategoria(idCategoriaProduto)).rejects.toThrowError(ServiceException);
+    });
 
-      it('deve retornar um array vazio se nenhum produto for encontrado', async () => {
-         jest.spyOn(repository, 'findBy').mockResolvedValue([]);
+    it('deve retornar um array vazio se nenhum produto for encontrado', async () => {
+      jest.spyOn(repository, 'findBy').mockResolvedValue([]);
 
-         const result = await useCase.buscarProdutoPorIdCategoria(idCategoriaProduto);
+      const result = await useCase.buscarProdutoPorIdCategoria(idCategoriaProduto);
 
-         expect(result).toEqual(undefined);
-      });
-   });
+      expect(result).toEqual(undefined);
+    });
+  });
 });

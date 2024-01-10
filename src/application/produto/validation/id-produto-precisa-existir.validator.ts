@@ -7,27 +7,27 @@ import { ProdutoConstants } from 'src/shared/constants';
 
 @Injectable()
 export class IdProdutoPrecisaExistirValidator implements PersistirProdutoValidator {
-   public static ID_INEXISTENTE_ERROR_MESSAGE = 'Código de produto inexistente';
+  public static ID_INEXISTENTE_ERROR_MESSAGE = 'Código de produto inexistente';
 
-   private logger: Logger = new Logger(IdProdutoPrecisaExistirValidator.name);
+  private logger: Logger = new Logger(IdProdutoPrecisaExistirValidator.name);
 
-   constructor(@Inject(ProdutoConstants.IREPOSITORY) private repository: IRepository<Produto>) {}
+  constructor(@Inject(ProdutoConstants.IREPOSITORY) private repository: IRepository<Produto>) {}
 
-   async validate(produto: Produto): Promise<boolean> {
-      this.logger.log(
-         `Inicializando validação ${IdProdutoPrecisaExistirValidator.name} para modificar o produto: ${produto.id}`,
-      );
+  async validate(produto: Produto): Promise<boolean> {
+    this.logger.log(
+      `Inicializando validação ${IdProdutoPrecisaExistirValidator.name} para modificar o produto: ${produto.id}`,
+    );
 
-      await this.repository.findBy({ id: produto.id }).then((produtos) => {
-         if (produtos.length !== 1) {
-            this.logger.error(`Código de produto inexistente: ${produto.id}`);
-            throw new ValidationException(IdProdutoPrecisaExistirValidator.ID_INEXISTENTE_ERROR_MESSAGE);
-         }
-      });
+    await this.repository.findBy({ id: produto.id }).then((produtos) => {
+      if (produtos.length !== 1) {
+        this.logger.error(`Código de produto inexistente: ${produto.id}`);
+        throw new ValidationException(IdProdutoPrecisaExistirValidator.ID_INEXISTENTE_ERROR_MESSAGE);
+      }
+    });
 
-      this.logger.debug(
-         `${IdProdutoPrecisaExistirValidator.name} finalizado com sucesso para o produto id: ${produto.id}`,
-      );
-      return true;
-   }
+    this.logger.debug(
+      `${IdProdutoPrecisaExistirValidator.name} finalizado com sucesso para o produto id: ${produto.id}`,
+    );
+    return true;
+  }
 }

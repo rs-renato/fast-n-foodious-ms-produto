@@ -8,37 +8,37 @@ import { CategoriaProdutoEntity } from 'src/infrastructure/persistence/categoria
 
 @Injectable()
 export class CategoriaProdutoTypeormRepository implements IRepository<CategoriaProduto> {
-   private logger: Logger = new Logger(CategoriaProdutoTypeormRepository.name);
+  private logger: Logger = new Logger(CategoriaProdutoTypeormRepository.name);
 
-   constructor(
-      @InjectRepository(CategoriaProdutoEntity)
-      private repository: Repository<CategoriaProdutoEntity>,
-   ) {}
+  constructor(
+    @InjectRepository(CategoriaProdutoEntity)
+    private repository: Repository<CategoriaProdutoEntity>,
+  ) {}
 
-   async findBy(): Promise<CategoriaProduto[]> {
-      throw new RepositoryException('Método não implementado.');
-   }
+  async findBy(): Promise<CategoriaProduto[]> {
+    throw new RepositoryException('Método não implementado.');
+  }
 
-   async save(): Promise<CategoriaProduto> {
-      throw new RepositoryException('Método não implementado.');
-   }
+  async save(): Promise<CategoriaProduto> {
+    throw new RepositoryException('Método não implementado.');
+  }
 
-   edit(): Promise<CategoriaProduto> {
-      throw new RepositoryException('Método não implementado.');
-   }
+  edit(): Promise<CategoriaProduto> {
+    throw new RepositoryException('Método não implementado.');
+  }
 
-   delete(): Promise<boolean> {
-      throw new RepositoryException('Método não implementado.');
-   }
+  delete(): Promise<boolean> {
+    throw new RepositoryException('Método não implementado.');
+  }
 
-   async findAll(): Promise<CategoriaProduto[]> {
-      const categoriasEntities = await this.repository.find({}).catch((error) => {
-         this.logger.error(`Erro ao listar categorias no banco de dados: ${error}`);
-         throw new RepositoryException(`Erro ao listar categorias no banco de dados: ${error}`);
-      });
-      return categoriasEntities.map((categoriaEntity) => ({
-         id: categoriaEntity.id,
-         nome: categoriaEntity.nome,
-      }));
-   }
+  async findAll(): Promise<CategoriaProduto[]> {
+    const categoriasEntities = await this.repository.find({}).catch((error) => {
+      this.logger.error(`Erro ao listar categorias no banco de dados: ${error}`);
+      throw new RepositoryException(`Erro ao listar categorias no banco de dados: ${error}`);
+    });
+    return categoriasEntities.map((categoriaEntity) => ({
+      id: categoriaEntity.id,
+      nome: categoriaEntity.nome,
+    }));
+  }
 }
