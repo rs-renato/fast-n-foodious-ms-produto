@@ -12,7 +12,7 @@
 # 🍔 Fast & Foodious - Produto ![Github Actions](https://github.com/rodrigo-ottero/fast-n-foodious-ms-produto/actions/workflows/ci-pipeline.yml/badge.svg?branch=main) ![Static Badge](https://img.shields.io/badge/v1.0.0-version?logo=&color=%232496ED&labelColor=white&label=fast-n-foodious-ms-produto)
 
 Sistema de auto-atendimento de fast food (microsserviço produto). Projeto de conclusão da Fase 04 da pós gradução em Software Architecture.
-[TLDR; Execução em modo produção (onpremisse deprecated)](#%EF%B8%8F-execução-em-modo-produção-deprecated-substituído-por-aws-fargate-ecs)
+[TLDR; Execução em modo produção (on premisse deprecated)](#%EF%B8%8F-execução-em-modo-produção-deprecated-substituído-por-aws-fargate-ecs)
 
 * [Arquitetura de Solução (Cloud AWS)](#arquitetura-de-solução-cloud-aws)
 * [Arquitetura de Software](#arquitetura-de-software)
@@ -22,7 +22,7 @@ Sistema de auto-atendimento de fast food (microsserviço produto). Projeto de co
     * [Variáveis de Ambiente](#-variáveis-de-ambiente)
     * [Execução em modo local (in-memory repository)](#%EF%B8%8F-execução-em-modo-local-in-memory-repository)
     * [Execução em modo local (mysql repository)](#%EF%B8%8F-execução-em-modo-local-mysql-repository)
-    * [**Execução em modo produção (onpremisse deprecated)**](#%EF%B8%8F-execução-em-modo-produção-deprecated-substituído-por-aws-fargate-ecs)
+    * [**Execução em modo produção (on premisse deprecated)**](#%EF%B8%8F-execução-em-modo-produção-deprecated-substituído-por-aws-fargate-ecs)
         * [Docker Compose (Modo Fácil!)](#-docker-compose-modo-fácil)
         * [Docker (Modo Desbravador!)](#-docker-modo-desbravador)
         * [Kubernetes (Modo Fácil!)](#-kubernetes-modo-fácil)
@@ -55,7 +55,7 @@ Sistema de auto-atendimento de fast food (microsserviço produto). Projeto de co
 ![fast-n-foodious-clean](docs/diagramas/fast-n-foodious-clean.png)
 
 - Cloud AWS
-    - API Gateway, Cognito, ECS, Lambda, Load Balancer, RDS
+    - API Gateway, Lambda, Cognito, Fargate, ECS, Load Balancer, RDS, DynamoDB, etc
 - Arquitetura Clean & Modular
     - Camada de Application, Enterprise, Presentation e Infrastructure
     - Módulo Main, Application, Presentation e Infrastructure
@@ -75,10 +75,9 @@ Sistema de auto-atendimento de fast food (microsserviço produto). Projeto de co
             - fast-n-foodious-ci: e2e-mysql        - Execução de testes e2e com mysql (all green)
             - fast-n-foodious-ci: bdd-in-memory    - Execução de testes bdd com memória (all green)
             - fast-n-foodious-ci: bdd-in-mysql     - Execução de testes bdd com mysql (all green)
-            - fast-n-foodious-ci: sonarcloud       - Execução de análise estática de código com SonarCloud
             - fast-n-foodious-ci: build            - Build de imagens docker (AMD & ARM) e publicação no DockerHub
 
-***Nota:** Nas instruções abaixo, se assume que o diretório onde os comandos serão executados será a posta raiz do projeto ~/fast-n-foodious.*
+***Nota:** Nas instruções abaixo, se assume que o diretório onde os comandos serão executados será a posta raiz do projeto ~/fast-n-foodious-ms-produto*
 
 ## 🚀 Instalação de Dependências Node
 ```bash
