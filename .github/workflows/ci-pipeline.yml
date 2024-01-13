@@ -117,7 +117,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-  # Publicação de imagem no DockerBuh para inibição de custos, logo o job "build-ecr" foi desativado
+  # Publicação de imagem no DockerHub para inibição de custos, logo o job "build-ecr" foi desativado
   build:
     if: ${{ github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest

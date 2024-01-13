@@ -8,26 +8,26 @@ import { CategoriaProdutoConstants } from 'src/shared/constants';
 @Controller('v1/categoria')
 @ApiTags('Categoria')
 export class CategoriaProdutoRestApi extends BaseRestApi {
-   private logger: Logger = new Logger(CategoriaProdutoRestApi.name);
+  private logger: Logger = new Logger(CategoriaProdutoRestApi.name);
 
-   constructor(@Inject(CategoriaProdutoConstants.ISERVICE) private service: ICategoriaProdutoService) {
-      super();
-   }
+  constructor(@Inject(CategoriaProdutoConstants.ISERVICE) private service: ICategoriaProdutoService) {
+    super();
+  }
 
-   @Get()
-   @ApiOperation({
-      summary: 'Lista categorias de produto',
-      description: 'Realiza buscas das categorias de produto',
-   })
-   @ApiOkResponse({
-      description: 'Categorias de produto encontradas com sucesso',
-      type: ListarCategoriaResponse,
-      isArray: true,
-   })
-   async findAll(): Promise<ListarCategoriaResponse[]> {
-      this.logger.debug(`Listando todas as categorias de produto`);
-      return await this.service.findAll().then((categorias) => {
-         return categorias.map((categoria) => new ListarCategoriaResponse(categoria));
-      });
-   }
+  @Get()
+  @ApiOperation({
+    summary: 'Lista categorias de produto',
+    description: 'Realiza buscas das categorias de produto',
+  })
+  @ApiOkResponse({
+    description: 'Categorias de produto encontradas com sucesso',
+    type: ListarCategoriaResponse,
+    isArray: true,
+  })
+  async findAll(): Promise<ListarCategoriaResponse[]> {
+    this.logger.debug(`Listando todas as categorias de produto`);
+    return await this.service.findAll().then((categorias) => {
+      return categorias.map((categoria) => new ListarCategoriaResponse(categoria));
+    });
+  }
 }

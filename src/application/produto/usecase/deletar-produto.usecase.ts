@@ -10,23 +10,23 @@ import { ValidatorUtils } from 'src/shared/validator.utils';
 
 @Injectable()
 export class DeletarProdutoUseCase {
-   private logger = new Logger(DeletarProdutoUseCase.name);
+  private logger = new Logger(DeletarProdutoUseCase.name);
 
-   constructor(
-      @Inject(ProdutoConstants.IREPOSITORY) private repository: IRepository<Produto>,
-      @Inject(ProdutoConstants.EDITAR_PRODUTO_VALIDATOR) private validators: PersistirProdutoValidator[],
-   ) {}
+  constructor(
+    @Inject(ProdutoConstants.IREPOSITORY) private repository: IRepository<Produto>,
+    @Inject(ProdutoConstants.EDITAR_PRODUTO_VALIDATOR) private validators: PersistirProdutoValidator[],
+  ) {}
 
-   async deletarProduto(id: number): Promise<boolean> {
-      const produto = await this.repository.findBy({ id: id }).then((produtos) => produtos[0]);
-      if (produto === undefined) {
-         throw new ValidationException(IdProdutoPrecisaExistirValidator.ID_INEXISTENTE_ERROR_MESSAGE);
-      }
-      await ValidatorUtils.executeValidators(this.validators, produto);
+  async deletarProduto(id: number): Promise<boolean> {
+    const produto = await this.repository.findBy({ id: id }).then((produtos) => produtos[0]);
+    if (produto === undefined) {
+      throw new ValidationException(IdProdutoPrecisaExistirValidator.ID_INEXISTENTE_ERROR_MESSAGE);
+    }
+    await ValidatorUtils.executeValidators(this.validators, produto);
 
-      return await this.repository.delete(id).catch((error) => {
-         this.logger.error(`Erro ao deletar no banco de dados: ${error} `);
-         throw new ServiceException(`Houve um erro ao deletar o produto: ${error}`);
-      });
-   }
+    return await this.repository.delete(id).catch((error) => {
+      this.logger.error(`Erro ao deletar no banco de dados: ${error} `);
+      throw new ServiceException(`Houve um erro ao deletar o produto: ${error}`);
+    });
+  }
 }

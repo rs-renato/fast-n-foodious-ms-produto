@@ -8,28 +8,28 @@ import { ValidatorUtils } from 'src/shared/validator.utils';
 
 @Injectable()
 export class EditarProdutoUseCase {
-   private logger = new Logger(EditarProdutoUseCase.name);
+  private logger = new Logger(EditarProdutoUseCase.name);
 
-   constructor(
-      @Inject(ProdutoConstants.IREPOSITORY) private repository: IRepository<Produto>,
-      @Inject(ProdutoConstants.EDITAR_PRODUTO_VALIDATOR) private validators: PersistirProdutoValidator[],
-   ) {}
+  constructor(
+    @Inject(ProdutoConstants.IREPOSITORY) private repository: IRepository<Produto>,
+    @Inject(ProdutoConstants.EDITAR_PRODUTO_VALIDATOR) private validators: PersistirProdutoValidator[],
+  ) {}
 
-   async editarProduto(produto: Produto): Promise<Produto> {
-      await ValidatorUtils.executeValidators(this.validators, produto);
-      return await this.repository
-         .edit({
-            id: produto.id,
-            nome: produto.nome,
-            idCategoriaProduto: produto.idCategoriaProduto,
-            descricao: produto.descricao,
-            preco: produto.preco,
-            imagemBase64: produto.imagemBase64,
-            ativo: produto.ativo,
-         })
-         .catch((error) => {
-            this.logger.error(`Erro ao editar no banco de dados: ${error} `);
-            throw new ServiceException(`Houve um erro ao editar o produto: ${error}`);
-         });
-   }
+  async editarProduto(produto: Produto): Promise<Produto> {
+    await ValidatorUtils.executeValidators(this.validators, produto);
+    return await this.repository
+      .edit({
+        id: produto.id,
+        nome: produto.nome,
+        idCategoriaProduto: produto.idCategoriaProduto,
+        descricao: produto.descricao,
+        preco: produto.preco,
+        imagemBase64: produto.imagemBase64,
+        ativo: produto.ativo,
+      })
+      .catch((error) => {
+        this.logger.error(`Erro ao editar no banco de dados: ${error} `);
+        throw new ServiceException(`Houve um erro ao editar o produto: ${error}`);
+      });
+  }
 }

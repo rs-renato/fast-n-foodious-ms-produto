@@ -5,30 +5,30 @@ import { RepositoryException } from 'src/infrastructure/exception/repository.exc
 
 @Injectable()
 export class CategoriaProdutoMemoryRepository implements IRepository<CategoriaProduto> {
-   private repository: Array<CategoriaProduto> = [
-      { id: 1, nome: 'Lanche' },
-      { id: 2, nome: 'Acompanhamento' },
-      { id: 3, nome: 'Bebida' },
-      { id: 4, nome: 'Sobremesa' },
-   ];
+  private repository: Array<CategoriaProduto> = [
+    { id: 1, nome: 'Lanche' },
+    { id: 2, nome: 'Acompanhamento' },
+    { id: 3, nome: 'Bebida' },
+    { id: 4, nome: 'Sobremesa' },
+  ];
 
-   async findBy(): Promise<CategoriaProduto[]> {
-      throw new RepositoryException('Método não implementado.');
-   }
+  async findBy(): Promise<CategoriaProduto[]> {
+    throw new RepositoryException('Método não implementado.');
+  }
 
-   async save(): Promise<CategoriaProduto> {
-      throw new RepositoryException('Método não implementado.');
-   }
+  async save(): Promise<CategoriaProduto> {
+    throw new RepositoryException('Método não implementado.');
+  }
 
-   edit(): Promise<CategoriaProduto> {
-      throw new RepositoryException('Método não implementado.');
-   }
+  edit(): Promise<CategoriaProduto> {
+    throw new RepositoryException('Método não implementado.');
+  }
 
-   delete(): Promise<boolean> {
-      throw new RepositoryException('Método não implementado.');
-   }
+  delete(): Promise<boolean> {
+    throw new RepositoryException('Método não implementado.');
+  }
 
-   async findAll(): Promise<CategoriaProduto[]> {
-      return this.repository;
-   }
+  async findAll(): Promise<CategoriaProduto[]> {
+    return this.repository;
+  }
 }
