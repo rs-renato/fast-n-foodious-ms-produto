@@ -107,7 +107,7 @@ O sistema pode ser executado com ou sem dependências externas.
 - local                   # Variáveis usadas para rodar a aplicação em ambiente local, COM dependência de container mysql
                           # Presume mysql rodando e a necessidade de atachar a aplicação ao container para desenvolver
                           # Exemplo de caso de uso: debugar local e apontando para o banco no container.
-                          # $ NODE_ENV=local npm run start:debug
+                          # $ MYSQL_HOST=localhost NODE_ENV=local npm run start:debug
 
 - prod                    # Variáveis usadas para rodar a aplicação em ambiente de produção, COM dependøencia de container mysql
                           # $ NODE_ENV=prod npm run start:debug
@@ -137,13 +137,13 @@ $ NODE_ENV=local-mock-repository npm run start
 ### ⚡️ Execução em modo local (mysql repository)
 Utilizado **`apenas para desenvolvimento local, modo watch, debug, testes e2e `**. Inicia o contianer mysql com as variáveis locais e inicia a aplicação `(fora do container)`com as variáveis locais:
 ```bash
-$ docker-compose --env-file ./envs/local.env up mysql
+$ docker-compose --env-file ./envs/local.env -p "fast-n-foodious" up mysql
 $ docker ps
 CONTAINER ID   IMAGE       COMMAND                  CREATED         STATUS         PORTS                               NAMES
 83c9b4d8880a   mysql:8.0   "docker-entrypoint.s…"   3 seconds ago   Up 2 seconds   0.0.0.0:3306->3306/tcp, 33060/tcp   mysql
 
 # Executa a aplicação com as variáveis locais, conectando no container do mysql
-$ NODE_ENV=local npm run start
+$ MYSQL_HOST=localhost NODE_ENV=local npm run start
 ```
 
 ### 🚨⚡️ Execução em modo produção (deprecated: substituído por AWS Fargate ECS)
@@ -305,7 +305,7 @@ Deleted: sha256:f93cb6531dabccc23848e273402d3fbef0515206efab1a29ccc1be81bf273dea
 
 2. Se você utilizou o `docker compose` para subir a aplicação:
 ```bash
-$ docker-compose --env-file ./envs/prod.env down -v
+$ docker-compose --env-file ./envs/local.env -p "fast-n-foodious" down -v
 [+] Running 4/4
  ✔ Container fast-n-foodious-ms-produto             Removed                                                                                           0.8s 
  ✔ Container mysql                                  Removed                                                                                           1.1s 
@@ -384,16 +384,16 @@ Deleted: sha256:0f7b3ff8b310adb0c38fa8108967e51e3431bc4b7ce350de93839eeffcefd34c
 $ docker-compose --env-file ./envs/{env-name}.env build
 
 # Execução dos serviços registrados no docker-compose utilizando env específica
-$ docker-compose --env-file ./envs/{env-name}.env up
+$ docker-compose --env-file ./envs/{env-name}.env -p "fast-n-foodious" up
 
 # Execução de um serviço registrados no docker-compose utilizando env específica
-$ docker-compose --env-file ./envs/{env-name}.env up {service}
+$ docker-compose --env-file ./envs/{env-name}.env -p "fast-n-foodious" up {service}
 
 # Interrupção dos serviços registrados no docker-compose utilizando env específica
-$ docker-compose --env-file ./envs/{env-name}.env down -v
+$ docker-compose --env-file ./envs/{env-name}.env -p "fast-n-foodious" down -v
 
 # Interrupção de um serviço registrados no docker-compose utilizando env específica
-$ docker-compose --env-file ./envs/{env-name}.env down {service} -v
+$ docker-compose --env-file ./envs/{env-name}.env -p "fast-n-foodious" down {service} -v
 ```
 **Nota:** Os serviços registrados no docker-compose são:
 ```
@@ -425,7 +425,7 @@ $ npm run test:bdd
 # Execução de testes bdd COM dependência de banco de dados (mysql repository)
 # 1. Necessita do container mysql em execução!
 # 2. Considere remover o volume criado no mysql caso execute o teste mais de uma vez!
-$ NODE_ENV=local npm run start && npx wait-on http://localhost:3000
+$ MYSQL_HOST=localhost NODE_ENV=local npm run start && npx wait-on http://localhost:3000
 $ NODE_ENV=local npm run test:bdd
 ```
 
