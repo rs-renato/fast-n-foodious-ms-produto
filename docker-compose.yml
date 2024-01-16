@@ -11,12 +11,12 @@ services:
     ports:
       - ${SERVER_PORT:-3000}:${SERVER_PORT:-3000}
     depends_on:
-      - mysql
+      - mysql-produto
     networks:
       - fast-n-foodious-network
-  mysql:
+  mysql-produto:
     image: mysql:8.0
-    container_name: mysql    
+    container_name: mysql-produto    
     restart: unless-stopped
     environment:
       MYSQL_PASSWORD: $MYSQL_PASSWORD
@@ -28,12 +28,12 @@ services:
       - ${MYSQL_PORT:-3306}:${MYSQL_PORT:-3306}
     volumes:
       - ./scripts/schema:/docker-entrypoint-initdb.d
-      - mysql-data:/data/db
+      - mysql-data-produto:/data/db
     networks:
       - fast-n-foodious-network
 
 volumes:
-  mysql-data:
+  mysql-data-produto:
 networks:
   fast-n-foodious-network:
     driver: bridge

@@ -13,7 +13,7 @@ service:
     port: 80
 
 mysql:
-  name: mysql
+  name: mysql-produto
   image: mysql:8.0
   resources:
     limits:
@@ -23,7 +23,7 @@ mysql:
 configMap:
   data:
     NODE_ENV: prod
-    MYSQL_HOST: mysql
+    MYSQL_HOST: mysql-produto
     MYSQL_USER: fnf_user
 
 hpa:
@@ -35,16 +35,16 @@ hpa:
     averageUtilization: 70
 
 pv:
-  name: fast-n-foodious-pv
+  name: fast-n-foodious-ms-produto-pv
   storage: 500Mi
-  hostPath: /Users/renatorodrigues/mysql
+  hostPath: /Users/renatorodrigues/mysql-produto
 
 pvc:
-  name: fast-n-foodious-pvc
+  name: fast-n-foodious-ms-produto-pvc
   requests:
       storage: 300Mi
 
-storageClassName: fast-n-foodious-storage
+storageClassName: fast-n-foodious-ms-produto-storage
 
 secret:
   data:
