@@ -7,7 +7,7 @@ spec:
     app: fast-n-foodious-ms-produto
   type: LoadBalancer
   ports:
-  - port: 80
+  - port: 3000
     nodePort: 30000
     targetPort: 3000
 ---
