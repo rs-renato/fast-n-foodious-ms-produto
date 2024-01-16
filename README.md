@@ -137,10 +137,10 @@ $ NODE_ENV=local-mock-repository npm run start
 ### ⚡️ Execução em modo local (mysql repository)
 Utilizado **`apenas para desenvolvimento local, modo watch, debug, testes e2e `**. Inicia o contianer mysql com as variáveis locais e inicia a aplicação `(fora do container)`com as variáveis locais:
 ```bash
-$ docker-compose --env-file ./envs/local.env -p "fast-n-foodious" up mysql
+$ docker-compose --env-file ./envs/local.env -p "fast-n-foodious" up mysql-produto
 $ docker ps
 CONTAINER ID   IMAGE       COMMAND                  CREATED         STATUS         PORTS                               NAMES
-83c9b4d8880a   mysql:8.0   "docker-entrypoint.s…"   3 seconds ago   Up 2 seconds   0.0.0.0:3306->3306/tcp, 33060/tcp   mysql
+83c9b4d8880a   mysql:8.0   "docker-entrypoint.s…"   3 seconds ago   Up 2 seconds   0.0.0.0:3306->3306/tcp, 33060/tcp   mysql-produto
 
 # Executa a aplicação com as variáveis locais, conectando no container do mysql
 $ MYSQL_HOST=localhost NODE_ENV=local npm run start
@@ -159,7 +159,7 @@ $ docker-compose --env-file ./envs/prod.env up -d
 $ docker ps
 CONTAINER ID   IMAGE                        COMMAND                  CREATED         STATUS         PORTS                               NAMES
 2a0f11e4ffe3   fast-n-foodious-ms-produto   "docker-entrypoint.s…"   5 seconds ago   Up 4 seconds   0.0.0.0:3000->3000/tcp              fast-n-foodious-ms-produto
-06ebf6b90fa7   mysql:8.0                    "docker-entrypoint.s…"   5 seconds ago   Up 4 seconds   0.0.0.0:3306->3306/tcp, 33060/tcp   mysql
+06ebf6b90fa7   mysql:8.0                    "docker-entrypoint.s…"   5 seconds ago   Up 4 seconds   0.0.0.0:3306->3306/tcp, 33060/tcp   mysql-produto
 ```
 
 A opção acima, executa o container do micro serviço de forma isolada. Para rodar todos os micro serviços de forma conjunta, deve-se utilizar o `docker-compose-all.yml`. Este comando subirá todos os micro serviços e o banco de dados mysql. Esta forma de inicialização é recomendada para testes e as imagens é baixadas do github em sua versão latest:
@@ -173,10 +173,10 @@ Inicia o container da aplicação e do mysql com as variáveis de produção, ut
 ```bash
 $ docker network create fast-n-foodious-network
 
-$ docker run -d --rm --name mysql -p 3306:3306 \
+$ docker run -d --rm --name mysql-produto -p 3306:3306 \
     --env-file ./envs/prod.env --network fast-n-foodious-network \
     -v ./scripts/schema:/docker-entrypoint-initdb.d \
-    -v mysql-data:/data/db \
+    -v mysql-data-produto:/data/db \
     mysql:8.0
 
 $ docker run -d --rm --name fast-n-foodious-ms-produto -p 3000:3000 \
@@ -186,7 +186,7 @@ $ docker run -d --rm --name fast-n-foodious-ms-produto -p 3000:3000 \
 $ docker ps
 CONTAINER ID   IMAGE                                        COMMAND                  CREATED         STATUS         PORTS                               NAMES
 88bf7eae7e46   ottero/fast-n-foodious-ms-produto:latest     "docker-entrypoint.s…"   2 seconds ago   Up 1 second    0.0.0.0:3000->3000/tcp              fast-n-foodious-ms-produto
-8b0268d435a6   mysql:8.0                                    "docker-entrypoint.s…"   6 seconds ago   Up 5 seconds   0.0.0.0:3306->3306/tcp, 33060/tcp   mysql
+8b0268d435a6   mysql:8.0                                    "docker-entrypoint.s…"   6 seconds ago   Up 5 seconds   0.0.0.0:3306->3306/tcp, 33060/tcp   mysql-produto
 ```
 
 #### 🫧 Kubernetes (Modo Fácil!)
@@ -209,20 +209,20 @@ $ kubectl get all
 
 NAME                                                READY   STATUS    RESTARTS        AGE
 pod/fast-n-foodious-ms-produto-5c6cbcbf76-v4bgd     1/1     Running   1 (2m29s ago)   3m28s
-pod/mysql-595c5c9d4f-x7grb                          1/1     Running   0               3m28s
+pod/mysql-produto-595c5c9d4f-x7grb                  1/1     Running   0               3m28s
 
 NAME                                            TYPE              CLUSTER-IP      EXTERNAL-IP     PORT(S)        AGE
 service/fast-n-foodious-ms-produto-svc          LoadBalancer      10.97.158.122   localhost       80:30000/TCP   3m28s
 service/kubernetes                              ClusterIP         10.96.0.1       <none>          443/TCP        9d
-service/mysql                                   ClusterIP         10.109.101.116  <none>          3306/TCP       3m28s
+service/mysql-produto                           ClusterIP         10.109.101.116  <none>          3306/TCP       3m28s
 
 NAME                                            READY   UP-TO-DATE   AVAILABLE   AGE
 deployment.apps/fast-n-foodious-ms-produto      1/1     1            1           3m28s
-deployment.apps/mysql                           1/1     1            1           3m28s
+deployment.apps/mysql-produto                   1/1     1            1           3m28s
 
 NAME                                                    DESIRED   CURRENT   READY   AGE
 replicaset.apps/fast-n-foodious-ms-produto-5c6cbcbf76   1         1         1       3m28s
-replicaset.apps/mysql-595c5c9d4f                        1         1         1       3m28s
+replicaset.apps/mysql-produto-595c5c9d4f                1         1         1       3m28s
 
 NAME                                                                    REFERENCE                               TARGETS             MINPODS   MAXPODS   REPLICAS   AGE
 horizontalpodautoscaler.autoscaling/fast-n-foodious-ms-produto-hpa      Deployment/fast-n-foodious-ms-produto   46%/70%, 0%/70%     1         3         1          3m28s
@@ -238,24 +238,24 @@ secret/fast-n-foodious-ms-produto-secret created
 
 $ kubectl apply -f k8s/fast-n-foodious-ms-produto-configmap.yml 
 configmap/fast-n-foodious-ms-produto-env created
-configmap/mysql-env created
+configmap/mysql-produto-env created
 
-$ kubectl apply -f k8s/fast-n-foodious-pv.yml 
-persistentvolume/fast-n-foodious-pv created
+$ kubectl apply -f k8s/fast-n-foodious-ms-produto-pv.yml 
+persistentvolume/fast-n-foodious-ms-produto-pv created
 
-$ kubectl apply -f k8s/fast-n-foodious-pvc.yml 
-persistentvolumeclaim/fast-n-foodious-pvc created
+$ kubectl apply -f k8s/fast-n-foodious-ms-produto-pvc.yml 
+persistentvolumeclaim/fast-n-foodious-ms-produto-pvc created
 
 $ kubectl apply -f k8s/fast-n-foodious-ms-produto-deployment.yml 
 deployment.apps/fast-n-foodious-ms-produto created
-deployment.apps/mysql created
+deployment.apps/mysql-produto created
 
 $ kubectl apply -f k8s/fast-n-foodious-ms-produto-service.yml 
 service/fast-n-foodious-ms-produto-svc created
-service/mysql created
+service/mysql-produto created
 
 $ kubectl apply -f k8s/fast-n-foodious-ms-produto-hpa.yml 
-horizontalpodautoscaler.autoscaling/fast-n-foodious-hpa created
+horizontalpodautoscaler.autoscaling/fast-n-foodious-ms-produto-hpa created
 
 $ kubectl get all
 NAME                                                READY   STATUS    RESTARTS   AGE
@@ -265,15 +265,15 @@ pod/mysql-595c5c9d4f-5vpj8                          1/1     Running   0         
 NAME                                            TYPE            CLUSTER-IP     EXTERNAL-IP   PORT(S)          AGE
 service/fast-n-foodious-ms-produto-svc          LoadBalancer    10.110.74.44   localhost       80:30000/TCP     2m53s
 service/kubernetes                              ClusterIP       10.96.0.1       <none>        443/TCP          5m52s
-service/mysql                                   ClusterIP       10.108.3.249    <none>        3306/TCP         2m53s
+service/mysql-produto                           ClusterIP       10.108.3.249    <none>        3306/TCP         2m53s
 
 NAME                                            READY   UP-TO-DATE   AVAILABLE   AGE
 deployment.apps/fast-n-foodious-ms-produto      1/1     1            1           2m59s
-deployment.apps/mysql                           1/1     1            1           2m59s
+deployment.apps/mysql-produto                   1/1     1            1           2m59s
 
 NAME                                                    DESIRED   CURRENT   READY   AGE
 replicaset.apps/fast-n-foodious-ms-produto-7fc6f95bdb   1         1         1       2m59s
-replicaset.apps/mysql-595c5c9d4f                        1         1         1       2m58s
+replicaset.apps/mysql-produto-595c5c9d4f                1         1         1       2m58s
 
 NAME                                                                    REFERENCE                               TARGETS           MINPODS   MAXPODS   REPLICAS   AGE
 horizontalpodautoscaler.autoscaling/fast-n-foodious-ms-produto-hpa      fast-n-foodious-ms-produto-n-foodious   69%/80%, 0%/80%   1         3         1          2m48s 
@@ -289,12 +289,12 @@ Para realizar a desistalação da aplicação e o cleanup da infraestrutura, bas
 1. Se você utilizou o `docker` para subir a aplicação:
 
 ```bash
-$ docker stop mysql fast-n-foodious-ms-produto
-mysql
+$ docker stop mysql-produto fast-n-foodious-ms-produto
+mysql-produto
 fast-n-foodious-ms-produto
 
-$ docker volume rm mysql-data
-mysql-data
+$ docker volume rm mysql-data-produto
+mysql-data-produto
 
 $ docker network rm fast-n-foodious-network
 fast-n-foodious-network
@@ -314,7 +314,7 @@ Deleted: sha256:f93cb6531dabccc23848e273402d3fbef0515206efab1a29ccc1be81bf273dea
 $ docker-compose --env-file ./envs/local.env -p "fast-n-foodious" down -v
 [+] Running 4/4
  ✔ Container fast-n-foodious-ms-produto             Removed                                                                                           0.8s 
- ✔ Container mysql                                  Removed                                                                                           1.1s 
+ ✔ Container mysql-produto                          Removed                                                                                           1.1s 
  ✔ Volume fast-n-foodious-ms-produto_mysql-data     Removed                                                                                           0.0s 
  ✔ Network fast-n-foodious_fast-n-foodious-network  Removed                                                                                           0.1s
 
@@ -342,21 +342,21 @@ horizontalpodautoscaler.autoscaling "fast-n-foodious-ms-produto-hpa" deleted
 
 $ kubectl delete -f k8s/fast-n-foodious-ms-produto-service.yml 
 service "fast-n-foodious-ms-produto-svc" deleted
-service "mysql" deleted
+service "mysql-produto" deleted
 
 $ kubectl delete -f k8s/fast-n-foodious-ms-produto-deployment.yml 
 deployment.apps "fast-n-foodious-ms-produto" deleted
-deployment.apps "mysql" deleted
+deployment.apps "mysql-produto" deleted
 
-$ kubectl delete -f k8s/fast-n-foodious-pvc.yml 
-persistentvolumeclaim "fast-n-foodious-pvc" deleted
+$ kubectl delete -f k8s/fast-n-foodious-ms-produto-pvc.yml 
+persistentvolumeclaim "fast-n-foodious-ms-produto-pvc" deleted
 
-$ kubectl delete -f k8s/fast-n-foodious-pv.yml 
-persistentvolume "fast-n-foodious-pv" deleted
+$ kubectl delete -f k8s/fast-n-foodious-ms-produto-pv.yml 
+persistentvolume "fast-n-foodious-ms-produto-pv" deleted
 
 $ kubectl delete -f k8s/fast-n-foodious-ms-produto-configmap.yml 
 configmap "fast-n-foodious-ms-produto-env" deleted
-configmap "mysql-env" deleted
+configmap "mysql-produto-env" deleted
 
 $ kubectl delete -f k8s/fast-n-foodious-ms-produto-secret.yml 
 secret "fast-n-foodious-ms-produto-secret" deleted
@@ -410,7 +410,7 @@ $ docker-compose --env-file ./envs/{env-name}.env -p "fast-n-foodious" down {ser
 **Nota:** Os serviços registrados no docker-compose são:
 ```
 - fast-n-foodious-ms-produto
-- mysql
+- mysql-produto
 ```
 
 ## 🧪 Testes
@@ -455,7 +455,7 @@ NAME                                            READY   STATUS    RESTARTS      
 fast-n-foodious-ms-produto-5c6cbcbf76-n5vn5     1/1     Running   1 (6m49s ago)   7m46s
 fast-n-foodious-ms-produto-5c6cbcbf76-q5q7t     1/1     Running   0               106s
 k6-stress-job-fkjv9                             1/1     Running   0               6s
-mysql-595c5c9d4f-chlrx                          1/1     Running   0               7m46s
+mysql-produto-595c5c9d4f-chlrx                  1/1     Running   0               7m46s
 
 $ kubectl logs -f k6-stress-job-fkjv9
 
