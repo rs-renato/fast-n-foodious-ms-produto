@@ -165,7 +165,7 @@ CONTAINER ID   IMAGE                        COMMAND                  CREATED    
 A opção acima, executa o container do micro serviço de forma isolada. Para rodar todos os micro serviços de forma conjunta, deve-se utilizar o `docker-compose-all.yml`. Este comando subirá todos os micro serviços e o banco de dados mysql. Esta forma de inicialização é recomendada para testes e as imagens é baixadas do github em sua versão latest:
 
 ```bash
-$ docker-compose --env-file ./envs/prod.env -f docker-compose-all.yml -p "fast-n-foodious" up
+$ docker-compose --env-file ./envs/prod.env -f docker-compose-all.yml -p "fast-n-foodious" up --build
 ```
 
 #### 💀 Docker (Modo Desbravador!)
@@ -282,7 +282,7 @@ horizontalpodautoscaler.autoscaling/fast-n-foodious-ms-produto-hpa      fast-n-f
 ## 🧾 Documentação da API (Swagger)
 `docker`    http://localhost:3000/api
 
-`k8s`       http://localhost:80/api
+`k8s`       http://localhost:3000/api
 
 ## 🧼 Desinstalação & Cleanup
 Para realizar a desistalação da aplicação e o cleanup da infraestrutura, basta realizar os comandos abaixos de acordo com o modo de instalação.
@@ -431,13 +431,13 @@ $ NODE_ENV=local-mock-repository npm run test:e2e
 $ NODE_ENV=local npm run test:e2e
 
 # Execução de testes bdd SEM dependência de banco de dados (in-memory repository), considerar os comandos em terminais distintos
-$ NODE_ENV=local-mock-repository npm run start && npx wait-on http://localhost:3000
+$ NODE_ENV=local-mock-repository npm run start
 $ npm run test:bdd
 
 # Execução de testes bdd COM dependência de banco de dados (mysql repository)
 # 1. Necessita do container mysql em execução!
 # 2. Considere remover o volume criado no mysql caso execute o teste mais de uma vez!
-$ MYSQL_HOST=localhost NODE_ENV=local npm run start && npx wait-on http://localhost:3000
+$ MYSQL_HOST=localhost NODE_ENV=local npm run start
 $ NODE_ENV=local npm run test:bdd
 ```
 

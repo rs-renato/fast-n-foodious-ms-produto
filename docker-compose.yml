@@ -24,6 +24,7 @@ services:
       MYSQL_ROOT_HOST: '%'
       MYSQL_USER: $MYSQL_USER
       MYSQL_DATABASE: $MYSQL_DATABASE
+      MYSQL_TCP_PORT: ${MYSQL_PORT:-3306}
     ports:
       - ${MYSQL_PORT:-3306}:${MYSQL_PORT:-3306}
     volumes:
