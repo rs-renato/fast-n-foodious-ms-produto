@@ -431,13 +431,13 @@ $ NODE_ENV=local-mock-repository npm run test:e2e
 $ NODE_ENV=local npm run test:e2e
 
 # Execução de testes bdd SEM dependência de banco de dados (in-memory repository), considerar os comandos em terminais distintos
-$ NODE_ENV=local-mock-repository npm run start && npx wait-on http://localhost:3000
+$ NODE_ENV=local-mock-repository npm run start
 $ npm run test:bdd
 
 # Execução de testes bdd COM dependência de banco de dados (mysql repository)
 # 1. Necessita do container mysql em execução!
 # 2. Considere remover o volume criado no mysql caso execute o teste mais de uma vez!
-$ MYSQL_HOST=localhost NODE_ENV=local npm run start && npx wait-on http://localhost:3000
+$ MYSQL_HOST=localhost NODE_ENV=local npm run start
 $ NODE_ENV=local npm run test:bdd
 ```
 
