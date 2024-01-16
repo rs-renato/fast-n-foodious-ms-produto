@@ -10,7 +10,7 @@ application:
 
 service:
   loadbalancer:
-    port: 80
+    port: 3000
 
 mysql:
   name: mysql-produto
