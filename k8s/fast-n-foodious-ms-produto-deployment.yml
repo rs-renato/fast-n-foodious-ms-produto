@@ -104,15 +104,15 @@ spec:
         volumeMounts:
           - name: mysql-init
             mountPath: /docker-entrypoint-initdb.d
-          - name: fast-n-foodious-volume
+          - name: fast-n-foodious-ms-produto-volume
             mountPath: /var/lib/mysql
       volumes:
-        - name: fast-n-foodious-volume
+        - name: fast-n-foodious-ms-produto-volume
           persistentVolumeClaim:
-            claimName: fast-n-foodious-pvc
+            claimName: fast-n-foodious-ms-produto-pvc
         - name: mysql-init
           configMap:
-            name: mysql-env
+            name: mysql-produto-env
             items:
               - key: init.sql
                 path: 1-init.sql
