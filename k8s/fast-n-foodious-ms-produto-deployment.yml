@@ -54,18 +54,18 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mysql
+  name: mysql-produto
 spec:
   selector:
     matchLabels:
-      app: mysql
+      app: mysql-produto
   template:
     metadata:
       labels:
-        app: mysql
+        app: mysql-produto
     spec:
       containers:
-      - name: mysql
+      - name: mysql-produto
         image: mysql:8.0
         resources:
           limits:
