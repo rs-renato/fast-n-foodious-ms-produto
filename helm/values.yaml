@@ -15,6 +15,7 @@ service:
 mysql:
   name: mysql-produto
   image: mysql:8.0
+  mountPath: /var/lib/mysql-produto
   resources:
     limits:
       memory: "768Mi"
@@ -42,7 +43,7 @@ pv:
 pvc:
   name: fast-n-foodious-ms-produto-pvc
   requests:
-      storage: 300Mi
+      storage: 500Mi
 
 storageClassName: fast-n-foodious-ms-produto-storage
 
