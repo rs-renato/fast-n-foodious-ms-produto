@@ -16,7 +16,7 @@ spec:
         image: ottero/fast-n-foodious-ms-produto:latest
         resources:
           limits:
-            memory: "512Mi"
+            memory: "768Mi"
             cpu: "500m"
         livenessProbe:
           httpGet:
@@ -102,15 +102,15 @@ spec:
                 name: fast-n-foodious-ms-produto-secret
                 key: MYSQL_PASSWORD
         volumeMounts:
-          - name: mysql-init
+          - name: fast-n-foodious-ms-produto-mysql-init
             mountPath: /docker-entrypoint-initdb.d
           - name: fast-n-foodious-ms-produto-volume
-            mountPath: /var/lib/mysql
+            mountPath: /var/lib/mysql-produto
       volumes:
         - name: fast-n-foodious-ms-produto-volume
           persistentVolumeClaim:
             claimName: fast-n-foodious-ms-produto-pvc
-        - name: mysql-init
+        - name: fast-n-foodious-ms-produto-mysql-init
           configMap:
             name: mysql-produto-env
             items:
