@@ -167,6 +167,12 @@ A opção acima, executa o container do micro serviço de forma isolada. Para ro
 ```bash
 $ docker-compose --env-file ./envs/prod.env -f docker-compose-all.yml -p "fast-n-foodious" up --build
 ```
+**Nota:** É necessário realizar a inicialização do banco de dados para os microserviços. Na referência dos arquivos para a inicialização do schema, assumesse que todos os projetos estão localizados no mesmo diretório! Logo, certifique que os paths dos volumes para os containers do mysql estejam corretos. Exemplo para inicialização do banco (mapeamento de volume):
+
+```yml
+ volumes:
+      - dir-do-microservico/scripts/schema:/docker-entrypoint-initdb.d
+```
 
 #### 💀 Docker (Modo Desbravador!)
 Inicia o container da aplicação e do mysql com as variáveis de produção, utilizando *`imagens docker`* do mysql e da aplicação:
@@ -212,7 +218,7 @@ pod/fast-n-foodious-ms-produto-5c6cbcbf76-v4bgd     1/1     Running   1 (2m29s a
 pod/mysql-produto-595c5c9d4f-x7grb                  1/1     Running   0               3m28s
 
 NAME                                            TYPE              CLUSTER-IP      EXTERNAL-IP     PORT(S)        AGE
-service/fast-n-foodious-ms-produto-svc          LoadBalancer      10.97.158.122   localhost       80:30000/TCP   3m28s
+service/fast-n-foodious-ms-produto          LoadBalancer      10.97.158.122   localhost       80:30000/TCP   3m28s
 service/kubernetes                              ClusterIP         10.96.0.1       <none>          443/TCP        9d
 service/mysql-produto                           ClusterIP         10.109.101.116  <none>          3306/TCP       3m28s
 
@@ -233,28 +239,28 @@ Inicia o pod da aplicação e do mysql com as variáveis de produção, assim co
 *Nota: Assume k8s pod/metrics-server up & running para habilitação de escalabilidade via HPA*
 
 ```bash
-$ kubectl apply -f k8s/fast-n-foodious-ms-produto-secret.yml 
+$ kubectl apply -f k8s/stress/fast-n-foodious-ms-produto-secret.yml 
 secret/fast-n-foodious-ms-produto-secret created
 
-$ kubectl apply -f k8s/fast-n-foodious-ms-produto-configmap.yml 
+$ kubectl apply -f k8s/stress/fast-n-foodious-ms-produto-configmap.yml 
 configmap/fast-n-foodious-ms-produto-env created
 configmap/mysql-produto-env created
 
-$ kubectl apply -f k8s/fast-n-foodious-ms-produto-pv.yml 
+$ kubectl apply -f k8s/stress/fast-n-foodious-ms-produto-pv.yml 
 persistentvolume/fast-n-foodious-ms-produto-pv created
 
-$ kubectl apply -f k8s/fast-n-foodious-ms-produto-pvc.yml 
+$ kubectl apply -f k8s/stress/fast-n-foodious-ms-produto-pvc.yml 
 persistentvolumeclaim/fast-n-foodious-ms-produto-pvc created
 
-$ kubectl apply -f k8s/fast-n-foodious-ms-produto-deployment.yml 
+$ kubectl apply -f k8s/stress/fast-n-foodious-ms-produto-deployment.yml 
 deployment.apps/fast-n-foodious-ms-produto created
 deployment.apps/mysql-produto created
 
-$ kubectl apply -f k8s/fast-n-foodious-ms-produto-service.yml 
-service/fast-n-foodious-ms-produto-svc created
+$ kubectl apply -f k8s/stress/fast-n-foodious-ms-produto-service.yml 
+service/fast-n-foodious-ms-produto created
 service/mysql-produto created
 
-$ kubectl apply -f k8s/fast-n-foodious-ms-produto-hpa.yml 
+$ kubectl apply -f k8s/stress/fast-n-foodious-ms-produto-hpa.yml 
 horizontalpodautoscaler.autoscaling/fast-n-foodious-ms-produto-hpa created
 
 $ kubectl get all
@@ -263,7 +269,7 @@ pod/fast-n-foodious-ms-produto-7fc6f95bdb-krcnm     1/1     Running   0         
 pod/mysql-595c5c9d4f-5vpj8                          1/1     Running   0          2m58s
 
 NAME                                            TYPE            CLUSTER-IP     EXTERNAL-IP   PORT(S)          AGE
-service/fast-n-foodious-ms-produto-svc          LoadBalancer    10.110.74.44   localhost       80:30000/TCP     2m53s
+service/fast-n-foodious-ms-produto          LoadBalancer    10.110.74.44   localhost       80:30000/TCP     2m53s
 service/kubernetes                              ClusterIP       10.96.0.1       <none>        443/TCP          5m52s
 service/mysql-produto                           ClusterIP       10.108.3.249    <none>        3306/TCP         2m53s
 
@@ -337,28 +343,28 @@ release "fast-n-foodious-ms-produto" uninstalled
 
 4. Se você utilizou o `kubeclt` para subir a aplicação:
 ```bash
-$ kubectl delete -f k8s/fast-n-foodious-ms-produto-hpa.yml 
+$ kubectl delete -f k8s/stress/fast-n-foodious-ms-produto-hpa.yml 
 horizontalpodautoscaler.autoscaling "fast-n-foodious-ms-produto-hpa" deleted
 
-$ kubectl delete -f k8s/fast-n-foodious-ms-produto-service.yml 
-service "fast-n-foodious-ms-produto-svc" deleted
+$ kubectl delete -f k8s/stress/fast-n-foodious-ms-produto-service.yml 
+service "fast-n-foodious-ms-produto" deleted
 service "mysql-produto" deleted
 
-$ kubectl delete -f k8s/fast-n-foodious-ms-produto-deployment.yml 
+$ kubectl delete -f k8s/stress/fast-n-foodious-ms-produto-deployment.yml 
 deployment.apps "fast-n-foodious-ms-produto" deleted
 deployment.apps "mysql-produto" deleted
 
-$ kubectl delete -f k8s/fast-n-foodious-ms-produto-pvc.yml 
+$ kubectl delete -f k8s/stress/fast-n-foodious-ms-produto-pvc.yml 
 persistentvolumeclaim "fast-n-foodious-ms-produto-pvc" deleted
 
-$ kubectl delete -f k8s/fast-n-foodious-ms-produto-pv.yml 
+$ kubectl delete -f k8s/stress/fast-n-foodious-ms-produto-pv.yml 
 persistentvolume "fast-n-foodious-ms-produto-pv" deleted
 
-$ kubectl delete -f k8s/fast-n-foodious-ms-produto-configmap.yml 
+$ kubectl delete -f k8s/stress/fast-n-foodious-ms-produto-configmap.yml 
 configmap "fast-n-foodious-ms-produto-env" deleted
 configmap "mysql-produto-env" deleted
 
-$ kubectl delete -f k8s/fast-n-foodious-ms-produto-secret.yml 
+$ kubectl delete -f k8s/stress/fast-n-foodious-ms-produto-secret.yml 
 secret "fast-n-foodious-ms-produto-secret" deleted
 
 $ docker image rm ottero/fast-n-foodious-ms-produto
@@ -374,7 +380,7 @@ Deleted: sha256:f93cb6531dabccc23848e273402d3fbef0515206efab1a29ccc1be81bf273dea
 5. Extra: se os testes de stress foram realizados no cluster kubernetes, via job k6:
 
 ```bash
-$ kubectl delete -f k8s/fast-n-foodious-ms-produto-job.yml 
+$ kubectl delete -f k8s/stress/fast-n-foodious-ms-produto-job.yml 
 job.batch "k6-stress-job" deleted
 configmap "k6-stress-env" deleted
 
@@ -446,7 +452,7 @@ Excução de testes de stress cluster k8s, utilizando job k6.
 *Nota: A execução tem duração de 60s, estressando o path /health. Assume a aplicação e mysql up & running no cluster kubernetes*
 
 ```bash
-$ kubectl apply -f k8s/fast-n-foodious-ms-produto-job.yml 
+$ kubectl apply -f k8s/stress/fast-n-foodious-ms-produto-job.yml 
 job.batch/k6-stress-job created
 configmap/k6-stress-env created
 
