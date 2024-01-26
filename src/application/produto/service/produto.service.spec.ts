@@ -1,4 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { NaoEncontradoApplicationException } from 'src/application/exception/nao-encontrado.exception';
 import { ProdutoProviders } from 'src/application/produto/providers/produto.providers';
 import { IProdutoService } from 'src/application/produto/service/produto.service.interface';
 import { CamposObrigatoriosProdutoValidator } from 'src/application/produto/validation/campos-obrigatorios-produto.validator';
@@ -319,9 +320,7 @@ describe('ProdutoService', () => {
     }); // end it encontra produto por id
 
     it('não encontra produto por id', async () => {
-      await service.findById(2).then((produtoEncontrado) => {
-        expect(produtoEncontrado).toEqual(undefined);
-      });
+      await expect(service.findById(2)).rejects.toThrowError(NaoEncontradoApplicationException);
     }); // end it não encontra produto por id
 
     it('não deve encontrar produto por id quando houver um erro de banco ', async () => {

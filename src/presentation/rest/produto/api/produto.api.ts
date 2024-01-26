@@ -104,12 +104,8 @@ export class ProdutoRestApi extends BaseRestApi {
   async findById(@Param('id', ParseIntPipe) id: number): Promise<BuscaPorIdProdutoResponse> {
     this.logger.debug(`Procurando Produto id: ${id}`);
     return await this.service.findById(id).then((produto) => {
-      if (produto) {
-        this.logger.log(`Produto encontrado com sucesso: ${produto.id}`);
-        return new BuscaPorIdProdutoResponse(produto);
-      }
-      this.logger.debug(`Produto não encontrado: ${id}`);
-      throw new NotFoundException(`Produto não encontrado: ${id}`);
+      this.logger.log(`Produto encontrado com sucesso: ${produto.id}`);
+      return new BuscaPorIdProdutoResponse(produto);
     });
   }
 

@@ -1,4 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { ApplicationException } from 'src/application/exception/application.exception';
 import { IProdutoService } from 'src/application/produto/service/produto.service.interface';
 import { Produto } from 'src/enterprise/produto/model/produto.model';
 import { ProdutoRestApi } from 'src/presentation/rest/produto/api/produto.api';
@@ -71,7 +72,9 @@ describe('ProdutoRestApi', () => {
               editarProdutoRequest ? Promise.resolve(produtoEditar) : Promise.reject(new Error('error')),
             ),
             delete: jest.fn((id) => (id ? Promise.resolve(true) : Promise.reject(new Error('error')))),
-            findById: jest.fn((id) => (id === 1 ? Promise.resolve(produtoSalvar) : Promise.resolve(undefined))),
+            findById: jest.fn((id) =>
+              id === 1 ? Promise.resolve(produtoSalvar) : Promise.reject(new ApplicationException()),
+            ),
             findByIdCategoriaProduto: jest.fn((id) =>
               id === 1 ? Promise.resolve([produtoSalvar]) : Promise.resolve(undefined),
             ),
@@ -181,9 +184,9 @@ describe('ProdutoRestApi', () => {
       expect(result).toEqual(produtoSalvar);
     }); // end it deve buscar por id um produto existente
 
-    it('deve retornar NotFoundException se buscar por id um produto inexistente', async () => {
+    it('deve retornar ApplicationException se buscar por id um produto inexistente', async () => {
       // Chama o método findById do restApi
-      await expect(restApi.findById(10000)).rejects.toThrow('Produto não encontrado: 10000');
+      await expect(restApi.findById(10000)).rejects.toThrow(ApplicationException);
       // Verifica se o método findById do serviço foi chamado corretamente com a requisição
       expect(service.findById).toHaveBeenCalledWith(10000);
     }); // end it deve retornar NotFoundException se buscar por id um produto inexistente
