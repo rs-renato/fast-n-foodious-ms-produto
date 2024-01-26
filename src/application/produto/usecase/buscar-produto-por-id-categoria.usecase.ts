@@ -1,4 +1,5 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
+import { NaoEncontradoApplicationException } from 'src/application/exception/nao-encontrado.exception';
 import { ServiceException } from 'src/enterprise/exception/service.exception';
 import { Produto } from 'src/enterprise/produto/model/produto.model';
 import { IRepository } from 'src/enterprise/repository/repository';
@@ -17,8 +18,14 @@ export class BuscarProdutoPorIdCategoriaUseCase {
         `Erro ao buscar produto idCategoriaProduto=${idCategoriaProduto} no banco de dados: ${error}`,
       );
     });
-    if (produtos.length > 0) {
-      return produtos;
+
+    if (!produtos.length) {
+      this.logger.debug(`Produtos não encontrados para idCategoriaProduto: ${idCategoriaProduto}`);
+      throw new NaoEncontradoApplicationException(
+        `Produtos não encontrados para idCategoriaProduto: ${idCategoriaProduto}`,
+      );
     }
+
+    return produtos;
   }
 }

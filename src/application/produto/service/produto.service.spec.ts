@@ -1,4 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { NaoEncontradoApplicationException } from 'src/application/exception/nao-encontrado.exception';
 import { ProdutoProviders } from 'src/application/produto/providers/produto.providers';
 import { IProdutoService } from 'src/application/produto/service/produto.service.interface';
 import { CamposObrigatoriosProdutoValidator } from 'src/application/produto/validation/campos-obrigatorios-produto.validator';
@@ -93,7 +94,7 @@ describe('ProdutoService', () => {
             }),
             // mock para a chamada repository.findByIdCategoriaProduto(idCategoriaProduto)
             findByIdCategoriaProduto: jest.fn(() => {
-              return Promise.resolve(undefined);
+              return Promise.resolve(new NaoEncontradoApplicationException());
             }),
             // mock para a chamada repository.edit(produto)
             edit: jest.fn(() => Promise.resolve(produtoEditar)),
@@ -319,9 +320,7 @@ describe('ProdutoService', () => {
     }); // end it encontra produto por id
 
     it('não encontra produto por id', async () => {
-      await service.findById(2).then((produtoEncontrado) => {
-        expect(produtoEncontrado).toEqual(undefined);
-      });
+      await expect(service.findById(2)).rejects.toThrowError(NaoEncontradoApplicationException);
     }); // end it não encontra produto por id
 
     it('não deve encontrar produto por id quando houver um erro de banco ', async () => {
@@ -357,9 +356,7 @@ describe('ProdutoService', () => {
     }); // end it encontra 1 produtos por IdCategoriaProduto = 2
 
     it('não encontra produto por idCategoriaProduto', async () => {
-      await service.findByIdCategoriaProduto(3).then((produtoEncontrado) => {
-        expect(produtoEncontrado).toEqual(undefined);
-      });
+      await expect(service.findByIdCategoriaProduto(3)).rejects.toThrowError(NaoEncontradoApplicationException);
     }); // end it não encontra produto por idCategoriaProduto
 
     it('não deve encontrar produto por idCategoriaProduto quando houver um erro de banco ', async () => {
