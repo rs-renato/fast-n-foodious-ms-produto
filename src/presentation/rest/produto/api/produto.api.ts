@@ -1,15 +1,4 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Inject,
-  Logger,
-  Param,
-  ParseIntPipe,
-  Post,
-  Put,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, Inject, Logger, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
 import { ApiCreatedResponse, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { IProdutoService } from 'src/application/produto/service/produto.service.interface';
 import { BaseRestApi } from 'src/presentation/rest/base.api';
@@ -122,10 +111,9 @@ export class ProdutoRestApi extends BaseRestApi {
     @Param('id', ParseIntPipe) id: number,
   ): Promise<BuscaTodosPorIdCategoriaProdutoResponse[]> {
     this.logger.debug(`Procurando Produtos para idCategoriaProduto: ${id}`);
-    return await this.service.findByIdCategoriaProduto(id)
-      .then((produtos) => {
-        this.logger.debug(`Produtos encontrado com sucesso: ${JSON.stringify(produtos)}`);
-        return produtos.map((produto) => new BuscaTodosPorIdCategoriaProdutoResponse(produto));
+    return await this.service.findByIdCategoriaProduto(id).then((produtos) => {
+      this.logger.debug(`Produtos encontrado com sucesso: ${JSON.stringify(produtos)}`);
+      return produtos.map((produto) => new BuscaTodosPorIdCategoriaProdutoResponse(produto));
     });
   }
 }

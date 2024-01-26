@@ -356,7 +356,7 @@ describe('ProdutoService', () => {
     }); // end it encontra 1 produtos por IdCategoriaProduto = 2
 
     it('não encontra produto por idCategoriaProduto', async () => {
-      await expect(service.findByIdCategoriaProduto(3)).rejects.toThrowError(NaoEncontradoApplicationException)
+      await expect(service.findByIdCategoriaProduto(3)).rejects.toThrowError(NaoEncontradoApplicationException);
     }); // end it não encontra produto por idCategoriaProduto
 
     it('não deve encontrar produto por idCategoriaProduto quando houver um erro de banco ', async () => {

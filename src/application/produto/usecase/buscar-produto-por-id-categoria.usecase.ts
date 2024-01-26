@@ -18,10 +18,12 @@ export class BuscarProdutoPorIdCategoriaUseCase {
         `Erro ao buscar produto idCategoriaProduto=${idCategoriaProduto} no banco de dados: ${error}`,
       );
     });
-    
+
     if (!produtos.length) {
       this.logger.debug(`Produtos não encontrados para idCategoriaProduto: ${idCategoriaProduto}`);
-      throw new NaoEncontradoApplicationException(`Produtos não encontrados para idCategoriaProduto: ${idCategoriaProduto}`);
+      throw new NaoEncontradoApplicationException(
+        `Produtos não encontrados para idCategoriaProduto: ${idCategoriaProduto}`,
+      );
     }
 
     return produtos;

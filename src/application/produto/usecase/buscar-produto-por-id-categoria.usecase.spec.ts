@@ -49,7 +49,9 @@ describe('BuscarProdutoPorIdCategoriaUseCase', () => {
 
     it('deve retornar NaoEncontradoApplicationException se nenhum produto for encontrado', async () => {
       jest.spyOn(repository, 'findBy').mockResolvedValue([]);
-      await expect (useCase.buscarProdutoPorIdCategoria(idCategoriaProduto)).rejects.toThrowError(NaoEncontradoApplicationException);
+      await expect(useCase.buscarProdutoPorIdCategoria(idCategoriaProduto)).rejects.toThrowError(
+        NaoEncontradoApplicationException,
+      );
     });
   });
 });
