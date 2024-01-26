@@ -5,7 +5,6 @@ import {
   Get,
   Inject,
   Logger,
-  NotFoundException,
   Param,
   ParseIntPipe,
   Post,
@@ -123,13 +122,10 @@ export class ProdutoRestApi extends BaseRestApi {
     @Param('id', ParseIntPipe) id: number,
   ): Promise<BuscaTodosPorIdCategoriaProdutoResponse[]> {
     this.logger.debug(`Procurando Produtos para idCategoriaProduto: ${id}`);
-    return await this.service.findByIdCategoriaProduto(id).then((produtos) => {
-      if (produtos) {
+    return await this.service.findByIdCategoriaProduto(id)
+      .then((produtos) => {
         this.logger.debug(`Produtos encontrado com sucesso: ${JSON.stringify(produtos)}`);
         return produtos.map((produto) => new BuscaTodosPorIdCategoriaProdutoResponse(produto));
-      }
-      this.logger.debug(`Produtos não encontrados para idCategoriaProduto: ${id}`);
-      throw new NotFoundException(`Produtos não encontrados para idCategoriaProduto: ${id}`);
     });
   }
 }

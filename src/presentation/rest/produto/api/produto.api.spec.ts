@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ApplicationException } from 'src/application/exception/application.exception';
+import { NaoEncontradoApplicationException } from 'src/application/exception/nao-encontrado.exception';
 import { IProdutoService } from 'src/application/produto/service/produto.service.interface';
 import { Produto } from 'src/enterprise/produto/model/produto.model';
 import { ProdutoRestApi } from 'src/presentation/rest/produto/api/produto.api';
@@ -73,10 +73,10 @@ describe('ProdutoRestApi', () => {
             ),
             delete: jest.fn((id) => (id ? Promise.resolve(true) : Promise.reject(new Error('error')))),
             findById: jest.fn((id) =>
-              id === 1 ? Promise.resolve(produtoSalvar) : Promise.reject(new ApplicationException()),
+              id === 1 ? Promise.resolve(produtoSalvar) : Promise.reject(new NaoEncontradoApplicationException()),
             ),
             findByIdCategoriaProduto: jest.fn((id) =>
-              id === 1 ? Promise.resolve([produtoSalvar]) : Promise.resolve(undefined),
+              id === 1 ? Promise.resolve([produtoSalvar]) : Promise.reject(new NaoEncontradoApplicationException()),
             ),
           },
         },
@@ -184,12 +184,12 @@ describe('ProdutoRestApi', () => {
       expect(result).toEqual(produtoSalvar);
     }); // end it deve buscar por id um produto existente
 
-    it('deve retornar ApplicationException se buscar por id um produto inexistente', async () => {
+    it('deve retornar NaoEncontradoApplicationException se buscar por id um produto inexistente', async () => {
       // Chama o método findById do restApi
-      await expect(restApi.findById(10000)).rejects.toThrow(ApplicationException);
+      await expect(restApi.findById(10000)).rejects.toThrow(NaoEncontradoApplicationException);
       // Verifica se o método findById do serviço foi chamado corretamente com a requisição
       expect(service.findById).toHaveBeenCalledWith(10000);
-    }); // end it deve retornar NotFoundException se buscar por id um produto inexistente
+    }); // end it deve retornar NaoEncontradoApplicationException se buscar por id um produto inexistente
 
     it('não deve tratar erro a nível de controlador', async () => {
       const error = new Error('Erro genérico não tratado');
@@ -215,14 +215,12 @@ describe('ProdutoRestApi', () => {
       expect(result).toEqual([produtoSalvar]);
     }); // end it deve buscar por idCategoriaProduto
 
-    it('deve retornar NotFoundException se não houver produtos na idCategoriaProduto', async () => {
+    it('deve retornar NaoEncontradoApplicationException se não houver produtos na idCategoriaProduto', async () => {
       // Chama o método findByIdCategoriaProduto do restApi
-      await expect(restApi.findByIdCategoriaProduto(3)).rejects.toThrow(
-        'Produtos não encontrados para idCategoriaProduto: 3',
-      );
+      await expect(restApi.findByIdCategoriaProduto(3)).rejects.toThrow(NaoEncontradoApplicationException);
       // Verifica se o método findByIdCategoriaProduto do serviço foi chamado corretamente com a requisição
       expect(service.findByIdCategoriaProduto).toHaveBeenCalledWith(3);
-    }); // end it deve retornar NotFoundException se não houver produtos na idCategoriaProduto
+    }); // end it deve retornar NaoEncontradoApplicationException se não houver produtos na idCategoriaProduto
 
     it('não deve tratar erro a nível de controlador', async () => {
       const error = new Error('Erro genérico não tratado');

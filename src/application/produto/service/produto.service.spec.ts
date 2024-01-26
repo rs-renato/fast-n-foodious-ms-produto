@@ -94,7 +94,7 @@ describe('ProdutoService', () => {
             }),
             // mock para a chamada repository.findByIdCategoriaProduto(idCategoriaProduto)
             findByIdCategoriaProduto: jest.fn(() => {
-              return Promise.resolve(undefined);
+              return Promise.resolve(new NaoEncontradoApplicationException());
             }),
             // mock para a chamada repository.edit(produto)
             edit: jest.fn(() => Promise.resolve(produtoEditar)),
@@ -356,9 +356,7 @@ describe('ProdutoService', () => {
     }); // end it encontra 1 produtos por IdCategoriaProduto = 2
 
     it('não encontra produto por idCategoriaProduto', async () => {
-      await service.findByIdCategoriaProduto(3).then((produtoEncontrado) => {
-        expect(produtoEncontrado).toEqual(undefined);
-      });
+      await expect(service.findByIdCategoriaProduto(3)).rejects.toThrowError(NaoEncontradoApplicationException)
     }); // end it não encontra produto por idCategoriaProduto
 
     it('não deve encontrar produto por idCategoriaProduto quando houver um erro de banco ', async () => {
