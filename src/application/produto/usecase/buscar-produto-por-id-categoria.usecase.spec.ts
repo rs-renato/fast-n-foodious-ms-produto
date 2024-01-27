@@ -6,6 +6,8 @@ import { Produto } from 'src/enterprise/produto/model/produto.model';
 import { ProdutoConstants } from 'src/shared/constants';
 import { ProdutoProviders } from 'src/application/produto/providers/produto.providers';
 import { PersistenceInMemoryProviders } from 'src/infrastructure/persistence/providers/persistence-in-memory.providers';
+import { ApplicationException } from 'src/application/exception/application.exception';
+import { NaoEncontradoApplicationException } from 'src/application/exception/nao-encontrado.exception';
 
 describe('BuscarProdutoPorIdCategoriaUseCase', () => {
   let useCase: BuscarProdutoPorIdCategoriaUseCase;
@@ -45,12 +47,11 @@ describe('BuscarProdutoPorIdCategoriaUseCase', () => {
       await expect(useCase.buscarProdutoPorIdCategoria(idCategoriaProduto)).rejects.toThrowError(ServiceException);
     });
 
-    it('deve retornar um array vazio se nenhum produto for encontrado', async () => {
+    it('deve retornar NaoEncontradoApplicationException se nenhum produto for encontrado', async () => {
       jest.spyOn(repository, 'findBy').mockResolvedValue([]);
-
-      const result = await useCase.buscarProdutoPorIdCategoria(idCategoriaProduto);
-
-      expect(result).toEqual(undefined);
+      await expect(useCase.buscarProdutoPorIdCategoria(idCategoriaProduto)).rejects.toThrowError(
+        NaoEncontradoApplicationException,
+      );
     });
   });
 });

@@ -1,4 +1,5 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
+import { NaoEncontradoApplicationException } from 'src/application/exception/nao-encontrado.exception';
 import { ServiceException } from 'src/enterprise/exception/service.exception';
 import { Produto } from 'src/enterprise/produto/model/produto.model';
 import { IRepository } from 'src/enterprise/repository/repository';
@@ -15,8 +16,12 @@ export class BuscarProdutoPorIdUseCase {
       this.logger.error(`Erro ao buscar produto id=${id} no banco de dados: ${error}`);
       throw new ServiceException(`Erro ao buscar produto id=${id} no banco de dados: ${error}`);
     });
-    if (produtos.length > 0) {
-      return produtos[0];
+
+    if (!produtos.length) {
+      this.logger.error(`Produto id=${id} não encontrado`);
+      throw new NaoEncontradoApplicationException(`Produto não encontrado: ${id}`);
     }
+
+    return produtos[0];
   }
 }

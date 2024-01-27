@@ -1,16 +1,4 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Inject,
-  Logger,
-  NotFoundException,
-  Param,
-  ParseIntPipe,
-  Post,
-  Put,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, Inject, Logger, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
 import { ApiCreatedResponse, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { IProdutoService } from 'src/application/produto/service/produto.service.interface';
 import { BaseRestApi } from 'src/presentation/rest/base.api';
@@ -104,12 +92,8 @@ export class ProdutoRestApi extends BaseRestApi {
   async findById(@Param('id', ParseIntPipe) id: number): Promise<BuscaPorIdProdutoResponse> {
     this.logger.debug(`Procurando Produto id: ${id}`);
     return await this.service.findById(id).then((produto) => {
-      if (produto) {
-        this.logger.log(`Produto encontrado com sucesso: ${produto.id}`);
-        return new BuscaPorIdProdutoResponse(produto);
-      }
-      this.logger.debug(`Produto não encontrado: ${id}`);
-      throw new NotFoundException(`Produto não encontrado: ${id}`);
+      this.logger.log(`Produto encontrado com sucesso: ${produto.id}`);
+      return new BuscaPorIdProdutoResponse(produto);
     });
   }
 
@@ -128,12 +112,8 @@ export class ProdutoRestApi extends BaseRestApi {
   ): Promise<BuscaTodosPorIdCategoriaProdutoResponse[]> {
     this.logger.debug(`Procurando Produtos para idCategoriaProduto: ${id}`);
     return await this.service.findByIdCategoriaProduto(id).then((produtos) => {
-      if (produtos) {
-        this.logger.debug(`Produtos encontrado com sucesso: ${JSON.stringify(produtos)}`);
-        return produtos.map((produto) => new BuscaTodosPorIdCategoriaProdutoResponse(produto));
-      }
-      this.logger.debug(`Produtos não encontrados para idCategoriaProduto: ${id}`);
-      throw new NotFoundException(`Produtos não encontrados para idCategoriaProduto: ${id}`);
+      this.logger.debug(`Produtos encontrado com sucesso: ${JSON.stringify(produtos)}`);
+      return produtos.map((produto) => new BuscaTodosPorIdCategoriaProdutoResponse(produto));
     });
   }
 }

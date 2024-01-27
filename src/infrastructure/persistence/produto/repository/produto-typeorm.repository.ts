@@ -23,15 +23,7 @@ export class ProdutoTypeormRepository implements IRepository<Produto> {
         this.logger.debug(
           `Consulta de produto realizada com sucesso com os parâmetros: '${JSON.stringify(attributes)}'`,
         );
-        return produtoEntities.map((produtoEntity) => ({
-          id: produtoEntity.id,
-          nome: produtoEntity.nome,
-          idCategoriaProduto: produtoEntity.idCategoriaProduto,
-          descricao: produtoEntity.descricao,
-          preco: produtoEntity.preco,
-          imagemBase64: produtoEntity.imagemBase64,
-          ativo: produtoEntity.ativo,
-        }));
+        return produtoEntities.map(this.mapProdutoEntityToProduto);
       })
       .catch((error) => {
         throw new RepositoryException(
@@ -43,25 +35,10 @@ export class ProdutoTypeormRepository implements IRepository<Produto> {
   async save(produto: Produto): Promise<Produto> {
     this.logger.debug(`Salvando produto: ${produto}`);
     return this.repository
-      .save({
-        nome: produto.nome,
-        idCategoriaProduto: produto.idCategoriaProduto,
-        descricao: produto.descricao,
-        preco: produto.preco,
-        imagemBase64: produto.imagemBase64,
-        ativo: produto.ativo,
-      })
+      .save(produto)
       .then((produtoEntity) => {
         this.logger.debug(`Produto salvo com sucesso no banco de dados: ${produtoEntity.id}`);
-        return {
-          id: produtoEntity.id,
-          nome: produtoEntity.nome,
-          idCategoriaProduto: produtoEntity.idCategoriaProduto,
-          descricao: produtoEntity.descricao,
-          preco: produtoEntity.preco,
-          imagemBase64: produtoEntity.imagemBase64,
-          ativo: produtoEntity.ativo,
-        };
+        return this.mapProdutoEntityToProduto(produtoEntity);
       })
       .catch((error) => {
         throw new RepositoryException(
@@ -73,26 +50,10 @@ export class ProdutoTypeormRepository implements IRepository<Produto> {
   async edit(produto: Produto): Promise<Produto> {
     this.logger.debug(`Editando produto: ${produto}`);
     return this.repository
-      .save({
-        id: produto.id,
-        nome: produto.nome,
-        idCategoriaProduto: produto.idCategoriaProduto,
-        descricao: produto.descricao,
-        preco: produto.preco,
-        imagemBase64: produto.imagemBase64,
-        ativo: produto.ativo,
-      })
+      .save(produto)
       .then((produtoEntity) => {
         this.logger.debug(`Produto editado com sucesso no banco de dados: ${produtoEntity.id}`);
-        return {
-          id: produtoEntity.id,
-          nome: produtoEntity.nome,
-          idCategoriaProduto: produtoEntity.idCategoriaProduto,
-          descricao: produtoEntity.descricao,
-          preco: produtoEntity.preco,
-          imagemBase64: produtoEntity.imagemBase64,
-          ativo: produtoEntity.ativo,
-        };
+        return this.mapProdutoEntityToProduto(produtoEntity);
       })
       .catch((error) => {
         throw new RepositoryException(
@@ -104,16 +65,9 @@ export class ProdutoTypeormRepository implements IRepository<Produto> {
   async delete(id: number): Promise<boolean> {
     this.logger.debug(`Deletando logicamente produto id: ${id}`);
     const produto = (await this.findBy({ id: id }))[0];
+    produto.ativo = false;
     return this.repository
-      .save({
-        id: produto.id,
-        nome: produto.nome,
-        idCategoriaProduto: produto.idCategoriaProduto,
-        descricao: produto.descricao,
-        preco: produto.preco,
-        imagemBase64: produto.imagemBase64,
-        ativo: false,
-      })
+      .save(produto)
       .then((produtoEntity) => {
         this.logger.debug(`Produto deletado logicamente com sucesso no banco de dados: ${produtoEntity.id}`);
         return true;
@@ -127,5 +81,17 @@ export class ProdutoTypeormRepository implements IRepository<Produto> {
 
   findAll(): Promise<Produto[]> {
     throw new RepositoryException('Método não implementado.');
+  }
+
+  private mapProdutoEntityToProduto(produtoEntity: ProdutoEntity): Produto {
+    return {
+      id: produtoEntity.id,
+      nome: produtoEntity.nome,
+      idCategoriaProduto: produtoEntity.idCategoriaProduto,
+      descricao: produtoEntity.descricao,
+      preco: produtoEntity.preco,
+      imagemBase64: produtoEntity.imagemBase64,
+      ativo: produtoEntity.ativo,
+    };
   }
 }
