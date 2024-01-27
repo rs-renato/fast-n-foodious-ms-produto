@@ -53,7 +53,7 @@ export class ProdutoTypeormRepository implements IRepository<Produto> {
       .save(produto)
       .then((produtoEntity) => {
         this.logger.debug(`Produto editado com sucesso no banco de dados: ${produtoEntity.id}`);
-        return this.mapProdutoEntityToProduto(produtoEntity)
+        return this.mapProdutoEntityToProduto(produtoEntity);
       })
       .catch((error) => {
         throw new RepositoryException(
