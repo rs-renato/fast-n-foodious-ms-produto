@@ -40,7 +40,7 @@ Sistema de auto-atendimento de fast food (microsserviço produto). Projeto de co
   * [Detalhes do Banco de Dados](#detalhes-do-banco-de-dados)
   * [Modelo de dados](#modelo-de-dados)
 * [DDD](#ddd)
-    * [Dicionário de Linguagem Ubíqua](https://github.com/rodrigo-ottero/fast-n-foodious-docs/blob/main/tree/main/dicionario-linguagem-ubiqua.md)
+    * [Dicionário de Linguagem Ubíqua](https://github.com/rodrigo-ottero/fast-n-foodious-docs/blob/main/dicionario-linguagem-ubiqua.md)
     * [Domain Storytelling](#domain-storytelling)
         * [Auto Cadastro de Clientes](#auto-cadastro-de-clientes)
         * [Realização de Pedidos](#realização-de-pedidos)
@@ -572,7 +572,7 @@ test/                                   # Implementações de testes
 
 ## Banco de Dados
 ### Detalhes do Banco de Dados
-[Detalhes do Banco de Dados](https://github.com/rodrigo-ottero/fast-n-foodious-docs/blob/main/tree/main/banco-de-dados.md)
+[Detalhes do Banco de Dados](https://github.com/rodrigo-ottero/fast-n-foodious-docs/blob/main/banco-de-dados.md)
 
 ### Modelo de Dados
 ![fast-n-foodious-clean](https://github.com/rodrigo-ottero/fast-n-foodious-docs/blob/main/diagramas/fast-n-foodious-data-model.png?raw=true)
