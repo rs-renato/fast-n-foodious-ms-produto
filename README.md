@@ -40,7 +40,7 @@ Sistema de auto-atendimento de fast food (microsserviço produto). Projeto de co
   * [Detalhes do Banco de Dados](#detalhes-do-banco-de-dados)
   * [Modelo de dados](#modelo-de-dados)
 * [DDD](#ddd)
-    * [Dicionário de Linguagem Ubíqua](https://github.com/rodrigo-ottero/fast-n-foodious-docs/tree/main/tree/main/dicionario-linguagem-ubiqua.md)
+    * [Dicionário de Linguagem Ubíqua](https://github.com/rodrigo-ottero/fast-n-foodious-docs/blob/main/tree/main/dicionario-linguagem-ubiqua.md)
     * [Domain Storytelling](#domain-storytelling)
         * [Auto Cadastro de Clientes](#auto-cadastro-de-clientes)
         * [Realização de Pedidos](#realização-de-pedidos)
@@ -51,12 +51,12 @@ Sistema de auto-atendimento de fast food (microsserviço produto). Projeto de co
 * [Links Externos](#links-externos)
 
 ## Arquitetura de Solução (Cloud AWS)
-![fast-n-foodious-aws](https://github.com/rodrigo-ottero/fast-n-foodious-docs/tree/main/diagramas/fast-n-foodious-aws.png?raw=true)
+![fast-n-foodious-aws](https://github.com/rodrigo-ottero/fast-n-foodious-docs/blob/main/diagramas/fast-n-foodious-aws.png?raw=true)
 
-![fast-n-foodious-aws-resource-mapping](https://github.com/rodrigo-ottero/fast-n-foodious-docs/tree/main/diagramas/fast-n-foodious-aws-resource-mapping.png?raw=true)
+![fast-n-foodious-aws-resource-mapping](https://github.com/rodrigo-ottero/fast-n-foodious-docs/blob/main/diagramas/fast-n-foodious-aws-resource-mapping.png?raw=true)
 
 ## Arquitetura de Software
-![fast-n-foodious-clean](https://github.com/rodrigo-ottero/fast-n-foodious-docs/tree/main/diagramas/fast-n-foodious-clean.png?raw=true)
+![fast-n-foodious-clean](https://github.com/rodrigo-ottero/fast-n-foodious-docs/blob/main/diagramas/fast-n-foodious-clean.png?raw=true)
 
 - Cloud AWS
     - API Gateway, Lambda, Cognito, Fargate, ECS, Load Balancer, RDS, DocumentDB, SQS, SES, etc
@@ -562,40 +562,40 @@ test/                                   # Implementações de testes
 
 ## Cloud AWS
 ### Cadastro de Clientes
-![fast-n-foodious-clean](https://github.com/rodrigo-ottero/fast-n-foodious-docs/tree/main/diagramas/fast-n-foodious-aws-cadastro-clientes.png?raw=true)
+![fast-n-foodious-clean](https://github.com/rodrigo-ottero/fast-n-foodious-docs/blob/main/diagramas/fast-n-foodious-aws-cadastro-clientes.png?raw=true)
 
 ### Autenticação de Cliente Identificado
-![fast-n-foodious-clean](https://github.com/rodrigo-ottero/fast-n-foodious-docs/tree/main/diagramas/fast-n-foodious-aws-autenticacao-cliente-identificado.png?raw=true)
+![fast-n-foodious-clean](https://github.com/rodrigo-ottero/fast-n-foodious-docs/blob/main/diagramas/fast-n-foodious-aws-autenticacao-cliente-identificado.png?raw=true)
 
 ### Autenticação de Cliente Anônimo
-![fast-n-foodious-clean](https://github.com/rodrigo-ottero/fast-n-foodious-docs/tree/main/diagramas/fast-n-foodious-aws-autenticacao-cliente-anonimo.png?raw=true)
+![fast-n-foodious-clean](https://github.com/rodrigo-ottero/fast-n-foodious-docs/blob/main/diagramas/fast-n-foodious-aws-autenticacao-cliente-anonimo.png?raw=true)
 
 ## Banco de Dados
 ### Detalhes do Banco de Dados
-[Detalhes do Banco de Dados](https://github.com/rodrigo-ottero/fast-n-foodious-docs/tree/main/tree/main/banco-de-dados.md)
+[Detalhes do Banco de Dados](https://github.com/rodrigo-ottero/fast-n-foodious-docs/blob/main/tree/main/banco-de-dados.md)
 
 ### Modelo de Dados
-![fast-n-foodious-clean](https://github.com/rodrigo-ottero/fast-n-foodious-docs/tree/main/diagramas/fast-n-foodious-data-model.png?raw=true)
+![fast-n-foodious-clean](https://github.com/rodrigo-ottero/fast-n-foodious-docs/blob/main/diagramas/fast-n-foodious-data-model.png?raw=true)
 
 ## DDD
 ### Domain Storytelling
 #### Auto Cadastro de Clientes 
-![01-Auto-Cadastro-De-Clientes](https://github.com/rodrigo-ottero/fast-n-foodious-docs/tree/main/ddd/01-Auto-Cadastro-De-Clientes.png?raw=true)
+![01-Auto-Cadastro-De-Clientes](https://github.com/rodrigo-ottero/fast-n-foodious-docs/blob/main/ddd/01-Auto-Cadastro-De-Clientes.png?raw=true)
 
 #### Realização de Pedidos
-![02-Realizacao-De-Pedidos](https://github.com/rodrigo-ottero/fast-n-foodious-docs/tree/main/ddd/02-Realizacao-De-Pedidos.png?raw=true)
+![02-Realizacao-De-Pedidos](https://github.com/rodrigo-ottero/fast-n-foodious-docs/blob/main/ddd/02-Realizacao-De-Pedidos.png?raw=true)
 
 #### Pagamento de Pedidos
-![03-Pagamento-De-Pedidos](https://github.com/rodrigo-ottero/fast-n-foodious-docs/tree/main/ddd/03-Pagamento-De-Pedidos.png?raw=true)
+![03-Pagamento-De-Pedidos](https://github.com/rodrigo-ottero/fast-n-foodious-docs/blob/main/ddd/03-Pagamento-De-Pedidos.png?raw=true)
 
 #### Preparo de Pedidos
-![04-Preparo-De-Pedidos](https://github.com/rodrigo-ottero/fast-n-foodious-docs/tree/main/ddd/04-Preparo-De-Pedidos.png?raw=true)
+![04-Preparo-De-Pedidos](https://github.com/rodrigo-ottero/fast-n-foodious-docs/blob/main/ddd/04-Preparo-De-Pedidos.png?raw=true)
 
 #### Entrega de Pedidos
-![05-Entrega-De-Pedidos](https://github.com/rodrigo-ottero/fast-n-foodious-docs/tree/main/ddd/05-Entrega-De-Pedidos.png?raw=true)
+![05-Entrega-De-Pedidos](https://github.com/rodrigo-ottero/fast-n-foodious-docs/blob/main/ddd/05-Entrega-De-Pedidos.png?raw=true)
 
 #### Fluxo de Etapas dos Pedidos
-![Fluxo-De-Etapas-Do-Pedido](https://github.com/rodrigo-ottero/fast-n-foodious-docs/tree/main/ddd/Fluxo-De-Etapas-Do-Pedido.png?raw=true)
+![Fluxo-De-Etapas-Do-Pedido](https://github.com/rodrigo-ottero/fast-n-foodious-docs/blob/main/ddd/Fluxo-De-Etapas-Do-Pedido.png?raw=true)
 
 ## Links Externos
 ### Micro Serviços
