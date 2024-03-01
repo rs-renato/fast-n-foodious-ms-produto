@@ -12,7 +12,7 @@
 # 🍔 Fast & Foodious - Produto ![Github Actions](https://github.com/rodrigo-ottero/fast-n-foodious-ms-produto/actions/workflows/ci-pipeline.yml/badge.svg?branch=main) ![Static Badge](https://img.shields.io/badge/v2.0.0-version?logo=&color=%232496ED&labelColor=white&label=fast-n-foodious-ms-produto)
 
 Sistema de auto-atendimento de fast food (microsserviço produto). Projeto de conclusão da Fase 05 da pós gradução em Software Architecture.
-[TLDR; Execução em modo produção (on premisse deprecated)](#%EF%B8%8F-execução-em-modo-produção-deprecated-substituído-por-aws-fargate-ecs)
+[TLDR; Execução em modo produção (on premisse: Avaliação FIAP)](#%EF%B8%8F-execução-em-modo-produção-avaliação-fiap)
 
 * [Arquitetura de Solução (Cloud AWS)](#arquitetura-de-solução-cloud-aws)
 * [Arquitetura de Software](#arquitetura-de-software)
@@ -22,7 +22,8 @@ Sistema de auto-atendimento de fast food (microsserviço produto). Projeto de co
     * [Variáveis de Ambiente](#-variáveis-de-ambiente)
     * [Execução em modo local (in-memory repository)](#%EF%B8%8F-execução-em-modo-local-in-memory-repository)
     * [Execução em modo local (mysql repository)](#%EF%B8%8F-execução-em-modo-local-mysql-repository)
-    * [**Execução em modo produção (on premisse deprecated)**](#%EF%B8%8F-execução-em-modo-produção-deprecated-substituído-por-aws-fargate-ecs)
+    * [**Execução em modo produção (avaliação FIAP)**](#%EF%B8%8F-execução-em-modo-produção-avaliação-fiap)
+    * [Execução em modo produção (on premisse deprecated)](#%EF%B8%8F-execução-em-modo-produção-deprecated-substituído-por-aws-fargate-ecs)
         * [Docker Compose (Modo Fácil!)](#-docker-compose-modo-fácil)
         * [Docker (Modo Desbravador!)](#-docker-modo-desbravador)
         * [Kubernetes (Modo Fácil!)](#-kubernetes-modo-fácil)
@@ -50,7 +51,7 @@ Sistema de auto-atendimento de fast food (microsserviço produto). Projeto de co
 * [Links Externos](#links-externos)
 
 ## Arquitetura de Solução (Cloud AWS)
-![fast-n-foodious-aws](docs/diagramas/fast-n-foodious-aws.png)
+![fast-n-foodious-aws](https://github.com/rodrigo-ottero/fast-n-foodious-docs/tree/main//diagramas/fast-n-foodious-aws.png)
 
 ![fast-n-foodious-aws-resource-mapping](docs/diagramas/fast-n-foodious-aws-resource-mapping.png)
 
@@ -58,12 +59,12 @@ Sistema de auto-atendimento de fast food (microsserviço produto). Projeto de co
 ![fast-n-foodious-clean](docs/diagramas/fast-n-foodious-clean.png)
 
 - Cloud AWS
-    - API Gateway, Lambda, Cognito, Fargate, ECS, Load Balancer, RDS, DocumentDB, etc
+    - API Gateway, Lambda, Cognito, Fargate, ECS, Load Balancer, RDS, DocumentDB, SQS, SES, etc
 - Arquitetura Clean & Modular
     - Camada de Application, Enterprise, Presentation e Infrastructure
     - Módulo Main, Application, Presentation e Infrastructure
 - Principais Tecnologias/Frameworks
-    - Docker, Kubernetes, Helm, Kubectl, NodeJS, NestJS, TypeORM, NPM, Mysql, Swagger, Typescript, Jest
+    - Docker, Kubernetes, Helm, Kubectl, NodeJS, NestJS, TypeORM, NPM, Mysql, Swagger, Typescript, Jest, LocalStack
 - Qualidade / Testes
     - Validações pré-commit/push
         - Validação de cobertura de testes
@@ -146,6 +147,38 @@ CONTAINER ID   IMAGE       COMMAND                  CREATED         STATUS      
 
 # Executa a aplicação com as variáveis locais, conectando no container do mysql
 $ MYSQL_HOST=localhost NODE_ENV=local npm run start
+```
+### 🌟⚡️ Execução em modo produção (avaliação FIAP)
+Definitivamente, a forma mais fácil para a avaliação. Inicia todos os containers com o `docker-compose`:
+```bash
+$ docker-compose --env-file ./envs/prod.env -f docker-compose-all.yml -p "fast-n-foodious" up --build -d
+[+] Running 13/13
+ ✔ Network fast-n-foodious_fast-n-foodious-network  Created
+ ✔ Network fast-n-foodious_default                  Created
+ ✔ Volume "fast-n-foodious_mysql-data-produto"      Created
+ ✔ Volume "fast-n-foodious_mysql-data-pedido"       Created
+ ✔ Volume "fast-n-foodious_mongo-data-pagamento"    Created
+ ✔ Volume "fast-n-foodious_localstack-data"         Created
+ ✔ Container localstack                             Started
+ ✔ Container mysql-produto                          Started
+ ✔ Container mongodb                                Started
+ ✔ Container mysql-pedido                           Started
+ ✔ Container fast-n-foodious-ms-produto             Started
+ ✔ Container fast-n-foodious-ms-pagamento           Started
+ ✔ Container fast-n-foodious-ms-pedido              Started     
+```
+***Nota:** Certifique de clonar todos os projetos no mesmo diretório, pois existem referências de scripts de inicialização. Abaixo segue a estrutura raiz de pastas:*
+
+```bash
+$ tree -L 1
+.
+├── fast-n-foodious-docs
+├── fast-n-foodious-iac-compute
+├── fast-n-foodious-iac-network
+├── fast-n-foodious-iac-storage
+├── fast-n-foodious-ms-pagamento
+├── fast-n-foodious-ms-pedido
+└── fast-n-foodious-ms-produto
 ```
 
 ### 🚨⚡️ Execução em modo produção (deprecated: substituído por AWS Fargate ECS)
